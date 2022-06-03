@@ -1,0 +1,160 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<StartupObject>Pallet.Program</StartupObject>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Resources\ManualView.Designer.cs" />
+		<Compile Remove="Resources\SubViews\AlarmViewRes.Designer.cs" />
+		<Compile Remove="Resources\SubViews\Resource1.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Remove="Resources\SubViews\AlarmViewRes.resx" />
+		<EmbeddedResource Remove="Resources\SubViews\Resource1.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Icons\czech-republic-48.png" />
+		<None Remove="Resources\Icons\germany-48.png" />
+		<None Remove="Resources\Icons\great-britain-48.png" />
+		<None Remove="Resources\Icons\russia-48.png" />
+		<None Remove="Resources\Icons\ukraine-48.png" />
+		<None Remove="Resources\Wood\WoodH.bmp" />
+		<None Remove="Resources\Wood\WoodNail64.ico" />
+		<None Remove="Resources\Wood\WoodR.bmp" />
+		<None Remove="Resources\Wood\WoodV.bmp" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Expression.Interaction" Version="3.0.40218" />
+		<PackageReference Include="MaterialDesignColors" Version="2.0.5" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.368.53" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.4.368.53" />
+		<PackageReference Include="RSLocalizationForWPF" Version="1.0.0" />
+		<PackageReference Include="System.Interactive.Async" Version="6.0.1" />
+		<PackageReference Include="System.ObjectModel" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Pallet.Database\Pallet.Database.csproj" />
+		<ProjectReference Include="..\Pallet.Styles\Pallet.Styles.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Infrastructure\Converters\AppConverters.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="UserControls\AlarmView - Копировать.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Resources\UserDialog\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Icons\czech-republic-48.png" />
+		<Resource Include="Resources\Icons\germany-48.png" />
+		<Resource Include="Resources\Icons\great-britain-48.png" />
+		<Resource Include="Resources\Icons\russia-48.png" />
+		<Resource Include="Resources\Icons\ukraine-48.png" />
+		<Resource Include="Resources\Wood\WoodH.bmp" />
+		<Resource Include="Resources\Wood\WoodNail64.ico" />
+		<Resource Include="Resources\Wood\WoodR.bmp" />
+		<Resource Include="Resources\Wood\WoodV.bmp" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\Errors\OPC\ErrorsOPC.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>ErrorsOPC.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\SubViews\AlarmView\AlarmViewResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AlarmViewResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\SubViews\ManualView\ManualViewResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ManualViewResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Windows\LanguageWindow\LanguageWindowResource.Designer.cs">
+			<DependentUpon>LanguageWindowResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Windows\LoginWindow\LoginWindowResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>LoginWindowResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Windows\MainWindow\MainWindowResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MainWindowResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Windows\ProfilePreview\ProfilePreviewResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ProfilePreviewResource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Errors\OPC\ErrorsOPC.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>ErrorsOPC.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\SubViews\AlarmView\AlarmViewResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AlarmViewResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\SubViews\ManualView\ManualViewResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ManualViewResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Windows\LanguageWindow\LanguageWindowResource.resx">
+			<LastGenOutput>LanguageWindowResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Windows\LoginWindow\LoginWindowResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>LoginWindowResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Windows\MainWindow\MainWindowResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Windows\ProfilePreview\ProfilePreviewResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ProfilePreviewResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

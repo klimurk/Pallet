@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Pallet.View.SubViews.AlarmView"
+            ResxExtension.DefaultResxName="Pallet.Resources.SubViews.AlarmView.AlarmViewResource" Language="{UICulture}"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            mc:Ignorable="d"
+            d:DesignHeight="149" d:DesignWidth="1398" Background="LightGray">
+    <Grid>
+        <DataGrid Name="dgMessages" ItemsSource="{Binding LogsView}"
+            AutoGenerateColumns="False" FontWeight="Bold" FontSize="14"
+            CanUserReorderColumns="False" CanUserResizeColumns="False"
+            CanUserSortColumns="False" HeadersVisibility="Column"
+            CanUserResizeRows="False" IsReadOnly="True"
+            EnableRowVirtualization="False"
+            VerticalScrollBarVisibility="Visible">
+            <!--<DataGrid.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+            </DataGrid.Background>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background"  Value="{Binding RowColor}" />
+                    <Setter Property="Foreground"  Value="{Binding FontColor}" />
+                </Style>
+            </DataGrid.RowStyle> -->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{Resx StartTimestamp ,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="3*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding TimestampStart, StringFormat=HH:mm:ss dd.MM}" />
+                <DataGridTextColumn Header="{Resx EndTimestamp,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="3*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding TimestampEnd, StringFormat=HH:mm:ss dd.MM}" />
+                <DataGridTextColumn Header="{Resx Duration,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Duration,NotifyOnSourceUpdated=True}" />
+                <DataGridTextColumn Header="{Resx Device,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Device}" />
+                <DataGridTextColumn Header="{Resx Text,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="9*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Alarmtext1}" />
+                <DataGridTextColumn Header="{Resx Priority,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Priority}" />
+                <DataGridTextColumn Header="{Resx MessageNumber,ResxName=Pallet.Resources.SubViews.AlarmView.AlarmViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding NR}" />
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding FullType, Converter={StaticResource AlarmLogColorConverter}}" Value="1">
+                            <Setter Property="Background" Value="LemonChiffon" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding FullType, Converter={StaticResource AlarmLogColorConverter}}" Value="2">
+                            <Setter Property="Background" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding FullType, Converter={StaticResource AlarmLogColorConverter}}" Value="3">
+                            <Setter Property="Background" Value="BlueViolet" />
+                            <Setter Property="Foreground" Value="White" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+    </Grid>
+</UserControl>

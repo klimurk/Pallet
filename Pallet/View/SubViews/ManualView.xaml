@@ -1,0 +1,290 @@
+﻿<UserControl x:Class="Pallet.View.SubViews.ManualView"
+
+            ResxExtension.DefaultResxName="Pallet.Resources.SubViews.ManualView.ManualViewResource" Language="{UICulture}"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:ParametricConverters ="clr-namespace:Pallet.Infrastructure.Converters.ParametricConverters"
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            mc:Ignorable="d"
+            d:DesignHeight="668" d:DesignWidth="1066">
+    <UserControl.Resources>
+        <ParametricConverters:ActiveNailTypeConverter x:Key="ActiveNailTypeConverter" ActiveNailType="{Binding NailTypeActive.Name, UpdateSourceTrigger=PropertyChanged}" />
+    </UserControl.Resources>
+    <Grid Background="White" Margin="0 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" MinWidth="450" />
+            <ColumnDefinition Width="*" MinWidth="150" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <UniformGrid Rows="1" Grid.Row="0" Margin="20 0 20 10">
+                <Button  Content="{Resx RotateTable, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" Margin="0 0 40 0" Height="50" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding RotateTableCommand}" />
+                <TextBlock Text="{Resx ManualWindow, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" VerticalAlignment="Center" Margin="20 0 20 0" />
+                <Button   Content="{Resx MoveToConveyor, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" Margin="40 0 0 0" Height="50" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SetMoveToConveyorCommand}" />
+            </UniformGrid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="138" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="138" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="1" Grid.Row="0" Background="{x:Null}" BorderBrush="{x:Null}" Height="108" Width="138" VerticalAlignment="Bottom">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="108" Width="138">
+                                    <Grid>
+                                        <Path Data="M22 88.5H22.5C22.5 88.5 18.5 38 42.0655 38C65.6311 38 69 108 69 108H69.5C69.5 108 68.5 33 42.0655 33C15.6311 33 22 88.5 22 88.5Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                        <Path Data="M0 88.1528L15.3239 108L32.9464 88.1528H22.2196C22.2196 88.1528 16.0665 32.9362 42.1171 32.9362C68.1677 32.9362 69.0751 108 69.0751 108L138 108C138 108 138 -7.62939e-06 69.0751 -7.62939e-06C0.150116 -7.62939e-06 9.96053 88.1528 9.96053 88.1528H0Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" StrokeThickness="0" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderBrush="{x:Null}"
+                                RenderTransformOrigin="0.5 0.5" Height="108" Width="138" VerticalAlignment="Top">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="108" Width="138">
+                                    <Grid>
+                                        <Path Data="M22 19.5H22.5C22.5 19.5 18.5 70 42.0655 70C65.6311 70 69 0 69 0H69.5C69.5 0 68.5 75 42.0655 75C15.6311 75 22 19.5 22 19.5Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                        <Path Data="M0 19.8472L15.3239 0L32.9464 19.8472L22.2196 19.8472C22.2196 19.8472 16.0665 75.0638 42.1171 75.0638C68.1677 75.0638 69.0751 0 69.0751 0L138 0C138 0 138 108 69.0751 108C0.150116 108 9.96053 19.8472 9.96053 19.8472H0Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" StrokeThickness="0" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Grid.Column="0" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}"
+                                RenderTransformOrigin="0.5 0.5" Height="138" Width="108" HorizontalAlignment="Right">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="138" Width="108">
+                                    <Grid>
+                                        <Path Data="M88.5 22V22.5C88.5 22.5 38 18.5 38 42.0655C38 65.6311 108 69 108 69V69.5C108 69.5 33 68.5 33 42.0655C33 15.6311 88.5 22 88.5 22Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                        <Path Data="M88.1528 0L108 15.3239L88.1528 32.9464V22.2196C88.1528 22.2196 32.9362 16.0665 32.9362 42.1171C32.9362 68.1677 108 69.0751 108 69.0751V138C108 138 -7.62939e-06 138 -7.62939e-06 69.0751C-7.62939e-06 0.150116 88.1528 9.96053 88.1528 9.96053V0Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" StrokeThickness="0" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Grid.Column="2" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}"
+                                Height="138" Width="108" HorizontalAlignment="Left">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="138" Width="108">
+                                    <Grid>
+                                        <Path Data="M19.5 22V22.5C19.5 22.5 70 18.5 70 42.0655C70 65.6311 0 69 0 69V69.5C0 69.5 75 68.5 75 42.0655C75 15.6311 19.5 22 19.5 22Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                        <Path Data="M19.8472 0L0 15.3239L19.8472 32.9464V22.2196C19.8472 22.2196 75.0638 16.0665 75.0638 42.1171C75.0638 68.1677 0 69.0751 0 69.0751L0 138C0 138 108 138 108 69.0751C108 0.150116 19.8472 9.96053 19.8472 9.96053V0Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" StrokeThickness="0" Stroke="{StaticResource PrimaryHueLightBrush}" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="138" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="138" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Height="108" Width="138" Padding="0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="108" Width="138">
+                                    <Grid>
+                                        <Path Data="M70 1C36.2555 1 1 12.5 1 16.5V25.5H139V16.5C139 14 103.745 1 70 1Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" />
+                                        <Path Data="M70 9C36.2555 9 1 21.0378 1 26.5936V109H139V26.5936C139 20.1118 103.745 9 70 9Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding SetRobotMoveUpCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding ResetRobotMoveUpCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Height="138" Width="108" Padding="0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Cursor="Hand" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="138" Width="108">
+                                    <Grid>
+                                        <Path Data="M1 70C1 103.745 14.5 139 19.5 139H25.5L25.5 1H19.5C14 1 1 36.2555 1 70Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" />
+                                        <Path Data="M9 70C9 103.744 21.0378 139 26.5936 139H109L109 1H26.5936C20.1118 1 9 36.2555 9 70Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding SetRobotMoveLeftCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding ResetRobotMoveLeftCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Height="138" Width="108" Padding="0" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="138" Width="108">
+                                    <Grid>
+                                        <Path Data="M109 70C109 103.745 95.5 139 90.5 139H84.5V1H90.5C96 1 109 36.2555 109 70Z "
+                                            Fill="{StaticResource PrimaryHueLightBrush }" />
+                                        <Path Data="M101 70C101 103.744 88.9622 139 83.4064 139H1L1 1H83.4064C89.8882 1 101 36.2555 101 70Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding SetRobotMoveRightCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding ResetRobotMoveRightCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Height="108" Width="138" Padding="0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Viewbox Height="108" Width="138">
+                                    <Grid>
+                                        <Path Data="M70 109C36.2555 109 1 95.5 1 90.5V84.5H139V90.5C139 96 103.745 109 70 109Z"
+                                            Fill="{StaticResource PrimaryHueLightBrush }" />
+                                        <Path Data="M70 101C36.2555 101 1 88.9622 1 83.4064V1H139V83.4064C139 89.8882 103.745 101 70 101Z"
+                                            Fill="{StaticResource PrimaryHueDarkBrush }" />
+                                    </Grid>
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding SetRobotMoveDownCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding ResetRobotMoveDownCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </Grid>
+            <UniformGrid Grid.Row="2" Rows="1" Columns="3" Margin="20 0">
+                <Button Height="50" Margin="0 0 40 0" Content="{Resx LampTest, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding  }" Value="true">
+                                    <Setter Property="Background" Value="OliveDrab" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseDown">
+                            <i:InvokeCommandAction Command="{Binding SetLampTestCommand}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewMouseUp">
+                            <i:InvokeCommandAction Command="{Binding ResetLampTestCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Height="50" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="20 0 20 0" Content="{Resx Home, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" Command="{Binding SetRobotToHomePositionCommand}" />
+                <Button Height="50" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="40 0 0 0" Content="{Resx ShootNail, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" Command="{Binding SetRobotNailShootCommand}" />
+            </UniformGrid>
+        </Grid>
+        <Border Grid.Column="1" BorderBrush="{StaticResource PrimaryHueLightBrush}" BorderThickness="1 0 0 0 " Padding="20 0 0 0 ">
+            <StackPanel  VerticalAlignment="Stretch">
+                <TextBlock Text="{Resx NailGrapple, ResxName=Pallet.Resources.SubViews.ManualView.ManualViewResource}" Margin="5 0 25 10" />
+                <ScrollViewer  VerticalAlignment="Stretch">
+                    <ListBox ItemsSource ="{Binding NailTypesView }" VerticalAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Command="{StaticResource ActivateNailTypeCommand}"
+                                    CommandParameter="{Binding}">
+                                    <Button.Content>
+                                        <StackPanel>
+                                            <TextBlock>
+                                                <Run Text="{Binding Name}" />
+                                                <Run Text="{Binding Dock, StringFormat=[{0}]}" />
+                                            </TextBlock>
+                                            <TextBlock FontSize="15">
+                                                <Run Text="{Binding Width }" />
+                                                <Run Text="x" />
+                                                <Run Text="{Binding Lenght}" />
+                                                <Run Text="x" />
+                                                <Run Text="{Binding Size}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                            <Setter Property="Padding" Value="10" />
+                                            <Setter Property="Height" Value="auto" />
+                                            <Setter Property="FontSize" Value="17" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{ Binding ., Converter={StaticResource ActiveNailTypeConverter}}" Value="true">
+                                                    <Setter Property="Background" Value="OliveDrab" />
+                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Margin" Value="0 0 0 15" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
