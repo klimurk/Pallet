@@ -323,19 +323,7 @@ internal class DbInitializer
             Name = "Not_halt",
             Address = "ns=3;s=\"Stoe_DB\".\"Not_halt\""
         });
-        //_Alarms.Add(new Alarm
-        //{
-        //    NR = 13,
-        //    Device = "Station",
-        //    Inverted = true,
-        //    Priority = "Z",
-        //    StopType = "-",
-        //    Alarmtext1 = "Automatic Mode",
-        //    Alarmtext2 = "Automatik",
-        //    Alarmtext3 = "Automatický režim",
-        //    Name = "Auto",
-        //    Address = "ns=3;s=\"Stoe_DB\".\"N_auto\""
-        //});
+       
 
         await _db.Alarms.AddRangeAsync(_Alarms);
         await _db.SaveChangesAsync();

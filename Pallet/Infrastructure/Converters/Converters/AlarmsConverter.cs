@@ -4,7 +4,7 @@ using System.Windows.Markup;
 
 namespace Pallet.Infrastructure.Converters.Converters;
 
-[ValueConversion(typeof(IEnumerable<AlarmOPC>), typeof(IEnumerable<AlarmOPC>))]
+[ValueConversion(typeof(IEnumerable<AlarmOpc>), typeof(IEnumerable<AlarmOpc>))]
 internal class AlarmsConverter : Converter
 {
     [ConstructorArgument("Cutoff")]
@@ -12,9 +12,9 @@ internal class AlarmsConverter : Converter
 
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value == null || value is not IEnumerable<AlarmOPC>) return false;
-        List<AlarmOPC> retList = new();
-        foreach (var alarm in (IEnumerable<AlarmOPC>)value)
+        if (value == null || value is not IEnumerable<AlarmOpc>) return false;
+        List<AlarmOpc> retList = new();
+        foreach (var alarm in (IEnumerable<AlarmOpc>)value)
         {
             switch (alarm.Value)
             {
@@ -26,7 +26,7 @@ internal class AlarmsConverter : Converter
                     if (boolVal ^ alarm.Info.Inverted) retList.Add(alarm);
                     break;
 
-                default: throw new NotSupportedException(nameof(AlarmsConverter) + " not support " + ((AlarmOPC)value).Value.GetType());
+                default: throw new NotSupportedException(nameof(AlarmsConverter) + " not support " + ((AlarmOpc)value).Value.GetType());
             }
         }
 

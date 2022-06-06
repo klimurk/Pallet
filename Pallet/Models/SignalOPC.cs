@@ -6,7 +6,7 @@ namespace Pallet.Entities.Models
     public class SignalOPC : ISignalOPC
     {
         public ISignal Info { get; set; }
-        public Node NodeOPC { get; set; }
+        public Node NodeOpc { get; set; }
 
         private object _Value;
 
@@ -26,7 +26,7 @@ namespace Pallet.Entities.Models
         public SignalOPC(ISignalOPC signal)
         {
             Info = signal.Info;
-            NodeOPC = signal.NodeOPC;
+            NodeOpc = signal.NodeOpc;
             Value = signal.Value;
         }
 

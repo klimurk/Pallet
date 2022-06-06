@@ -41,7 +41,7 @@ public interface IOPC
     /// </summary>
     /// <param name="data">The data.</param>
     /// <param name="SubscriptionName">The subscription name.</param>
-    Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOPC;
+    Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOpc;
 
     /// <summary>
     /// Unsubscribe the value.
@@ -65,7 +65,7 @@ public interface IOPC
 
     public void Reconnect();
 
-    public ObservableCollection<AlarmOPC> Alarms { get; set; }
+    public ObservableCollection<AlarmOpc> Alarms { get; set; }
 
     public ObservableCollection<SignalOPC> Signals { get; set; }
 }

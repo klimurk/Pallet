@@ -3,26 +3,37 @@ using Pallet.Database.Repositories.Interfaces;
 using Pallet.Services.Logging.Interfaces;
 
 namespace Pallet.Services.Logging;
-
+/// <summary>
+/// The Alarm logging service create and finish log.
+/// </summary>
 internal class AlarmLogService : IAlarmLogService, IDisposable
 {
     private readonly IDbRepository<AlarmLog> _Logs;
     private readonly IDbRepository<Alarm> _Alarms;
-
-    public AlarmLogService(
-        IDbRepository<AlarmLog> Logs, IDbRepository<Alarm> Alarms
-        )
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlarmLogService"/> class.
+    /// </summary>
+    /// <param name="Logs">The logs.</param>
+    /// <param name="Alarms">The alarms.</param>
+    public AlarmLogService( IDbRepository<AlarmLog> Logs, IDbRepository<Alarm> Alarms )
     {
         _Logs = Logs;
         _Alarms = Alarms;
-        AlarmLogs = new();
-        AlarmLogs.Add(_Logs.Items.ToList());
+        AlarmLogs = new()
+        {
+            _Logs.Items.ToList()
+        };
         ResetAlarmSignals();
     }
 
     public ObservableCollection<AlarmLog> AlarmLogs { get; }
 
-    public async Task<AlarmLog?> MakeAlarmLog(string AlarmName)
+    /// <summary>
+    /// Makes the alarm log.
+    /// </summary>
+    /// <param name="AlarmName">The alarm name.</param>
+    /// <returns>A Task.</returns>
+    public async Task<AlarmLog> MakeAlarmLog(string AlarmName)
     {
         var Alarm = await _Alarms.Items.FirstAsync(a => a.Name == AlarmName);
 
@@ -35,9 +46,14 @@ internal class AlarmLogService : IAlarmLogService, IDisposable
         return alarmLog;
     }
 
+    /// <summary>
+    /// Finishes the alarm log.
+    /// </summary>
+    /// <param name="AlarmName">The alarm name.</param>
+    /// <returns>A Task.</returns>
     public async Task FinishAlarmLog(string AlarmName)
     {
-        foreach (var alarm in await _Logs.Items.Where(a => a.Name == AlarmName && !a.Gone).ToArrayAsync())
+        foreach (var alarm in _Logs.Items.Where(a => a.Name == AlarmName && !a.Gone).ToArray())
         {
             alarm.TimestampEnd = DateTime.Now;
             alarm.Gone = true;
@@ -50,6 +66,9 @@ internal class AlarmLogService : IAlarmLogService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Resetting all active alarms (on start and finish program).
+    /// </summary>
     private void ResetAlarmSignals()
     {
         foreach (var alarm in _Logs.Items.Where(a => !a.Gone).ToArray())
@@ -60,6 +79,9 @@ internal class AlarmLogService : IAlarmLogService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Disposing.
+    /// </summary>
     public void Dispose()
     {
         ResetAlarmSignals();

@@ -3,10 +3,16 @@ using Pallet.Models.Interfaces;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pallet.Database.Entities.OPC;
+/// <summary>
+/// The OPC Alarm definition .
+/// </summary>
 
 [Table("ALARM_DEF")]
 public class Alarm : NamedEntity, IAlarm
 {
+    /// <summary>
+    /// Internal error number in PLC.
+    /// </summary>
     [Column("ALM_NR")]
     public int NR { get; set; }
 

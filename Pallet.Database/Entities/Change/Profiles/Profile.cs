@@ -40,52 +40,34 @@ public class Profile : NamedEntity
     [InverseProperty("Profiles")]
     public Table Table { get; set; }
 
-    //[ForeignKey("WPROD_ID1")]
-    //public Product Prod1 { get; set; }
-
-    //[ForeignKey("WPROD_ID2")]
-    //public Product Prod2 { get; set; }
-
-    //[ForeignKey("WPROD_ID3")]
-    //public Product Prod3 { get; set; }
-
-    //[ForeignKey("WPROD_ID4")]
-    //public Product Prod4 { get; set; }
-
-    //[ForeignKey("WPRODS")]
     [InverseProperty("Profile")]
     public ICollection<ProfileProducts> ProfileProducts { get; set; }
 
-    //[ForeignKey("TOOL")]
     [InverseProperty("Profile")]
     public ICollection<ProfileTools> ProfileTools { get; set; }
 
-    //public ProfileTools ProfileToolsN { get; set; }
+    public struct OPCData
+    {
+        public struct Nails
+        {
+            public static string DBName { get; } = "Empfang";
+            public static string DBVar { get; } = "Static_1";
+            public static int DBNamespace { get; } = 3;
 
-    //[ForeignKey("TOOL_GID")]
-    //public ProfileTools ProfileToolsG { get; set; }
-
-    //[ForeignKey("TOOL_NID1")]
-    //public Tool Tool_N1 { get; set; }
-
-    //[ForeignKey("TOOL_NID2")]
-    //public Tool Tool_N2 { get; set; }
-
-    //[ForeignKey("TOOL_NID3")]
-    //public Tool Tool_N3 { get; set; }
-
-    //[ForeignKey("TOOL_NID4")]
-    //public Tool Tool_N4 { get; set; }
-
-    //[ForeignKey("TOOL_GID1")]
-    //public Tool Tool_G1 { get; set; }
-
-    //[ForeignKey("TOOL_GID2")]
-    //public Tool Tool_G2 { get; set; }
-
-    //[ForeignKey("TOOL_GID3")]
-    //public Tool Tool_G3 { get; set; }
-
-    //[ForeignKey("TOOL_GID4")]
-    //public Tool Tool_G4 { get; set; }
+            public struct Fields
+            {
+                public static string CoorX { get; } = "coor X";
+                public static string CoorY { get; } = "coor Y";
+                public static string CoorZ { get; } = "coor Z";
+                public static string Checksum { get; } = "checksum";
+                public static string Active { get; } = "active";
+                public static string Done { get; } = "done";
+                public static string Angle1 { get; } = "angle1";
+                public static string Angle2 { get; } = "angle2";
+                public static string NailType { get; } = "NailType";
+                public static string NailID { get; } = "NailID";
+                public static string NailGRP { get; } = "NailGRP";
+            }
+        }
+    }
 }

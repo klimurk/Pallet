@@ -1,13 +1,10 @@
 ﻿using Pallet.Database.Entities.Change.Profiles;
-using Pallet.Models.Interfaces;
 
 namespace Pallet.Services.Managers.Interfaces;
 
 public interface IManagerProfiles
 {
     IQueryable<Profile> Items { get; }
-
-    IProfileInfoData GetActiveProfileInfoData();
 
     IQueryable<Profile> Add(IQueryable<Profile> profiles);
 
@@ -29,7 +26,9 @@ public interface IManagerProfiles
 
     Profile GetSelectedProfile();
 
-    void SetSelectedProfile(IProfileInfoData newprofile);
+    public Profile GetActiveProfile();
+
+    void SetSelectedProfile(Profile newprofile);
 
     public Profile ActiveProfile { get; }
 

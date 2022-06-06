@@ -94,7 +94,6 @@ public class UAClientHelperAPI
             //Ceate a DiscoveryClient
             DiscoveryClient client = DiscoveryClient.Create(uri);
             //Find servers
-            //ApplicationDescriptionCollection servers = client.FindServers(null);
             ApplicationDescriptionCollection servers = client.FindServers(null);
             client.Close();
             client.Dispose();
@@ -681,7 +680,7 @@ public class UAClientHelperAPI
                     else if (result.ToString() == "System.Boolean[]")
                     {
                         string str = "";
-                        foreach (Boolean intVar in (Boolean[])result)
+                        foreach (bool intVar in (bool[])result)
                         {
                             str = str + ";" + intVar.ToString();
                         }
@@ -1149,7 +1148,7 @@ public class UAClientHelperAPI
         //Parse data types first
         //TBD: arrays for all types
 
-        Boolean parseCheck = false;
+        bool parseCheck = false;
         for (int i = 0; i < inputData.Count; i++)
         {
             if (inputData[i][1] == "SByte")
@@ -1807,7 +1806,7 @@ public class UAClientHelperAPI
         {
             if (val[2] == "Boolean" && arraySize <= 0)
             {
-                Boolean tempBool = Convert.ToBoolean(val[1]);
+                bool tempBool = Convert.ToBoolean(val[1]);
                 bytesToWrite[convertIndex] = Convert.ToByte(tempBool);
                 convertIndex++;
             }
@@ -1831,12 +1830,7 @@ public class UAClientHelperAPI
                 Array.Copy(BitConverter.GetBytes(Convert.ToDouble(val[1])), 0, bytesToWrite, convertIndex, 8);
                 convertIndex += 8;
             }
-            else if (val[2] == "Int32" && !val[0].Contains("_Size") && arraySize <= 0)
-            {
-                Array.Copy(BitConverter.GetBytes(Convert.ToUInt32(val[1])), 0, bytesToWrite, convertIndex, 4);
-                convertIndex += 4;
-            }
-            else if (val[2] == "UInt32" && arraySize <= 0)
+            else if ((val[2] == "Int32" && !val[0].Contains("_Size") && arraySize <= 0) || (val[2] == "UInt32" && arraySize <= 0))
             {
                 Array.Copy(BitConverter.GetBytes(Convert.ToUInt32(val[1])), 0, bytesToWrite, convertIndex, 4);
                 convertIndex += 4;
@@ -1856,17 +1850,7 @@ public class UAClientHelperAPI
                 bytesToWrite[convertIndex] = Convert.ToByte(val[1]);
                 convertIndex++;
             }
-            else if (val[2] == "String" && arraySize <= 0)
-            {
-                Array.Copy(BitConverter.GetBytes(val[1].Length), 0, bytesToWrite, convertIndex, 4);
-                convertIndex += 4;
-                foreach (Char c in val[1])
-                {
-                    bytesToWrite[convertIndex] = Convert.ToByte(c);
-                    convertIndex++;
-                }
-            }
-            else if (val[2] == "CharArray")
+            else if ((val[2] == "String" && arraySize <= 0)||(val[2] == "CharArray"))
             {
                 Array.Copy(BitConverter.GetBytes(val[1].Length), 0, bytesToWrite, convertIndex, 4);
                 convertIndex += 4;

@@ -16,7 +16,6 @@ namespace Pallet.ViewModels.SubView
 
         private readonly IManagerNailTypes _ManagerNailTypes;
         private readonly IManagerUser _UserManager;
-        private readonly IUserDialogService _UserDialogService;
         private readonly ObservableCollection<SignalOPC> _Signals;
 
         #endregion Services
@@ -51,7 +50,6 @@ namespace Pallet.ViewModels.SubView
         {
             _Signals = (App.Services.GetService(typeof(IOPC)) as IOPC)?.Signals;
             _ManagerNailTypes = App.Services.GetService(typeof(IManagerNailTypes)) as IManagerNailTypes;
-            _UserDialogService = App.Services.GetService(typeof(IUserDialogService)) as IUserDialogService;
             _UserManager = App.Services.GetService(typeof(IManagerUser)) as IManagerUser;
             NailTypeActive = _ManagerNailTypes.ActiveNailType;
 

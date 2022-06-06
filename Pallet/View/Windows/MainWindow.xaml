@@ -61,7 +61,7 @@
                         materialDesign:TextFieldAssist.DecorationVisibility="Visible" />
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" VerticalAlignment="Stretch">
-                    <ListBox ItemsSource ="{Binding ProfilesView}" Grid.Row="2">
+                    <ListBox ItemsSource ="{Binding ProfilesView}" Grid.Row="2" SelectedValue="{x:Null}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Button
@@ -105,7 +105,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Button Grid.RowSpan="2" Grid.Column="0" Height="100"
-                    Command="{Binding SendDataProfileCommand}"  Style="{StaticResource MaterialDesignPaperButton}" Content="{Resx Start}" />
+                    Command="{Binding SendProfileCommand}"  Style="{StaticResource MaterialDesignPaperButton}" Content="{Resx Start}" />
 
             <Button Grid.Column="1" Height="50"  Content="{Resx Auto}">
                 <Button.Style>

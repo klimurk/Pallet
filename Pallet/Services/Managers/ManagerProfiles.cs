@@ -1,16 +1,20 @@
 ﻿using Pallet.Database.Entities.Change.Profiles;
 using Pallet.Database.Repositories.Interfaces;
-using Pallet.Models;
-using Pallet.Models.Interfaces;
 using Pallet.Services.Managers.Interfaces;
 
 namespace Pallet.Services.Managers
 {
+    /// <summary>
+    /// Manager profiles.
+    /// </summary>
     public class ManagerProfiles : IManagerProfiles
     {
         private Profile _ChosenProfile;
         private Profile _ActiveProfile;
 
+        /// <summary>
+        /// Activated profile.
+        /// </summary>
         public Profile ActiveProfile
         {
             get => _ActiveProfile;
@@ -18,26 +22,34 @@ namespace Pallet.Services.Managers
             {
                 _ActiveProfile = value;
                 _ActiveProfile.DateLastUse = DateTime.Now;
-                ProfileData.Name = _ActiveProfile.Name;
-                ProfileData.DateLastUse = _ActiveProfile.DateLastUse;
             }
         }
 
-        public ProfileInfoData ProfileData;
         private readonly IDbRepository<Profile> _RepositoryProfiles;
 
-        public ManagerProfiles(
-            IDbRepository<Profile> RepositoryProfiles
-            )
-        {
-            _RepositoryProfiles = RepositoryProfiles;
-            ProfileData = new();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerProfiles"/> class.
+        /// </summary>
+        /// <param name="RepositoryProfiles">The repository profiles.</param>
+        public ManagerProfiles(IDbRepository<Profile> RepositoryProfiles) => _RepositoryProfiles = RepositoryProfiles;
 
+        /// <summary>
+        ///All items.
+        /// </summary>
         public IQueryable<Profile> Items => _RepositoryProfiles.Items;
 
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="profile">The profile.</param>
+        /// <returns>A Profile.</returns>
         public Profile Add(Profile profile) => _RepositoryProfiles.Items.Append(profile).First();
 
+        /// <summary>
+        /// Add query of profiles.
+        /// </summary>
+        /// <param name="profiles">The profiles.</param>
+        /// <returns>An IQueryable.</returns>
         public IQueryable<Profile> Add(IQueryable<Profile> profiles)
         {
             foreach (var profile in profiles)
@@ -45,12 +57,31 @@ namespace Pallet.Services.Managers
             return profiles;
         }
 
+        /// <summary>
+        /// Update profile.
+        /// </summary>
+        /// <param name="profile">The profile.</param>
         public void Update(Profile profile) => _RepositoryProfiles.Update(profile);
 
+        /// <summary>
+        /// Get profile by id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>A Profile.</returns>
         public Profile Get(int id) => _RepositoryProfiles.Get(id);
 
+        /// <summary>
+        /// Add profile async .
+        /// </summary>
+        /// <param name="profile">The profile.</param>
+        /// <returns>A Task.</returns>
         public async Task<Profile> AddAsync(Profile profile) => await _RepositoryProfiles.AddAsync(profile).ConfigureAwait(false);
 
+        /// <summary>
+        /// Add query profiles async.
+        /// </summary>
+        /// <param name="profiles">The profiles.</param>
+        /// <returns>A Task.</returns>
         public async Task<IQueryable<Profile>> AddAsync(IQueryable<Profile> profiles)
         {
             foreach (var profile in profiles)
@@ -58,34 +89,61 @@ namespace Pallet.Services.Managers
             return profiles;
         }
 
+        /// <summary>
+        /// Update profile the async.
+        /// </summary>
+        /// <param name="profile">The profile.</param>
+        /// <returns>A Task.</returns>
         public async Task UpdateAsync(Profile profile) => await _RepositoryProfiles.UpdateAsync(profile).ConfigureAwait(false);
 
+        /// <summary>
+        /// Get Profile async.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>A Task.</returns>
         public async Task<Profile> GetAsync(int id) =>
             await _RepositoryProfiles
             .GetAsync(id)
             .ConfigureAwait(false);
 
-        public void SetSelectedProfile(IProfileInfoData newprofile) => _ChosenProfile =
-            _RepositoryProfiles.Items.
-            FirstOrDefault(profile => profile.Name == newprofile.Name);
+        /// <summary>
+        /// Set new selected profile (not activate).
+        /// </summary>
+        /// <param name="newprofile">The newprofile.</param>
+        public void SetSelectedProfile(Profile newprofile) => _ChosenProfile =
+            _RepositoryProfiles.Items?
+            .FirstOrDefault(profile => profile.Name == newprofile.Name);
 
+        /// <summary>
+        /// Get selected profile (not active).
+        /// </summary>
+        /// <returns>A Profile.</returns>
         public Profile GetSelectedProfile() => _ChosenProfile;
 
+        /// <summary>
+        /// Activate selected profile.
+        /// </summary>
         public void ActivateSelectedProfile()
         {
-            ActiveProfile = _RepositoryProfiles.Items.FirstOrDefault(profile => profile.Name == _ChosenProfile.Name);
+            ActiveProfile = _RepositoryProfiles.Items?
+                .FirstOrDefault(profile => profile.Name == _ChosenProfile.Name);
 
             OnActiveProfileChanged();
 
             _RepositoryProfiles.UpdateAsync(ActiveProfile);
         }
 
+        /// <summary>
+        /// Get active profile.
+        /// </summary>
+        /// <returns>A Profile.</returns>
         public Profile GetActiveProfile() => ActiveProfile;
-
-        public IProfileInfoData GetActiveProfileInfoData() => ProfileData;
 
         public event EventHandler? ActiveProfileChanged;
 
+        /// <summary>
+        /// Active profile changed events executer.
+        /// </summary>
         private void OnActiveProfileChanged() => ActiveProfileChanged?.Invoke(this, new());
     }
 }

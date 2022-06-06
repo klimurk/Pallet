@@ -162,7 +162,6 @@ public class PalletViewModel : ViewModel
 
     //private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     //{
-
     //}
 
     #region "Public Properties & Methods"

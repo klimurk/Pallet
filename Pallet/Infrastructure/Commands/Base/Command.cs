@@ -23,14 +23,23 @@ internal abstract class Command : DependencyObject, ICommand
 
     public event EventHandler ExecutableChanged;
 
-    event EventHandler ICommand.CanExecuteChanged
+    public event EventHandler CanExecuteChanged
     {
         add => CommandManager.RequerySuggested += value;
         remove => CommandManager.RequerySuggested -= value;
     }
 
+    /// <summary>
+    /// Can execute the command by interface.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
+    /// <returns>A bool.</returns>
     bool ICommand.CanExecute(object parameter) => _Executable && CanExecute(parameter);
 
+    /// <summary>
+    /// Executed the command by interface.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
     void ICommand.Execute(object parameter)
     {
         if (!((ICommand)this).CanExecute(parameter)) return;

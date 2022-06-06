@@ -30,8 +30,17 @@ internal abstract class CommandAsync : ICommand
         remove => CommandManager.RequerySuggested -= value;
     }
 
+    /// <summary>
+    /// Can execute the command by interface.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
+    /// <returns>A bool.</returns>
     bool ICommand.CanExecute(object parameter) => _Executable && CanExecute(parameter);
 
+    /// <summary>
+    /// Executes the command by interface.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
     async void ICommand.Execute(object parameter)
     {
         if (!((ICommand)this).CanExecute(parameter)) return;

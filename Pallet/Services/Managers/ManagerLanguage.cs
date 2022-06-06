@@ -30,18 +30,20 @@ public class ManagerLanguage : IManagerLanguage
     public ManagerLanguage()
     {
         _ResourceManager = new ResourceManager("Pallet.Resources.Windows.LanguageWindow.LanguageWindowResource", Assembly.GetExecutingAssembly());
-        Langs = new();
-        Langs.Add(new(_ResourceManager.GetString("LangEnglish"), "Resources/Icons/great-britain-48.png", new CultureInfo("en")));
-        Langs.Add(new(_ResourceManager.GetString("LangCzech"), "Resources/Icons/czech-republic-48.png", new CultureInfo("cs-CZ")));
-        Langs.Add(new(_ResourceManager.GetString("LangGerman"), "Resources/Icons/germany-48.png", new CultureInfo("de-DE")));
-        Langs.Add(new(_ResourceManager.GetString("LangRussian"), "Resources/Icons/russia-48.png", new CultureInfo("ru-RU")));
-        Langs.Add(new(_ResourceManager.GetString("LangUkraine"), "Resources/Icons/ukraine-48.png", new CultureInfo("uk-UA")));
+        Langs = new()
+        {
+            new(_ResourceManager.GetString("LangEnglish"), "Resources/Icons/great-britain-48.png", new CultureInfo("en")),
+            new(_ResourceManager.GetString("LangCzech"), "Resources/Icons/czech-republic-48.png", new CultureInfo("cs-CZ")),
+            new(_ResourceManager.GetString("LangGerman"), "Resources/Icons/germany-48.png", new CultureInfo("de-DE")),
+            new(_ResourceManager.GetString("LangRussian"), "Resources/Icons/russia-48.png", new CultureInfo("ru-RU")),
+            new(_ResourceManager.GetString("LangUkraine"), "Resources/Icons/ukraine-48.png", new CultureInfo("uk-UA"))
+        };
         SelectedLang = Langs[0];
 
         _Managers = new();
     }
 
-    private List<ResourceManager> _Managers;
+    private readonly List<ResourceManager> _Managers;
 
     public void ManageNewResource(string Namespace)
     {

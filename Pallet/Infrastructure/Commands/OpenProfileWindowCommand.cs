@@ -1,5 +1,5 @@
-﻿using Pallet.Infrastructure.Commands.Base;
-using Pallet.Models;
+﻿using Pallet.Database.Entities.Change.Profiles;
+using Pallet.Infrastructure.Commands.Base;
 using Pallet.Services.Managers;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.View;
@@ -16,7 +16,7 @@ internal class OpenProfileWindowCommand : Command
 
     protected override void Execute(object parameter)
     {
-        _ManagerProfiles.SetSelectedProfile((ProfileInfoData)parameter);
+        _ManagerProfiles.SetSelectedProfile((Profile)parameter);
 
         var window = new ProfilePreviewWindow
         {

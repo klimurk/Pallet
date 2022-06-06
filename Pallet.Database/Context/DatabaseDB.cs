@@ -10,30 +10,78 @@ using Pallet.Database.Entities.Users;
 
 namespace Pallet.Database.Context;
 
+/// <summary>
+/// The database context for entity framework core.
+/// </summary>
 public class DatabaseDB : DbContext
 {
+    /// <summary>
+    /// Context for users.
+    /// </summary>
     public DbSet<User> Users { get; set; }
+    /// <summary>
+    /// Context for Alarm logs.
+    /// </summary>
     public DbSet<AlarmLog> AlarmLogs { get; set; }
+    /// <summary>
+    /// Context for alarms definitions.
+    /// </summary>
     public DbSet<Alarm> Alarms { get; set; }
+    /// <summary>
+    /// Context for signals definitions.
+    /// </summary>
     public DbSet<Signal> Signals { get; set; }
-
+    /// <summary>
+    /// Context for profiles.
+    /// </summary>
     public DbSet<Profile> Profiles { get; set; }
-
+    /// <summary>
+    /// Context for products.
+    /// </summary>
     public DbSet<Product> Products { get; set; }
+    /// <summary>
+    /// Context for positions of elements.
+    /// </summary>
     public DbSet<ElementPosition> ElementPositions { get; set; }
+    /// <summary>
+    /// Context for elements.
+    /// </summary>
     public DbSet<Element> Elements { get; set; }
+    /// <summary>
+    /// Context for nailers.
+    /// </summary>
     public DbSet<Nailer> Nailers { get; set; }
+    /// <summary>
+    /// Context for list of nails.
+    /// </summary>
     public DbSet<Nail> Nails { get; set; }
 
+    /// <summary>
+    /// Context for tables.
+    /// </summary>
     public DbSet<Table> Tables { get; set; }
 
+    /// <summary>
+    /// Context for tools.
+    /// </summary>
     public DbSet<Tool> Tools { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatabaseDB"/> class.
+    /// Set lazy loading disabled (internal objects must be loaded)
+    /// </summary>
+    /// <param name="options">The options.</param>
     public DatabaseDB(DbContextOptions<DatabaseDB> options) : base(options)
     {
         ChangeTracker.LazyLoadingEnabled = false;
     }
 
+    /// <summary>
+    /// On the model creating.
+    /// Convert db values to internal and back
+    /// Correct lazy loading
+    /// </summary>
+    /// <param name="modelBuilder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // With converters

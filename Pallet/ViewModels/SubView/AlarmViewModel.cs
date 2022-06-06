@@ -5,7 +5,9 @@ using System.Collections.Specialized;
 using System.Windows.Threading;
 
 namespace Pallet.ViewModels.SubView;
-
+/// <summary>
+/// The alarm view model.
+/// </summary>
 public class AlarmViewModel : ViewModel
 {
     #region Services
@@ -17,17 +19,27 @@ public class AlarmViewModel : ViewModel
     #region Fields
 
     private readonly CollectionViewSource LogsViewSourse;
+    /// <summary>
+    /// Gets the logs view. (On screen)
+    /// </summary>
     public ICollectionView? LogsView => LogsViewSourse.View;
 
-    private static DispatcherTimer _dataUpdateTimer;
+    /// <summary>
+    /// Gets or sets the data update timer.
+    /// </summary>
+    private static DispatcherTimer? DataUpdateTimer { get; set; }
 
     #endregion Fields
 
     #region Ctor
 
-    public AlarmViewModel()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlarmViewModel"/> class.
+    /// </summary>
+    /// <param name="AlarmLogService">The alarm log service.</param>
+    public AlarmViewModel(IAlarmLogService AlarmLogService)
     {
-        _AlarmLogService = App.Services.GetService(typeof(IAlarmLogService)) as IAlarmLogService;
+        _AlarmLogService = AlarmLogService;
         LogsViewSourse = new()
         {
             Source = _AlarmLogService.AlarmLogs,
@@ -39,20 +51,33 @@ public class AlarmViewModel : ViewModel
         SetupDataUpdateTimer();
     }
 
+    /// <summary>
+    /// Setups the data update timer.
+    /// </summary>
     private void SetupDataUpdateTimer()
     {
-        _dataUpdateTimer = new DispatcherTimer();
-        _dataUpdateTimer.Tick += OnDataUpdateEvent;
-        _dataUpdateTimer.Interval = TimeSpan.FromMilliseconds(1000);
-        _dataUpdateTimer.Start();
+        DataUpdateTimer = new DispatcherTimer();
+        DataUpdateTimer.Tick += OnDataUpdateEvent;
+        DataUpdateTimer.Interval = TimeSpan.FromMilliseconds(1000);
+        DataUpdateTimer.Start();
     }
 
     #endregion Ctor
 
     #region Events
 
+    /// <summary>
+    /// Alarm logs collection changed. Refresh view
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The e.</param>
     private void AlarmLogs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => LogsView?.Refresh();
 
+    /// <summary>
+    /// On the data update event. Refresh the view
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The e.</param>
     private void OnDataUpdateEvent(object sender, EventArgs e) => LogsView?.Refresh();
 
     #endregion Events

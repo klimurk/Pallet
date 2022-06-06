@@ -1,4 +1,5 @@
-﻿using Opc.Ua;
+﻿using Microsoft.Extensions.Configuration;
+using Opc.Ua;
 using Pallet.Database.Entities.Change.Profiles;
 using Pallet.Entities.Models;
 using Pallet.Models;
@@ -31,21 +32,22 @@ internal class OPCProxy : IOPC
 
     #endregion Static OPC
 
-    public ObservableCollection<AlarmOPC> Alarms { get; set; }
+    public ObservableCollection<AlarmOpc> Alarms { get; set; }
 
     public ObservableCollection<SignalOPC> Signals { get; set; }
 
-    private AutoResetEvent _AutoResetEvent = new(true);
+    private readonly AutoResetEvent _AutoResetEvent = new(true);
 
     #endregion Fields
 
     #region Ctor
 
-    public OPCProxy(IAlarmLogService AlarmLogService, IManagerProfiles ManagerProfiles)
+    public OPCProxy(IAlarmLogService AlarmLogService, IManagerProfiles ManagerProfiles, IConfiguration Configuration)
     {
         Signals = new();
         Alarms = new();
-        _ConnectorOPC = new OPCConnector(this);
+
+        _ConnectorOPC = new OPCConnector(this, Configuration.GetConnectionString(Configuration["OPCAdrressType"]));
         _AlarmLogService = AlarmLogService;
         _ManagerProfiles = ManagerProfiles;
     }
@@ -70,7 +72,7 @@ internal class OPCProxy : IOPC
         _ConnectorOPC.WriteProfile(ActiveProfile);
         _ConnectorOPC.WriteActualValue(
             true,
-            Signals.First(signal => signal.NodeOPC.DisplayName.ToString() == "DatenBereit").NodeOPC);
+            Signals.First(signal => signal.NodeOpc.DisplayName.ToString() == "DatenBereit").NodeOpc);
     }
 
     #endregion Read / Write
@@ -79,13 +81,13 @@ internal class OPCProxy : IOPC
 
     public async Task AddSubcribeFolder(string SubscriptionName) => await _ConnectorOPC.AddSubcribeFolder(SubscriptionName);
 
-    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOPC
+    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOpc
     {
         _AutoResetEvent.WaitOne();
-        if (SubscriptionName == SubForlderAlarm && data is IAlarmOPC && !Alarms.Any(a => a.Info.Name == (data as AlarmOPC)?.Info.Name))
-            Alarms.Add((IAlarmOPC)data as AlarmOPC);
-        if (SubscriptionName == SubForlderSystem && data is ISignalOPC && !Signals.Any(a => a.Info.Name == (data as SignalOPC)?.Info.Name))
-            Signals.Add((ISignalOPC)data as SignalOPC);
+        if (SubscriptionName == SubForlderAlarm && data is IAlarmOpc alarmOPC && !Alarms.Any(a => a.Info.Name == (data as AlarmOpc)?.Info.Name))
+            Alarms.Add(alarmOPC as AlarmOpc);
+        if (SubscriptionName == SubForlderSystem && data is ISignalOPC signalOPC && !Signals.Any(a => a.Info.Name == (data as SignalOPC)?.Info.Name))
+            Signals.Add(signalOPC as SignalOPC);
         _AutoResetEvent.Set();
         await _ConnectorOPC.SubscribeValue(data, SubscriptionName);
     }
@@ -105,17 +107,17 @@ internal class OPCProxy : IOPC
         if (newValue == null) return;
         if (newValue.GetType() == typeof(short)) newValue = (int)(short)newValue;
 
-        if (RepositoryName == SubForlderAlarm && Alarms.Any(alarm => alarm?.NodeOPC.DisplayName.ToString() == Name))
+        if (RepositoryName == SubForlderAlarm && Alarms.Any(alarm => alarm?.NodeOpc.DisplayName.ToString() == Name))
         {
-            var alarm = Alarms.First(alarm => alarm?.NodeOPC.DisplayName.ToString() == Name);
+            var alarm = Alarms.First(alarm => alarm?.NodeOpc.DisplayName.ToString() == Name);
             alarm.Value = newValue;
             alarm.TimeStamp = DateTime.Now;
             await AlarmLog(alarm);
             return;
         }
-        if (RepositoryName == SubForlderSystem && Signals.Any(signal => signal.NodeOPC.DisplayName.ToString() == Name))
+        if (RepositoryName == SubForlderSystem && Signals.Any(signal => signal.NodeOpc.DisplayName.ToString() == Name))
         {
-            var signal = Signals.First(signal => signal.NodeOPC.DisplayName.ToString() == Name);
+            var signal = Signals.First(signal => signal.NodeOpc.DisplayName.ToString() == Name);
             signal.Value = newValue;
             SignalHandler(signal);
             return;
@@ -150,7 +152,7 @@ internal class OPCProxy : IOPC
     /// Alarms logging.
     /// </summary>
     /// <param name="Alarm">The alarm</param>
-    private async Task AlarmLog(AlarmOPC Alarm)
+    private async Task AlarmLog(AlarmOpc Alarm)
     {
         switch (Alarm.Value)
         {
@@ -175,16 +177,16 @@ internal class OPCProxy : IOPC
     /// </summary>
     /// <param name="Name">Signal name</param>
     /// <param name="Value">Signal value</param>
-    private void SignalHandler(INodeOPC Signal)
+    private void SignalHandler(INodeOpc Signal)
     {
-        switch (Signal.NodeOPC.DisplayName.ToString())
+        switch (Signal.NodeOpc.DisplayName.ToString())
         {
             case "DatenAnforderung":
                 if (_ManagerProfiles.ActiveProfile != null) PLCRequestProfileData = (bool)Signal.Value;
                 break;
 
             case "JobFertig":
-                WriteActualValue(Signal.Value, Signal.NodeOPC);
+                WriteActualValue(Signal.Value, Signal.NodeOpc);
                 break;
         }
     }

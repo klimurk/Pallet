@@ -7,6 +7,4 @@
     <l:AlarmLogColorConverter x:Key="AlarmLogColorConverter" />
     <l:UserConverter x:Key="UserConverter" />
     <l:ImageConverter x:Key="ImageConverter" />
-    <l:ActualWidthBackConverter x:Key="ActualWidthBackConverter" />
-    <l:ActualHeightBackConverter x:Key="ActualHeightBackConverter" />
 </ResourceDictionary>

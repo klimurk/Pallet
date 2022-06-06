@@ -2,18 +2,43 @@
 
 namespace Pallet.Services.Managers.Interfaces;
 
+/// <summary>
+/// User manager.
+/// </summary>
 public interface IManagerUser
 {
-    public User LoginedUser { get; set; }
+    /// <summary>
+    /// Gets or sets the logined user.
+    /// </summary>
+    public User LoginedUser { get; protected set; }
+
+    /// <summary>
+    /// List of users from database.
+    /// </summary>
     List<User> Users { get; }
 
+    /// <summary>
+    /// Login by login and password.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <param name="password">The password.</param>
+    /// <returns>A bool.</returns>
     bool Login(string name, string password);
 
+    /// <summary>
+    /// Logout.
+    /// </summary>
     void LogOut();
 
-    bool IsLogined { get;  }
+    /// <summary>
+    /// Is logined.
+    /// </summary>
+    bool IsLogined { get; }
 
-    enum UserRoleNum : int
+    /// <summary>
+    /// The user role numbers (see in database).
+    /// </summary>
+    enum UserRoleNum
     {
         None = 0,
         Worker = 1,

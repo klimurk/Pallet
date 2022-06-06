@@ -31,20 +31,21 @@ internal class OPCConnector : IOPC
 
     private static readonly UAClientHelperAPI __myClientHelperAPI = new();
 
-    private static string __ResourceManagerNamespace = "Pallet.Resources.Errors.OPC.ErrorsOPC";
+    private const string __ResourceManagerNamespace = "Pallet.Resources.Errors.OPC.ErrorsOPC";
 
     //private static readonly string __DataOPCAddr = "opc.tcp://192.168.0.1"; // 192.168.0.10
 
     //private static readonly string __DataOPCAddr = "opc.tcp://DESKTOP-KL4743R:53530/OPCUA/SimulationServer";
     private const string __DataOPCAddr = "opc.tcp://Klymov-PC.benthor-mb.cz:53530/OPCUA/SimulationServer";
-
-    public ObservableCollection<AlarmOPC> Alarms { get; set; } = null;
+    private readonly string _OPCAddress;
+    public ObservableCollection<AlarmOpc> Alarms { get; set; } = null;
     public ObservableCollection<SignalOPC> Signals { get; set; } = null;
 
     #endregion Fields
 
-    public OPCConnector(OPCProxy Proxy)
+    public OPCConnector(OPCProxy Proxy, string address="")
     {
+        _OPCAddress = string.IsNullOrEmpty(address) ? __DataOPCAddr : address;
         _UserDialogService = App.Host.Services.GetService(typeof(IUserDialogService)) as IUserDialogService;
         _ManagerLanguage = App.Host.Services.GetService(typeof(IManagerLanguage)) as IManagerLanguage;
         _ManagerLanguage.ManageNewResource(__ResourceManagerNamespace);
@@ -57,7 +58,7 @@ internal class OPCConnector : IOPC
     {
         try
         {
-            SelectedEndpoint = __myClientHelperAPI.GetEndpoints(__myClientHelperAPI.FindServers(__DataOPCAddr)[0].DiscoveryUrls[0]).First(s => s.SecurityMode == MessageSecurityMode.None);
+            SelectedEndpoint = __myClientHelperAPI.GetEndpoints(__myClientHelperAPI.FindServers(_OPCAddress)[0].DiscoveryUrls[0]).First(s => s.SecurityMode == MessageSecurityMode.None);
         }
         catch
         {
@@ -118,10 +119,10 @@ internal class OPCConnector : IOPC
 
     #region Subscribes
 
-    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOPC
+    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOpc
     {
         await TaskExtension.WaitWhile(!ConnectionStatus);
-        string monitoredItemName = data.NodeOPC.DisplayName.ToString();
+        string monitoredItemName = data.NodeOpc.DisplayName.ToString();
 
         if (_MonitoredItem != null)        // check if monitored item already exist
         {
@@ -134,7 +135,7 @@ internal class OPCConnector : IOPC
         try
         {
             _AutoResetEvent.WaitOne();
-            _MonitoredItem = __myClientHelperAPI.AddMonitoredItem(_Subscription[SubscriptionName], data.NodeOPC.NodeId.ToString(), monitoredItemName, 1);
+            _MonitoredItem = __myClientHelperAPI.AddMonitoredItem(_Subscription[SubscriptionName], data.NodeOpc.NodeId.ToString(), monitoredItemName, 1);
             _AutoResetEvent.Set();
         }
         catch (Exception ex)
@@ -169,8 +170,9 @@ internal class OPCConnector : IOPC
 
     public string ReadActualValue(Node Node)
     {
-        if (Node is null) throw new ArgumentNullException("Try read OPC null data");
-        return ReadValue(Node.NodeId.Identifier.ToString(), Node?.NodeId.NamespaceIndex.ToString());
+        return Node is null
+            ? throw new ArgumentNullException("Try read OPC null data")
+            : ReadValue(Node.NodeId.Identifier.ToString(), Node?.NodeId.NamespaceIndex.ToString());
     }
 
     public bool WriteActualValue<T>(T newValue, Node inNode)
@@ -212,12 +214,12 @@ internal class OPCConnector : IOPC
         }
         WriteProfile(
             nails,
-            ProfileInfoData.OPCData.Nails.DBName,
-            ProfileInfoData.OPCData.Nails.DBVar,
+            Profile.OPCData.Nails.DBName,
+            Profile.OPCData.Nails.DBVar,
             new List<string>()
             {
-                ProfileInfoData.OPCData.Nails.Fields.CoorX,
-                ProfileInfoData.OPCData.Nails.Fields.CoorY,
+                Profile.OPCData.Nails.Fields.CoorX,
+                Profile.OPCData.Nails.Fields.CoorY,
                 //NailsPositions.OPCDataInfo.Fields.CoorZ,
                 //NailsPositions.OPCDataInfo.Fields.NailType,
                 //NailsPositions.OPCDataInfo.Fields.NailID,
@@ -225,7 +227,7 @@ internal class OPCConnector : IOPC
                 //NailsPositions.OPCDataInfo.Fields.Angle1,
                 //NailsPositions.OPCDataInfo.Fields.Angle2
             },
-            ProfileInfoData.OPCData.Nails.DBNamespace
+            Profile.OPCData.Nails.DBNamespace
             );
     }
 
@@ -323,7 +325,6 @@ internal class OPCConnector : IOPC
         await _Proxy.UpdateValue(
             monitoredItem.DisplayName,
             notification.Value.Value,
-            //TypeInfo.GetSystemType(notification.Value.WrappedValue.TypeInfo.BuiltInType, notification.Value.WrappedValue.TypeInfo.ValueRank),
             monitoredItem.Subscription.DisplayName);
     }
 

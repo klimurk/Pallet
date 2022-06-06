@@ -1,5 +1,5 @@
-﻿using Pallet.Infrastructure.Converters.ParametricConverters.Base;
-using Pallet.Models;
+﻿using Pallet.Database.Entities.Change.Profiles;
+using Pallet.Infrastructure.Converters.ParametricConverters.Base;
 using System.Windows.Markup;
 
 namespace Pallet.Infrastructure.Converters.ParametricConverters;
@@ -21,7 +21,7 @@ internal class ActiveProfileConverter : ParametricConverter
         typeof(ActiveProfileConverter),
         new PropertyMetadata(""));
 
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((ProfileInfoData)value).Name == ActiveProfile;
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((Profile)value).Name == ActiveProfile;
 
     protected override Freezable CreateInstanceCore() => new ActiveProfileConverter { ActiveProfile = ActiveProfile };
 }

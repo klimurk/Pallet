@@ -2,7 +2,9 @@
 
 namespace Pallet.Models.Interfaces;
 
-public interface IAlarmOPC : INodeOPC
+public interface IAlarmOpc : INodeOpc
 {
+    event PropertyChangedEventHandler PropertyChanged;
+
     public IAlarm Info { get; set; }
 }

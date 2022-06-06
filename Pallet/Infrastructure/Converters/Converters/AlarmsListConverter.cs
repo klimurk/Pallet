@@ -3,14 +3,14 @@ using Pallet.Models;
 
 namespace Pallet.Infrastructure.Converters.Converters;
 
-[ValueConversion(typeof(AlarmOPC), typeof(bool))]
+[ValueConversion(typeof(AlarmOpc), typeof(bool))]
 internal class AlarmsListConverter : Converter
 {
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value == null || value is not IEnumerable<AlarmOPC>) return false;
+        if (value == null || value is not IEnumerable<AlarmOpc>) return false;
 
-        foreach (var alarm in (IEnumerable<AlarmOPC>)value)
+        foreach (var alarm in (IEnumerable<AlarmOpc>)value)
         {
             switch (alarm.Value)
             {

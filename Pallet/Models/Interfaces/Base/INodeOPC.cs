@@ -2,8 +2,17 @@
 
 namespace Pallet.Models.Interfaces.Base;
 
-public interface INodeOPC : INotifyPropertyChanged
+/// <summary>
+/// Interface for variable for OPC with node and value.
+/// </summary>
+public interface INodeOpc : INotifyPropertyChanged
 {
-    public Node NodeOPC { get; set; }
+    /// <summary>
+    /// OPC node.
+    /// </summary>
+    public Node NodeOpc { get; set; }
+    /// <summary>
+    /// OPC value.
+    /// </summary>
     public object Value { get; set; }
 }

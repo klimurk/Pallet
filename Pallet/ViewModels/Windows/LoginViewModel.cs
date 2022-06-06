@@ -18,16 +18,23 @@ namespace Pallet.ViewModels.Windows
 
         #region Fields
 
+        /// <summary>
+        /// Username input.
+        /// </summary>
         public string UserName { get => _UserName; set => Set(ref _UserName, value); }
+
         private string _UserName;
 
         #endregion Fields
 
-        public LoginViewModel(
-            IManagerUser UserManager, IUserDialogService UserDialogService
-            )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginViewModel"/> class.
+        /// </summary>
+        /// <param name="UserManager">The user manager.</param>
+        /// <param name="UserDialogService">The user dialog service.</param>
+        public LoginViewModel(IManagerUser UserManager, IUserDialogService UserDialogService)
         {
-            _MainWindowViewModel = (MainWindowViewModel)App.Host.Services.GetService(typeof(MainWindowViewModel));
+            _MainWindowViewModel = App.Services.GetService(typeof(MainWindowViewModel)) as MainWindowViewModel;
             _UserDialogService = UserDialogService;
             _UserManager = UserManager;
         }
@@ -36,10 +43,22 @@ namespace Pallet.ViewModels.Windows
 
         private ICommand _TryToLogInCommand;
 
+        /// <summary>
+        /// Try to log in command.
+        /// </summary>
         public ICommand TryToLogInCommand => _TryToLogInCommand ??= new LambdaCommand(OnTryToLogInCommandExecuted, CanTryToLogInCommandExecute);
 
+        /// <summary>
+        /// Can command execute.
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
         private bool CanTryToLogInCommandExecute(object arg) => true;
 
+        /// <summary>
+        /// Try to log in realization.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
         private void OnTryToLogInCommandExecuted(object obj)
         {
             var param = (Tuple<object, object>)obj;

@@ -10,6 +10,11 @@ using System.Windows.Shapes;
 
 namespace Pallet.Services.Draw;
 
+/// <summary>
+/// The drawer service. 
+/// Working as collection of System.Windows.Shapes items which will be added to ItemsControl with canvas as ItemsPanelTemplate
+/// </summary>
+
 public partial class Drawer : IDrawer
 {
     private readonly ILogger<Drawer> _Logger;
@@ -21,9 +26,21 @@ public partial class Drawer : IDrawer
 
     private Point2D _PointViewFieldRightUp;// View Field - Right upper Point2D coordinates
 
+    /// <summary>
+    /// View field width.
+    /// </summary>
     private double _ViewFieldWidth { get => _PointViewFieldRightUp.X - _PointViewFieldLeftBottom.X; }
+    /// <summary>
+    /// View field height.
+    /// </summary>
     private double _ViewFieldHeight { get => _PointViewFieldRightUp.Y - _PointViewFieldLeftBottom.Y; }
+    /// <summary>
+    /// Scale canvas to View field width
+    /// </summary>
     private double _ViewFieldScaleWidth { get => CanvasWidth / _ViewFieldWidth; }
+    /// <summary>
+    /// Scale canvas to View field height
+    /// </summary>
     private double _ViewFieldScaleHeight { get => CanvasHeight / _ViewFieldHeight; }
 
     private readonly double _WidthBorder = 1;
