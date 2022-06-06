@@ -1,6 +1,5 @@
 ﻿using Pallet.Database.Entities.Change.Types;
 using Pallet.Infrastructure.Commands.Base;
-using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
 using Pallet.ViewModels.SubView;
 

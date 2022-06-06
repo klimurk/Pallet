@@ -1,6 +1,5 @@
 ﻿using Pallet.Database.Entities.Base;
 using Pallet.Database.Entities.Change.Tables;
-using Pallet.Database.Entities.Change.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

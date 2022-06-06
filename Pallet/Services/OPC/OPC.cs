@@ -32,10 +32,11 @@ internal class OPCConnector : IOPC
     private static readonly UAClientHelperAPI __myClientHelperAPI = new();
 
     private static string __ResourceManagerNamespace = "Pallet.Resources.Errors.OPC.ErrorsOPC";
+
     //private static readonly string __DataOPCAddr = "opc.tcp://192.168.0.1"; // 192.168.0.10
-    //private static readonly string __DataOPCAddr = "opc.tcp://Klimurk:53530/OPCUA/SimulationServer"; // 192.168.0.10
-    private static readonly string __DataOPCAddr = "opc.tcp://DESKTOP-KL4743R:53530/OPCUA/SimulationServer";
-    //private const string __DataOPCAddr = "opc.tcp://Klymov-PC.benthor-mb.cz:53530/OPCUA/SimulationServer";
+
+    //private static readonly string __DataOPCAddr = "opc.tcp://DESKTOP-KL4743R:53530/OPCUA/SimulationServer";
+    private const string __DataOPCAddr = "opc.tcp://Klymov-PC.benthor-mb.cz:53530/OPCUA/SimulationServer";
 
     public ObservableCollection<AlarmOPC> Alarms { get; set; } = null;
     public ObservableCollection<SignalOPC> Signals { get; set; } = null;
@@ -325,7 +326,6 @@ internal class OPCConnector : IOPC
             //TypeInfo.GetSystemType(notification.Value.WrappedValue.TypeInfo.BuiltInType, notification.Value.WrappedValue.TypeInfo.ValueRank),
             monitoredItem.Subscription.DisplayName);
     }
-
 
     public Session GetSession() => Session;
 

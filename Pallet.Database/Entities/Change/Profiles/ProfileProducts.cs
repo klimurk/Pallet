@@ -9,7 +9,4 @@ public class ProfileProducts : Entity
     public Profile Profile { get; set; }
     public int ProductId { get; set; }
     public Product Product { get; set; }
-
-
-
 }

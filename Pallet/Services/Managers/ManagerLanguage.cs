@@ -42,6 +42,7 @@ public class ManagerLanguage : IManagerLanguage
     }
 
     private List<ResourceManager> _Managers;
+
     public void ManageNewResource(string Namespace)
     {
         if (_Managers.Any(s => s.BaseName == Namespace)) return;
@@ -49,5 +50,4 @@ public class ManagerLanguage : IManagerLanguage
     }
 
     public string? ReadString(string Namespace, string Key) => _Managers.First(s => s.BaseName == Namespace)?.GetString(Key);
-
 }

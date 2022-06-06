@@ -19,7 +19,6 @@ public interface IManagerProfiles
 
     Profile Get(int id);
 
-
     Task<Profile> GetAsync(int id);
 
     void ActivateSelectedProfile();
@@ -31,7 +30,8 @@ public interface IManagerProfiles
     Profile GetSelectedProfile();
 
     void SetSelectedProfile(IProfileInfoData newprofile);
+
     public Profile ActiveProfile { get; }
 
-    public  event EventHandler? ActiveProfileChanged;
+    public event EventHandler? ActiveProfileChanged;
 }

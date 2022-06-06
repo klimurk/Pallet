@@ -40,9 +40,6 @@ public class PalletViewModel : ViewModel
 
     private ObservableCollection<string> _ComboboxItems;
 
-    //public int Top => _Drawer.Top;
-    //public int Left => _Drawer.Left;
-
     private string _ComboboxItem;
 
     public string ComboboxItem
@@ -54,8 +51,6 @@ public class PalletViewModel : ViewModel
             Set(ref _ComboboxItem, value);
         }
     }
-
-    //public string CurrentPosition => _Drawer.CurrentPosition;
 
     public bool StatusTAB
     {
@@ -137,43 +132,38 @@ public class PalletViewModel : ViewModel
         Items = _Drawer.Items;
         ComboboxItems = _Drawer.ComboboxItems;
 
-        Items.CollectionChanged += Items_CollectionChanged;
+        //Items.CollectionChanged += Items_CollectionChanged;
         //_Drawer.ProductElementTouch += _Drawer_ProductElementTouch;
         ComboboxItems.CollectionChanged += ComboboxItems_CollectionChanged;
-
-
 
         StatusTAB = true;
         ViewDirection = ObjectViewDirection.Top;
         _ManagerProfiles.ActiveProfileChanged += _ManagerProfiles_ActiveProfileChanged;
-
     }
+
     protected override void Dispose(bool Disposing)
     {
         _ManagerProfiles.ActiveProfileChanged -= _ManagerProfiles_ActiveProfileChanged;
-        Items.CollectionChanged -= Items_CollectionChanged;
+        //Items.CollectionChanged -= Items_CollectionChanged;
         ComboboxItems.CollectionChanged -= ComboboxItems_CollectionChanged;
         base.Dispose(Disposing);
     }
 
-
     private void _ManagerProfiles_ActiveProfileChanged(object? sender, EventArgs e) => _Drawer.CanvasPaintProfile(_ManagerProfiles.ActiveProfile);
 
-    private void _Drawer_ProductElementTouch(object? sender, EventArgs e)
-    {
-    }
+    //private void _Drawer_ProductElementTouch(object? sender, EventArgs e)
+    //{
+    //}
 
     private void ComboboxItems_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         ComboboxItems.Refresh();
     }
 
-    private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        //_Drawer.Items.Refresh();
-        //Items.Refresh();
-        //OnPropertyChanged(nameof(Items));
-    }
+    //private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    //{
+
+    //}
 
     #region "Public Properties & Methods"
 
@@ -247,34 +237,6 @@ public class PalletViewModel : ViewModel
 
     #endregion ShowWTable
 
-    //#region ShowRulers
-
-    //public bool ShowRulers
-    //{
-    //    get => _Drawer.ShowRulers;
-    //    set
-    //    {
-    //        _Drawer.ShowRulers = value;
-    //        OnPropertyChanged(nameof(ShowRulers));
-    //    }
-    //}
-
-    //#endregion ShowRulers
-
-    //#region RulerColor
-
-    //public Color RulerColor
-    //{
-    //    get => _Drawer.RulerColor;
-    //    set
-    //    {
-    //        _Drawer.RulerColor = value;
-    //        OnPropertyChanged(nameof(RulerColor));
-    //    }
-    //}
-
-    //#endregion RulerColor
-
     public double CanvasWidth
     {
         get => _Drawer.CanvasWidth;
@@ -322,48 +284,6 @@ public class PalletViewModel : ViewModel
     }
 
     #endregion ShowWTableR
-
-    //#region ShowWProd1
-
-    //public bool ShowWProd1
-    //{
-    //    get => _Drawer.ShowStep1;
-    //    set
-    //    {
-    //        _Drawer.ShowStep1 = value;
-    //        OnPropertyChanged(nameof(ShowWProd1));
-    //    }
-    //}
-
-    //#endregion ShowWProd1
-
-    //#region ShowWProd2
-
-    //public bool ShowWProd2
-    //{
-    //    get => _Drawer.ShowStep2;
-    //    set
-    //    {
-    //        _Drawer.ShowStep2 = value;
-    //        OnPropertyChanged(nameof(ShowWProd2));
-    //    }
-    //}
-
-    //#endregion ShowWProd2
-
-    //#region Selection
-
-    //public string Selection
-    //{
-    //    get => _Drawer.Selection;
-    //    set
-    //    {
-    //        _Drawer.Selection = value;
-    //        OnPropertyChanged(nameof(Selection));
-    //    }
-    //}
-
-    //#endregion Selection
 
     #region ViewDirection
 

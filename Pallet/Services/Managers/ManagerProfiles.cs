@@ -84,7 +84,8 @@ namespace Pallet.Services.Managers
 
         public IProfileInfoData GetActiveProfileInfoData() => ProfileData;
 
-        public  event EventHandler? ActiveProfileChanged;
+        public event EventHandler? ActiveProfileChanged;
+
         private void OnActiveProfileChanged() => ActiveProfileChanged?.Invoke(this, new());
     }
 }

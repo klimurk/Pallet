@@ -1,6 +1,5 @@
 ﻿using Opc.Ua;
 using Pallet.Models.Interfaces;
-using System.ComponentModel;
 
 namespace Pallet.Entities.Models
 {

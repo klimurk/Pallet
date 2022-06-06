@@ -12,6 +12,5 @@ namespace Pallet.ViewModels
         //public AlarmViewModel AlarmViewModel => App.Services.GetRequiredService<AlarmViewModel>();
         //public ManualViewModel ManualViewModel => App.Services.GetRequiredService<ManualViewModel>();
         //public PalletViewModel PalletViewModel => App.Services.GetRequiredService<PalletViewModel>();
-
     }
 }

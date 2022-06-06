@@ -18,7 +18,5 @@
         {
             CollectionViewSource.GetDefaultView(value).Refresh();
         }
-        
-
     }
 }

@@ -20,6 +20,7 @@ public static class TaskExtension
         if (waitTask != await Task.WhenAny(waitTask, Task.Delay(timeout)))
             throw new TimeoutException();
     }
+
     public static async Task WaitWhile(bool condition, int frequency = 25, int timeout = -1)
     {
         var waitTask = Task.Run(async () =>
@@ -44,6 +45,7 @@ public static class TaskExtension
 
         if (waitTask != await Task.WhenAny(waitTask, Task.Delay(timeout))) throw new TimeoutException();
     }
+
     public static async Task WaitUntil(bool condition, int frequency = 25, int timeout = -1)
     {
         var waitTask = Task.Run(async () => { while (!condition) await Task.Delay(frequency); });
@@ -51,4 +53,3 @@ public static class TaskExtension
         if (waitTask != await Task.WhenAny(waitTask, Task.Delay(timeout))) throw new TimeoutException();
     }
 }
-

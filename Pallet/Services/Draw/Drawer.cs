@@ -279,7 +279,6 @@ public partial class Drawer : IDrawer
         // Paint!
 
         Items.Add(rect);
-
     }
 
     private void PaintProduct(Product product, Point2D pointZero, int side)
@@ -526,8 +525,6 @@ public partial class Drawer : IDrawer
             Items.Add(nail);
         }
     }
-
-
 
     #endregion "Paint Essential Object"
 }

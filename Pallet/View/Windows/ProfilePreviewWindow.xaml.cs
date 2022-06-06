@@ -16,6 +16,6 @@ namespace Pallet.View
         // TODO Manual control commands
         // TODO Pallet view model
         // TODO conditions for auto and stop mode
-        // TODO user level controls 
+        // TODO user level controls
     }
 }

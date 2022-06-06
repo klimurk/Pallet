@@ -12,7 +12,7 @@ public interface IOPC
     /// Checks the connection status.
     /// </summary>
     /// <returns>A bool.</returns>
-    bool ConnectionStatus { get;  }
+    bool ConnectionStatus { get; }
 
     /// <summary>
     /// Writes the value.
@@ -61,7 +61,7 @@ public interface IOPC
 
     void WriteProfile(Profile ActiveProfile);
 
-    public  Task AddSubcribeFolder(string SubscriptionName);
+    public Task AddSubcribeFolder(string SubscriptionName);
 
     public void Reconnect();
 

@@ -40,7 +40,6 @@ namespace Pallet.ViewModels.Windows
             _UserDialogService = UserDialogService;
             SelectedProfile = _ManagerProfiles.GetSelectedProfile();
             IsSelectedProfileActive = SelectedProfile == _ManagerProfiles.ActiveProfile;
-            
         }
 
         public ICommand ActivateProfileCommand => _ActivateProfileCommand ??= new LambdaCommand(OnActivateProfileCommandExecuted, CanActivateProfileCommandExecute);

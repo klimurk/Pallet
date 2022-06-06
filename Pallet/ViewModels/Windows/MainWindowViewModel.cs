@@ -233,6 +233,7 @@ namespace Pallet.ViewModels.Windows
                 IsCurrentViewModelIsManualViewModel = value is ManualViewModel;
             }
         }
+
         private PalletViewModel _PalletViewModel;
         private ManualViewModel _ManualViewModel;
         private AlarmViewModel _AlarmViewModel;
@@ -322,7 +323,8 @@ namespace Pallet.ViewModels.Windows
 
         #endregion Constructor - Destructor
 
-        #region Private Functions 
+        #region Private Functions
+
         private async Task InitializeOPC()
         {
             _OPCProxy.Connect();
@@ -353,7 +355,9 @@ namespace Pallet.ViewModels.Windows
             IsAutoMode = Signals.First(s => s.Info.Name == "M_Auto");
             IsStopMode = Signals.First(s => s.Info.Name == "M_Halt");
         }
-        #endregion
+
+        #endregion Private Functions
+
         #region Events
 
         #region Active profile property changed event
@@ -568,7 +572,6 @@ namespace Pallet.ViewModels.Windows
 
         private void OnShowManualViewCommandExecuted(object obj)
         {
-
             //CurrentModel?.Dispose();
             CurrentModel = _ManualViewModel ??= new ManualViewModel();
         }
@@ -584,7 +587,6 @@ namespace Pallet.ViewModels.Windows
 
         private void OnShowPalletViewCommandExecuted(object obj)
         {
-
             //CurrentModel?.Dispose();
             CurrentModel = _PalletViewModel ??= new PalletViewModel();
         }

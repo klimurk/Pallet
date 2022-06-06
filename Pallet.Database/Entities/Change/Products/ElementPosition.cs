@@ -33,7 +33,6 @@ public class ElementPosition : Entity
     [Column("OUTLN")]
     public bool OutLN { get; set; }
 
-
     [Column("SIDE")]
     public int Side { get; set; }
 
