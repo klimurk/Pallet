@@ -1,8 +1,10 @@
 ﻿using Pallet.Database.Entities.OPC;
 using Pallet.Database.Repositories.Interfaces;
 using Pallet.Services.Logging.Interfaces;
+using Pallet.Services.Managers.Interfaces;
 
 namespace Pallet.Services.Logging;
+
 /// <summary>
 /// The Alarm logging service create and finish log.
 /// </summary>
@@ -10,20 +12,24 @@ internal class AlarmLogService : IAlarmLogService, IDisposable
 {
     private readonly IDbRepository<AlarmLog> _Logs;
     private readonly IDbRepository<Alarm> _Alarms;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AlarmLogService"/> class.
     /// </summary>
     /// <param name="Logs">The logs.</param>
     /// <param name="Alarms">The alarms.</param>
-    public AlarmLogService( IDbRepository<AlarmLog> Logs, IDbRepository<Alarm> Alarms )
+    public AlarmLogService(IDbRepository<AlarmLog> Logs, IDbRepository<Alarm> Alarms, IManagerLanguage ManagerLanguage)
     {
         _Logs = Logs;
         _Alarms = Alarms;
+
+        "AlarmLogService init --------------".CheckStage();
         AlarmLogs = new()
         {
             _Logs.Items.ToList()
         };
         ResetAlarmSignals();
+        "AlarmLogService complete --------------".CheckStage();
     }
 
     public ObservableCollection<AlarmLog> AlarmLogs { get; }

@@ -1,6 +1,5 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 using Pallet.Infrastructure.Commands.Base;
-using Pallet.Services.Managers;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.View;
 
@@ -10,7 +9,7 @@ internal class OpenProfileWindowCommand : Command
 {
     private ProfilePreviewWindow _Window;
     private readonly IManagerUser _ManagerUser;
-    private readonly ManagerProfiles _ManagerProfiles;
+    private readonly IManagerProfiles _ManagerProfiles;
 
     protected override bool CanExecute(object parameter) => (_Window == null) && (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
 
@@ -37,6 +36,6 @@ internal class OpenProfileWindowCommand : Command
     public OpenProfileWindowCommand()
     {
         _ManagerUser = (IManagerUser)App.Host.Services.GetService(typeof(IManagerUser));
-        _ManagerProfiles = (ManagerProfiles)App.Host.Services.GetService(typeof(IManagerProfiles));
+        _ManagerProfiles = (IManagerProfiles)App.Host.Services.GetService(typeof(IManagerProfiles));
     }
 }

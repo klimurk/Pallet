@@ -33,19 +33,19 @@ public class AlarmLog : NamedEntity, IAlarm
     /// AlarmText English.
     /// </summary>
     [Column("TEXT1", TypeName = "nvarchar(200)")]
-    public string Alarmtext1 { get; set; }
+    public string DescriptionEn { get; set; }
 
     /// <summary>
     /// AlarmText German.
     /// </summary>
     [Column("TEXT2", TypeName = "nvarchar(200)")]
-    public string Alarmtext2 { get; set; }
+    public string DescriptionDe { get; set; }
 
     /// <summary>
     /// AlarmText Czech.
     /// </summary>
     [Column("TEXT3", TypeName = "nvarchar(200)")]
-    public string Alarmtext3 { get; set; }
+    public string DescriptionLocal { get; set; }
 
     /// <summary>
     /// Alarm priority.
@@ -125,9 +125,9 @@ public class AlarmLog : NamedEntity, IAlarm
     public AlarmLog(Alarm alarm)
     {
         Address = alarm.Address;
-        Alarmtext1 = alarm.Alarmtext1;
-        Alarmtext2 = alarm.Alarmtext2;
-        Alarmtext3 = alarm.Alarmtext3;
+        DescriptionEn = alarm.DescriptionEn;
+        DescriptionDe = alarm.DescriptionDe;
+        DescriptionLocal = alarm.DescriptionLocal;
         Device = alarm.Device;
         Inverted = alarm.Inverted;
         Name = alarm.Name;

@@ -1,13 +1,28 @@
 ﻿using Opc.Ua;
-using Pallet.Database.Entities.Change.Profiles;
-using Pallet.Entities.Models;
-using Pallet.Models;
-using Pallet.Models.Interfaces.Base;
+using Pallet.Database.Entities.Base;
+using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Profiles;
 
 namespace Pallet.Services.OPC.Interfaces;
 
 public interface IOPC
 {
+    public Task InitializeOPC();
+
+    public bool? IsAutoMode { get; set; }
+    public bool? IsStopMode { get; set; }
+
+    public bool? IsDataRequest { get; }
+    public bool? IsJobDone { get; }
+    public bool? IsDataActual { get; }
+    public bool? IsHaveFailure { get; }
+    public bool? IsDataReady { get; set; }
+    public bool? IsJobQuittierung { get; set; }
+    public bool? IsAnforderungJobHalt { get; set; }
+    public bool? IsAnforderungJobEnd { get; set; }
+    public bool? IsOP1Acknowledge { get; set; }
+    public bool? IsFQuitt { get; set; }
+
     /// <summary>
     /// Checks the connection status.
     /// </summary>
@@ -41,7 +56,7 @@ public interface IOPC
     /// </summary>
     /// <param name="data">The data.</param>
     /// <param name="SubscriptionName">The subscription name.</param>
-    Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOpc;
+    Task SubscribeValue<T>(T data, string SubscriptionName) where T : NodeOPC;
 
     /// <summary>
     /// Unsubscribe the value.
@@ -52,7 +67,7 @@ public interface IOPC
     /// <summary>
     /// Connects the.
     /// </summary>
-    void Connect();
+    Task Connect();
 
     /// <summary>
     /// Disconnects the.
@@ -65,7 +80,7 @@ public interface IOPC
 
     public void Reconnect();
 
-    public ObservableCollection<AlarmOpc> Alarms { get; set; }
+    public ObservableCollection<Alarm> Alarms { get; set; }
 
-    public ObservableCollection<SignalOPC> Signals { get; set; }
+    public ObservableCollection<Signal> Signals { get; set; }
 }

@@ -12,5 +12,6 @@ public abstract class Entity : IEntity
     /// Id of row in db.
     /// </summary>
     [Column(Order = 0)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ID { get; set; }
 }

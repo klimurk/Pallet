@@ -1,0 +1,358 @@
+8.9.2022 10:44:35 --- create  host builder 
+8.9.2022 10:44:35 --- CreateDefaultBuilder
+8.9.2022 10:44:35 --- UseContentRoot
+8.9.2022 10:44:35 --- ConfigureAppConfiguration
+8.9.2022 10:44:35 --- ConfigureServices
+8.9.2022 10:44:35 --- SetBasePath
+8.9.2022 10:44:35 --- AddJsonFile
+8.9.2022 10:44:36 --- create  host builder 
+8.9.2022 10:44:36 --- CreateDefaultBuilder
+8.9.2022 10:44:36 --- UseContentRoot
+8.9.2022 10:44:36 --- ConfigureAppConfiguration
+8.9.2022 10:44:36 --- ConfigureServices
+8.9.2022 10:44:36 --- SetBasePath
+8.9.2022 10:44:36 --- AddJsonFile
+8.9.2022 12:12:56 --- create  host builder 
+8.9.2022 12:12:56 --- CreateDefaultBuilder
+8.9.2022 12:12:56 --- UseContentRoot
+8.9.2022 12:12:56 --- ConfigureAppConfiguration
+8.9.2022 12:12:56 --- ConfigureServices
+8.9.2022 12:12:56 --- SetBasePath
+8.9.2022 12:12:56 --- AddJsonFile
+8.9.2022 12:13:02 --- create  host builder 
+8.9.2022 12:13:02 --- CreateDefaultBuilder
+8.9.2022 12:13:02 --- UseContentRoot
+8.9.2022 12:13:02 --- ConfigureAppConfiguration
+8.9.2022 12:13:02 --- ConfigureServices
+8.9.2022 12:13:02 --- SetBasePath
+8.9.2022 12:13:02 --- AddJsonFile
+8.9.2022 12:14:37 --- create  host builder 
+8.9.2022 12:14:37 --- CreateDefaultBuilder
+8.9.2022 12:14:37 --- UseContentRoot
+8.9.2022 12:14:37 --- ConfigureAppConfiguration
+8.9.2022 12:14:37 --- ConfigureServices
+8.9.2022 12:14:37 --- SetBasePath
+8.9.2022 12:14:37 --- AddJsonFile
+8.9.2022 12:14:37 --- RegisterDatabase
+8.9.2022 12:14:37 --- Before add transient db init
+8.9.2022 12:14:37 --- Before add db repositories
+8.9.2022 12:14:37 --- Register DATABase COMPLETE ----------
+8.9.2022 12:14:37 --- Register services complete ---------
+8.9.2022 12:14:37 --- Register viewmodels complete --------------
+8.9.2022 12:14:39 --- ManagerUser init --------------
+8.9.2022 12:14:39 --- ManagerProfiles init --------------
+8.9.2022 12:15:23 --- create  host builder 
+8.9.2022 12:15:23 --- CreateDefaultBuilder
+8.9.2022 12:15:23 --- UseContentRoot
+8.9.2022 12:15:23 --- ConfigureAppConfiguration
+8.9.2022 12:15:23 --- ConfigureServices
+8.9.2022 12:15:23 --- SetBasePath
+8.9.2022 12:15:23 --- AddJsonFile
+8.9.2022 12:15:23 --- RegisterDatabase
+8.9.2022 12:15:23 --- Before add transient db init
+8.9.2022 12:15:23 --- Before add db repositories
+8.9.2022 12:15:23 --- Register DATABase COMPLETE ----------
+8.9.2022 12:15:23 --- Register services complete ---------
+8.9.2022 12:15:23 --- Register viewmodels complete --------------
+8.9.2022 12:15:24 --- ManagerUser init --------------
+8.9.2022 12:15:24 --- ManagerProfiles init --------------
+8.9.2022 13:12:57 --- create  host builder 
+8.9.2022 13:12:57 --- CreateDefaultBuilder
+8.9.2022 13:12:57 --- UseContentRoot
+8.9.2022 13:12:57 --- ConfigureAppConfiguration
+8.9.2022 13:12:57 --- ConfigureServices
+8.9.2022 13:12:57 --- SetBasePath
+8.9.2022 13:12:57 --- AddJsonFile
+8.9.2022 13:12:57 --- RegisterDatabase
+8.9.2022 13:12:57 --- Before add transient db init
+8.9.2022 13:12:57 --- Before add db repositories
+8.9.2022 13:12:57 --- Register DATABase COMPLETE ----------
+8.9.2022 13:12:57 --- Register services complete ---------
+8.9.2022 13:12:57 --- Register viewmodels complete --------------
+8.9.2022 13:12:58 --- ManagerUser init --------------
+8.9.2022 13:12:58 --- ManagerProfiles init --------------
+8.9.2022 15:04:56 --- create  host builder 
+8.9.2022 15:04:56 --- CreateDefaultBuilder
+8.9.2022 15:04:56 --- UseContentRoot
+8.9.2022 15:04:56 --- ConfigureAppConfiguration
+8.9.2022 15:04:56 --- ConfigureServices
+8.9.2022 15:04:56 --- SetBasePath
+8.9.2022 15:04:56 --- AddJsonFile
+8.9.2022 15:04:56 --- RegisterDatabase
+8.9.2022 15:04:56 --- Before add transient db init
+8.9.2022 15:04:56 --- Before add db repositories
+8.9.2022 15:04:56 --- Register DATABase COMPLETE ----------
+8.9.2022 15:04:56 --- Register services complete ---------
+8.9.2022 15:04:56 --- Register viewmodels complete --------------
+8.9.2022 15:04:57 --- ManagerUser init --------------
+8.9.2022 15:04:57 --- ManagerProfiles init --------------
+12.9.2022 9:13:38 --- create  host builder 
+12.9.2022 9:13:38 --- CreateDefaultBuilder
+12.9.2022 9:13:38 --- UseContentRoot
+12.9.2022 9:13:38 --- ConfigureAppConfiguration
+12.9.2022 9:13:38 --- ConfigureServices
+12.9.2022 9:13:38 --- SetBasePath
+12.9.2022 9:13:38 --- AddJsonFile
+12.9.2022 9:13:38 --- RegisterDatabase
+12.9.2022 9:13:38 --- Before add transient db init
+12.9.2022 9:13:38 --- Before add db repositories
+12.9.2022 9:13:38 --- Register DATABase COMPLETE ----------
+12.9.2022 9:13:38 --- Register services complete ---------
+12.9.2022 9:13:38 --- Register viewmodels complete --------------
+12.9.2022 9:13:40 --- ManagerUser init --------------
+12.9.2022 9:13:40 --- ManagerProfiles init --------------
+12.9.2022 10:07:16 --- create  host builder 
+12.9.2022 10:07:16 --- CreateDefaultBuilder
+12.9.2022 10:07:16 --- UseContentRoot
+12.9.2022 10:07:16 --- ConfigureAppConfiguration
+12.9.2022 10:07:16 --- ConfigureServices
+12.9.2022 10:07:16 --- SetBasePath
+12.9.2022 10:07:16 --- AddJsonFile
+12.9.2022 10:07:17 --- RegisterDatabase
+12.9.2022 10:07:17 --- Before add transient db init
+12.9.2022 10:07:17 --- Before add db repositories
+12.9.2022 10:07:17 --- Register DATABase COMPLETE ----------
+12.9.2022 10:07:17 --- Register services complete ---------
+12.9.2022 10:07:17 --- Register viewmodels complete --------------
+12.9.2022 10:07:19 --- ManagerUser init --------------
+12.9.2022 10:07:19 --- ManagerProfiles init --------------
+12.9.2022 12:02:45 --- create  host builder 
+12.9.2022 12:02:45 --- CreateDefaultBuilder
+12.9.2022 12:02:45 --- UseContentRoot
+12.9.2022 12:02:45 --- ConfigureAppConfiguration
+12.9.2022 12:02:45 --- ConfigureServices
+12.9.2022 12:02:45 --- SetBasePath
+12.9.2022 12:02:45 --- AddJsonFile
+12.9.2022 12:02:46 --- RegisterDatabase
+12.9.2022 12:02:46 --- Before add transient db init
+12.9.2022 12:02:46 --- Before add db repositories
+12.9.2022 12:02:46 --- Register DATABase COMPLETE ----------
+12.9.2022 12:02:46 --- Register services complete ---------
+12.9.2022 12:02:46 --- Register viewmodels complete --------------
+12.9.2022 12:02:47 --- ManagerUser init --------------
+12.9.2022 12:02:47 --- ManagerProfiles init --------------
+12.9.2022 14:53:38 --- create  host builder 
+12.9.2022 14:53:38 --- CreateDefaultBuilder
+12.9.2022 14:53:38 --- UseContentRoot
+12.9.2022 14:53:38 --- ConfigureAppConfiguration
+12.9.2022 14:53:38 --- ConfigureServices
+12.9.2022 14:53:38 --- SetBasePath
+12.9.2022 14:53:38 --- AddJsonFile
+12.9.2022 14:53:38 --- RegisterDatabase
+12.9.2022 14:53:38 --- Before add transient db init
+12.9.2022 14:53:38 --- Before add db repositories
+12.9.2022 14:53:38 --- Register DATABase COMPLETE ----------
+12.9.2022 14:53:38 --- Register services complete ---------
+12.9.2022 14:53:38 --- Register viewmodels complete --------------
+12.9.2022 14:53:39 --- ManagerUser init --------------
+12.9.2022 14:53:39 --- ManagerProfiles init --------------
+13.9.2022 9:30:17 --- create  host builder 
+13.9.2022 9:30:17 --- CreateDefaultBuilder
+13.9.2022 9:30:17 --- UseContentRoot
+13.9.2022 9:30:17 --- ConfigureAppConfiguration
+13.9.2022 9:30:17 --- ConfigureServices
+13.9.2022 9:30:18 --- SetBasePath
+13.9.2022 9:30:18 --- AddJsonFile
+13.9.2022 9:30:18 --- RegisterDatabase
+13.9.2022 9:30:18 --- Before add transient db init
+13.9.2022 9:30:18 --- Before add db repositories
+13.9.2022 9:30:18 --- Register DATABase COMPLETE ----------
+13.9.2022 9:30:18 --- Register services complete ---------
+13.9.2022 9:30:18 --- Register viewmodels complete --------------
+13.9.2022 9:30:21 --- ManagerUser init --------------
+13.9.2022 9:30:21 --- ManagerProfiles init --------------
+13.9.2022 14:58:29 --- create  host builder 
+13.9.2022 14:58:29 --- CreateDefaultBuilder
+13.9.2022 14:58:29 --- UseContentRoot
+13.9.2022 14:58:29 --- ConfigureAppConfiguration
+13.9.2022 14:58:29 --- ConfigureServices
+13.9.2022 14:58:29 --- SetBasePath
+13.9.2022 14:58:29 --- AddJsonFile
+13.9.2022 14:58:29 --- RegisterDatabase
+13.9.2022 14:58:29 --- Before add transient db init
+13.9.2022 14:58:29 --- Before add db repositories
+13.9.2022 14:58:29 --- Register DATABase COMPLETE ----------
+13.9.2022 14:58:29 --- Register services complete ---------
+13.9.2022 14:58:29 --- Register viewmodels complete --------------
+13.9.2022 14:58:30 --- ManagerUser init --------------
+13.9.2022 14:58:30 --- ManagerProfiles init --------------
+13.9.2022 15:06:37 --- create  host builder 
+13.9.2022 15:06:37 --- CreateDefaultBuilder
+13.9.2022 15:06:37 --- UseContentRoot
+13.9.2022 15:06:37 --- ConfigureAppConfiguration
+13.9.2022 15:06:37 --- ConfigureServices
+13.9.2022 15:06:37 --- SetBasePath
+13.9.2022 15:06:37 --- AddJsonFile
+13.9.2022 15:06:37 --- RegisterDatabase
+13.9.2022 15:06:37 --- Before add transient db init
+13.9.2022 15:06:37 --- Before add db repositories
+13.9.2022 15:06:37 --- Register DATABase COMPLETE ----------
+13.9.2022 15:06:37 --- Register services complete ---------
+13.9.2022 15:06:37 --- Register viewmodels complete --------------
+13.9.2022 15:06:39 --- ManagerUser init --------------
+13.9.2022 15:06:39 --- ManagerProfiles init --------------
+13.9.2022 15:18:14 --- create  host builder 
+13.9.2022 15:18:14 --- CreateDefaultBuilder
+13.9.2022 15:18:14 --- UseContentRoot
+13.9.2022 15:18:14 --- ConfigureAppConfiguration
+13.9.2022 15:18:14 --- ConfigureServices
+13.9.2022 15:18:14 --- SetBasePath
+13.9.2022 15:18:14 --- AddJsonFile
+13.9.2022 15:18:14 --- RegisterDatabase
+13.9.2022 15:18:14 --- Before add transient db init
+13.9.2022 15:18:14 --- Before add db repositories
+13.9.2022 15:18:14 --- Register DATABase COMPLETE ----------
+13.9.2022 15:18:14 --- Register services complete ---------
+13.9.2022 15:18:14 --- Register viewmodels complete --------------
+13.9.2022 15:18:15 --- ManagerUser init --------------
+13.9.2022 15:18:15 --- ManagerProfiles init --------------
+14.9.2022 9:35:17 --- create  host builder 
+14.9.2022 9:35:17 --- CreateDefaultBuilder
+14.9.2022 9:35:17 --- UseContentRoot
+14.9.2022 9:35:17 --- ConfigureAppConfiguration
+14.9.2022 9:35:17 --- ConfigureServices
+14.9.2022 9:35:17 --- SetBasePath
+14.9.2022 9:35:17 --- AddJsonFile
+14.9.2022 9:35:17 --- RegisterDatabase
+14.9.2022 9:35:17 --- Before add transient db init
+14.9.2022 9:35:17 --- Before add db repositories
+14.9.2022 9:35:17 --- Register DATABase COMPLETE ----------
+14.9.2022 9:35:17 --- Register services complete ---------
+14.9.2022 9:35:17 --- Register viewmodels complete --------------
+14.9.2022 9:35:19 --- ManagerUser init --------------
+14.9.2022 9:35:19 --- ManagerProfiles init --------------
+14.9.2022 9:35:30 --- create  host builder 
+14.9.2022 9:35:30 --- CreateDefaultBuilder
+14.9.2022 9:35:30 --- UseContentRoot
+14.9.2022 9:35:30 --- ConfigureAppConfiguration
+14.9.2022 9:35:30 --- ConfigureServices
+14.9.2022 9:35:30 --- SetBasePath
+14.9.2022 9:35:30 --- AddJsonFile
+14.9.2022 9:35:30 --- RegisterDatabase
+14.9.2022 9:35:30 --- Before add transient db init
+14.9.2022 9:35:30 --- Before add db repositories
+14.9.2022 9:35:30 --- Register DATABase COMPLETE ----------
+14.9.2022 9:35:30 --- Register services complete ---------
+14.9.2022 9:35:30 --- Register viewmodels complete --------------
+14.9.2022 9:35:31 --- ManagerUser init --------------
+14.9.2022 9:35:31 --- ManagerProfiles init --------------
+14.9.2022 9:51:18 --- create  host builder 
+14.9.2022 9:51:18 --- CreateDefaultBuilder
+14.9.2022 9:51:18 --- UseContentRoot
+14.9.2022 9:51:18 --- ConfigureAppConfiguration
+14.9.2022 9:51:18 --- ConfigureServices
+14.9.2022 9:51:19 --- SetBasePath
+14.9.2022 9:51:19 --- AddJsonFile
+14.9.2022 9:51:19 --- RegisterDatabase
+14.9.2022 9:51:19 --- Before add transient db init
+14.9.2022 9:51:19 --- Before add db repositories
+14.9.2022 9:51:19 --- Register DATABase COMPLETE ----------
+14.9.2022 9:51:19 --- Register services complete ---------
+14.9.2022 9:51:19 --- Register viewmodels complete --------------
+14.9.2022 9:51:20 --- ManagerUser init --------------
+14.9.2022 9:51:20 --- ManagerProfiles init --------------
+14.9.2022 10:08:25 --- create  host builder 
+14.9.2022 10:08:25 --- CreateDefaultBuilder
+14.9.2022 10:08:25 --- UseContentRoot
+14.9.2022 10:08:25 --- ConfigureAppConfiguration
+14.9.2022 10:08:25 --- ConfigureServices
+14.9.2022 10:08:25 --- SetBasePath
+14.9.2022 10:08:25 --- AddJsonFile
+14.9.2022 10:08:26 --- RegisterDatabase
+14.9.2022 10:08:26 --- Before add transient db init
+14.9.2022 10:08:26 --- Before add db repositories
+14.9.2022 10:08:26 --- Register DATABase COMPLETE ----------
+14.9.2022 10:08:26 --- Register services complete ---------
+14.9.2022 10:08:26 --- Register viewmodels complete --------------
+14.9.2022 10:08:27 --- ManagerUser init --------------
+14.9.2022 10:08:27 --- ManagerProfiles init --------------
+14.9.2022 10:09:50 --- create  host builder 
+14.9.2022 10:09:50 --- CreateDefaultBuilder
+14.9.2022 10:09:50 --- UseContentRoot
+14.9.2022 10:09:50 --- ConfigureAppConfiguration
+14.9.2022 10:09:50 --- ConfigureServices
+14.9.2022 10:09:50 --- SetBasePath
+14.9.2022 10:09:50 --- AddJsonFile
+14.9.2022 10:09:50 --- RegisterDatabase
+14.9.2022 10:09:50 --- Before add transient db init
+14.9.2022 10:09:50 --- Before add db repositories
+14.9.2022 10:09:50 --- Register DATABase COMPLETE ----------
+14.9.2022 10:09:50 --- Register services complete ---------
+14.9.2022 10:09:50 --- Register viewmodels complete --------------
+14.9.2022 10:09:51 --- ManagerUser init --------------
+14.9.2022 10:09:51 --- ManagerProfiles init --------------
+14.9.2022 10:15:36 --- create  host builder 
+14.9.2022 10:15:36 --- CreateDefaultBuilder
+14.9.2022 10:15:36 --- UseContentRoot
+14.9.2022 10:15:36 --- ConfigureAppConfiguration
+14.9.2022 10:15:36 --- ConfigureServices
+14.9.2022 10:15:36 --- SetBasePath
+14.9.2022 10:15:36 --- AddJsonFile
+14.9.2022 10:15:36 --- RegisterDatabase
+14.9.2022 10:15:36 --- Before add transient db init
+14.9.2022 10:15:36 --- Before add db repositories
+14.9.2022 10:15:36 --- Register DATABase COMPLETE ----------
+14.9.2022 10:15:36 --- Register services complete ---------
+14.9.2022 10:15:36 --- Register viewmodels complete --------------
+14.9.2022 10:15:37 --- ManagerUser init --------------
+14.9.2022 10:15:37 --- ManagerProfiles init --------------
+14.9.2022 10:18:08 --- create  host builder 
+14.9.2022 10:18:08 --- CreateDefaultBuilder
+14.9.2022 10:18:08 --- UseContentRoot
+14.9.2022 10:18:08 --- ConfigureAppConfiguration
+14.9.2022 10:18:08 --- ConfigureServices
+14.9.2022 10:18:08 --- SetBasePath
+14.9.2022 10:18:08 --- AddJsonFile
+14.9.2022 10:18:09 --- RegisterDatabase
+14.9.2022 10:18:09 --- Before add transient db init
+14.9.2022 10:18:09 --- Before add db repositories
+14.9.2022 10:18:09 --- Register DATABase COMPLETE ----------
+14.9.2022 10:18:09 --- Register services complete ---------
+14.9.2022 10:18:09 --- Register viewmodels complete --------------
+14.9.2022 10:18:10 --- ManagerUser init --------------
+14.9.2022 10:18:10 --- ManagerProfiles init --------------
+14.9.2022 10:31:02 --- create  host builder 
+14.9.2022 10:31:02 --- CreateDefaultBuilder
+14.9.2022 10:31:02 --- UseContentRoot
+14.9.2022 10:31:02 --- ConfigureAppConfiguration
+14.9.2022 10:31:02 --- ConfigureServices
+14.9.2022 10:31:02 --- SetBasePath
+14.9.2022 10:31:02 --- AddJsonFile
+14.9.2022 10:31:02 --- RegisterDatabase
+14.9.2022 10:31:02 --- Before add transient db init
+14.9.2022 10:31:02 --- Before add db repositories
+14.9.2022 10:31:02 --- Register DATABase COMPLETE ----------
+14.9.2022 10:31:02 --- Register services complete ---------
+14.9.2022 10:31:02 --- Register viewmodels complete --------------
+14.9.2022 10:31:04 --- ManagerUser init --------------
+14.9.2022 10:31:04 --- ManagerProfiles init --------------
+14.9.2022 10:31:12 --- create  host builder 
+14.9.2022 10:31:12 --- CreateDefaultBuilder
+14.9.2022 10:31:12 --- UseContentRoot
+14.9.2022 10:31:12 --- ConfigureAppConfiguration
+14.9.2022 10:31:12 --- ConfigureServices
+14.9.2022 10:31:12 --- SetBasePath
+14.9.2022 10:31:12 --- AddJsonFile
+14.9.2022 10:31:12 --- RegisterDatabase
+14.9.2022 10:31:12 --- Before add transient db init
+14.9.2022 10:31:12 --- Before add db repositories
+14.9.2022 10:31:12 --- Register DATABase COMPLETE ----------
+14.9.2022 10:31:12 --- Register services complete ---------
+14.9.2022 10:31:12 --- Register viewmodels complete --------------
+14.9.2022 10:31:13 --- ManagerUser init --------------
+14.9.2022 10:31:13 --- ManagerProfiles init --------------
+15.9.2022 10:58:51 --- create  host builder 
+15.9.2022 10:58:51 --- CreateDefaultBuilder
+15.9.2022 10:58:51 --- UseContentRoot
+15.9.2022 10:58:51 --- ConfigureAppConfiguration
+15.9.2022 10:58:51 --- ConfigureServices
+15.9.2022 10:58:51 --- SetBasePath
+15.9.2022 10:58:51 --- AddJsonFile
+15.9.2022 10:58:51 --- RegisterDatabase
+15.9.2022 10:58:51 --- Before add transient db init
+15.9.2022 10:58:51 --- Before add db repositories
+15.9.2022 10:58:51 --- Register DATABase COMPLETE ----------
+15.9.2022 10:58:51 --- Register services complete ---------
+15.9.2022 10:58:51 --- Register viewmodels complete --------------
+15.9.2022 10:58:53 --- ManagerUser init --------------
+15.9.2022 10:58:53 --- ManagerProfiles init --------------

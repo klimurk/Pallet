@@ -1,6 +1,7 @@
 ﻿using Pallet.Infrastructure.Converters.Converters.Base;
 
 namespace Pallet.Infrastructure.Converters.Converters;
+
 /// <summary>
 /// The alarm log color converter.
 /// </summary>

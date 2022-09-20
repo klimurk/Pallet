@@ -24,6 +24,7 @@ internal static class Registator
             .AddSingleton<IOPC, OPCProxy>()
             .AddTransient<IUserDialogService, UserDialogService>()
             .AddSingleton<IDrawer, Drawer>()
+            .AddSingleton<ILogService, LogService>()
             .AddTransient<IManagerLanguage, ManagerLanguage>()
     ;
 }

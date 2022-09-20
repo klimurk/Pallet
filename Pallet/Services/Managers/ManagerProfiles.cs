@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 using Pallet.Database.Repositories.Interfaces;
 using Pallet.Services.Managers.Interfaces;
 
@@ -21,7 +21,9 @@ namespace Pallet.Services.Managers
             private set
             {
                 _ActiveProfile = value;
+
                 _ActiveProfile.DateLastUse = DateTime.Now;
+                OnActiveProfileChanged();
             }
         }
 
@@ -31,7 +33,11 @@ namespace Pallet.Services.Managers
         /// Initializes a new instance of the <see cref="ManagerProfiles"/> class.
         /// </summary>
         /// <param name="RepositoryProfiles">The repository profiles.</param>
-        public ManagerProfiles(IDbRepository<Profile> RepositoryProfiles) => _RepositoryProfiles = RepositoryProfiles;
+        public ManagerProfiles(IDbRepository<Profile> RepositoryProfiles)
+        {
+            _RepositoryProfiles = RepositoryProfiles;
+            "ManagerProfiles init --------------".CheckStage();
+        }
 
         /// <summary>
         ///All items.
@@ -128,8 +134,6 @@ namespace Pallet.Services.Managers
             ActiveProfile = _RepositoryProfiles.Items?
                 .FirstOrDefault(profile => profile.Name == _ChosenProfile.Name);
 
-            OnActiveProfileChanged();
-
             _RepositoryProfiles.UpdateAsync(ActiveProfile);
         }
 
@@ -145,5 +149,12 @@ namespace Pallet.Services.Managers
         /// Active profile changed events executer.
         /// </summary>
         private void OnActiveProfileChanged() => ActiveProfileChanged?.Invoke(this, new());
+
+        public void DeactivateProfile()
+        {
+            _ChosenProfile = null;
+            _ActiveProfile = null;
+            OnActiveProfileChanged();
+        }
     }
 }

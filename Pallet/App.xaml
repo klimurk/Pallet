@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Pallet.ViewModels"
              StartupUri="View\Windows\MainWindow.xaml">
+
     <Application.Resources>
 
         <ResourceDictionary>

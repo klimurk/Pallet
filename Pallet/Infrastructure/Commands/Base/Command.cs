@@ -21,9 +21,9 @@ internal abstract class Command : DependencyObject, ICommand
         }
     }
 
-    public event EventHandler ExecutableChanged;
+    public event EventHandler? ExecutableChanged;
 
-    public event EventHandler CanExecuteChanged
+    public event EventHandler? CanExecuteChanged
     {
         add => CommandManager.RequerySuggested += value;
         remove => CommandManager.RequerySuggested -= value;

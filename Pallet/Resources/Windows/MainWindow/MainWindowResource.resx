@@ -148,4 +148,10 @@
   <data name="Login" xml:space="preserve">
     <value>Авторизоваться</value>
   </data>
+  <data name="NotAutorized" xml:space="preserve">
+    <value>Не авторизован</value>
+  </data>
+  <data name="LogHistory" xml:space="preserve">
+    <value>Журнал событий</value>
+  </data>
 </root>

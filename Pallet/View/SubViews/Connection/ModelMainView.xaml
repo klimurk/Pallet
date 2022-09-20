@@ -14,4 +14,8 @@
     <DataTemplate DataType="{x:Type vm:ManualViewModel}">
         <uc:ManualView DataContext="{Binding }" />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:LogViewModel}">
+        <uc:LogView DataContext="{Binding }" />
+    </DataTemplate>
 </ResourceDictionary>

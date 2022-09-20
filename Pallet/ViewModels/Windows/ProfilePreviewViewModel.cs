@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 using Pallet.Infrastructure.Commands;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
@@ -53,6 +53,20 @@ namespace Pallet.ViewModels.Windows
             if (!_UserDialogService.ConfirmWarning("Activate profile?", "Activate?")) return;
 
             _ManagerProfiles.ActivateSelectedProfile();
+            ((Window)p).Close();
+        }
+
+        public ICommand DeactivateProfileCommand => _DeactivateProfileCommand ??= new LambdaCommand(OnDeactivateProfileCommandExecuted, CanDeactivateProfileCommandExecute);
+
+        private ICommand _DeactivateProfileCommand;
+
+        private static bool CanDeactivateProfileCommandExecute(object p) => true;
+
+        private void OnDeactivateProfileCommandExecuted(object p)
+        {
+            if (!_UserDialogService.ConfirmWarning("Deactivate profile?", "Activate?")) return;
+
+            _ManagerProfiles.DeactivateProfile();
             ((Window)p).Close();
         }
     }

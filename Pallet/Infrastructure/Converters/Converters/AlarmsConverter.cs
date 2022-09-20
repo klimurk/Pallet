@@ -1,10 +1,10 @@
-﻿using Pallet.Infrastructure.Converters.Converters.Base;
-using Pallet.Models;
+﻿using Pallet.Database.Entities.OPC;
+using Pallet.Infrastructure.Converters.Converters.Base;
 using System.Windows.Markup;
 
 namespace Pallet.Infrastructure.Converters.Converters;
 
-[ValueConversion(typeof(IEnumerable<AlarmOpc>), typeof(IEnumerable<AlarmOpc>))]
+[ValueConversion(typeof(IEnumerable<Alarm>), typeof(IEnumerable<Alarm>))]
 internal class AlarmsConverter : Converter
 {
     [ConstructorArgument("Cutoff")]
@@ -12,21 +12,21 @@ internal class AlarmsConverter : Converter
 
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value == null || value is not IEnumerable<AlarmOpc>) return false;
-        List<AlarmOpc> retList = new();
-        foreach (var alarm in (IEnumerable<AlarmOpc>)value)
+        if (value == null || value is not IEnumerable<Alarm>) return false;
+        List<Alarm> retList = new();
+        foreach (var alarm in (IEnumerable<Alarm>)value)
         {
             switch (alarm.Value)
             {
                 case int intVal:
-                    if (intVal >= Cutoff ^ alarm.Info.Inverted) retList.Add(alarm);
+                    if (intVal >= Cutoff ^ alarm.Inverted) retList.Add(alarm);
                     break;
 
                 case bool boolVal:
-                    if (boolVal ^ alarm.Info.Inverted) retList.Add(alarm);
+                    if (boolVal ^ alarm.Inverted) retList.Add(alarm);
                     break;
 
-                default: throw new NotSupportedException(nameof(AlarmsConverter) + " not support " + ((AlarmOpc)value).Value.GetType());
+                default: throw new NotSupportedException(nameof(AlarmsConverter) + " not support " + ((Alarm)value).Value.GetType());
             }
         }
 

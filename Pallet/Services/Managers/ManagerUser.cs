@@ -10,13 +10,14 @@ namespace Pallet.Services.Managers
         private readonly IDbRepository<User> _UserRepository;
 
         public User? LoginedUser { get; set; }
-        public List<User> Users => _UserRepository.Items.ToList();
 
-        public ManagerUser(
-            IDbRepository<User> UserRepository
-            )
+        public IQueryable<User> Users => _UserRepository.Items;
+
+        public ManagerUser(IDbRepository<User> UserRepository)
         {
             _UserRepository = UserRepository;
+            "ManagerUser init --------------".CheckStage();
+            Login("administrator", "btadmin");
         }
 
         public bool Login(string name, string password)
@@ -58,7 +59,7 @@ namespace Pallet.Services.Managers
 
         public void LogOut() => LoginedUser = null;
 
-        public bool IsLogined => LoginedUser != null || string.IsNullOrEmpty(LoginedUser?.Name);
+        public bool IsLogined => LoginedUser != null || !string.IsNullOrEmpty(LoginedUser?.Name);
 
         public enum UserRoleNum
         {

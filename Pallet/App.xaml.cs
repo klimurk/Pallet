@@ -15,11 +15,11 @@ namespace Pallet
     {
         #region Fields
 
-        public static Window ActivedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
+        public static Window? ActivedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
 
-        public static Window FocusedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsFocused);
+        public static Window? FocusedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsFocused);
 
-        public static Window CurrentWindow => FocusedWindow ?? ActivedWindow;
+        public static Window? CurrentWindow => FocusedWindow ?? ActivedWindow;
 
         public static bool IsDesignMode { get; private set; } = true;
 
@@ -33,26 +33,54 @@ namespace Pallet
 
         private static IHost? __Host;
 
-        public static IHost Host => __Host ??= Program
-            .CreateHostBuilder(Environment.GetCommandLineArgs())
-            .Build();
+        public static IHost Host
+        {
+            get
+            {
+                if (__Host is not null) return __Host;
+                else
+                {
+                    IHostBuilder hb = Program.CreateHostBuilder(Environment.GetCommandLineArgs());
+                    try
+                    {
+                        __Host = hb.Build();
+                    }
+                    catch (Exception e) { e.ExceptionToString(); }
+                    return __Host;
+                }
+            }
+        }
 
         public static IServiceProvider Services => Host.Services;
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            string str = "Startup";
+            str.CheckStage();
             IsDesignMode = false;
             var host = Host;
 
+            "Before Services.CreateScope()".CheckStage();
             using (var scope = Services.CreateScope())
+            {
+                "Before get required service db init".CheckStage();
                 await scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync();
-
-            base.OnStartup(e);
-            await host.StartAsync().ConfigureAwait(false);
+            }
+            try
+            {
+                base.OnStartup(e);
+                await host.StartAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionToString();
+            }
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
+            string str = "Exit";
+            str.CheckStage();
             base.OnExit(e);
             var host = Host;
             await host.StopAsync().ConfigureAwait(false);
@@ -65,20 +93,13 @@ namespace Pallet
         private static string GetSourceCodePath([CallerFilePath] string Path = "") => Path; // подстановка пути в дизайнмоде
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-            => services
-                    .RegisterDatabase(host.Configuration.GetSection("Database"))
-                    .RegisterServices()
-                    .RegisterViewModels();
-
-        public static void ChangeCulture(CultureInfo newCulture)
         {
-            Thread.CurrentThread.CurrentCulture = newCulture;
-            Thread.CurrentThread.CurrentUICulture = newCulture;
-            var oldWindow = App.Current.MainWindow;
-            App.Current.MainWindow = new MainWindow();
-            App.Current.MainWindow.Show();
-
-            oldWindow.Close();
+            services.RegisterDatabase(host.Configuration.GetSection("Database"));
+            "Register DATABase COMPLETE ----------".CheckStage();
+            services.RegisterServices();
+            "Register services complete ---------".CheckStage();
+            services.RegisterViewModels();
+            "Register viewmodels complete --------------".CheckStage();
         }
     }
 }

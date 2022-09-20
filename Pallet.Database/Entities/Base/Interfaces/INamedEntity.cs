@@ -1,4 +1,5 @@
 ﻿namespace Pallet.Database.Entities.Base.Interfaces;
+
 /// <summary>
 /// Base entity with id and name for database.
 /// </summary>

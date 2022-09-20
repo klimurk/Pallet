@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Types;
+﻿using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Infrastructure.Converters.ParametricConverters.Base;
 using System.Windows.Markup;
 
@@ -21,7 +21,7 @@ internal class ActiveNailTypeConverter : ParametricConverter
         typeof(ActiveNailTypeConverter),
         new PropertyMetadata(""));
 
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((Nailer)value).Name == ActiveNailType;
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((Nailer)value)?.Name == ActiveNailType;
 
     protected override Freezable CreateInstanceCore() => new ActiveNailTypeConverter { ActiveNailType = ActiveNailType };
 }

@@ -11,7 +11,9 @@ namespace Pallet.ViewModels
             .AddSingleton<MainWindowViewModel>()
             .AddTransient<ProfilePreviewViewModel>()
             .AddTransient<LoginViewModel>()
+
             .AddTransient<AlarmViewModel>()
+            .AddSingleton<LogViewModel>()
             .AddTransient<ManualViewModel>()
             .AddSingleton<PalletViewModel>()
         ;

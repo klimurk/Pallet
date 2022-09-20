@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Types;
+﻿using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Infrastructure.Commands.Base;
 using Pallet.Services.UserDialog.Interfaces;
 using Pallet.ViewModels.SubView;
@@ -11,8 +11,8 @@ internal class ActivateNailTypeCommand : Command
 
     protected override void Execute(object parameter)
     {
-        ManualViewModel _ManualViewModel = App.Host.Services.GetService(typeof(ManualViewModel)) as ManualViewModel;
-        IUserDialogService UserDialogService = App.Host.Services.GetService(typeof(IUserDialogService)) as IUserDialogService;
+        ManualViewModel? _ManualViewModel = App.Host.Services.GetService(typeof(ManualViewModel)) as ManualViewModel;
+        IUserDialogService? UserDialogService = App.Host.Services.GetService(typeof(IUserDialogService)) as IUserDialogService;
 
         if (!UserDialogService.ConfirmWarning("Activate Nail Type" + ((Nailer)parameter).Name + "?", "Activate?")) return;
         _ManualViewModel.NailTypeActive = (Nailer)parameter;

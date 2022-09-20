@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 using System.Windows.Shapes;
 using static Pallet.Services.Draw.Drawer;
 
@@ -96,5 +96,5 @@ public interface IDrawer
     /// <param name="sel">The sel.</param>
     public void HighlightSelected(string sel = "");
 
-    public event EventHandler ProductElementTouch;
+    //public event EventHandler ProductElementTouch;
 }

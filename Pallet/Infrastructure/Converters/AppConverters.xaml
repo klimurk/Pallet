@@ -7,4 +7,5 @@
     <l:AlarmLogColorConverter x:Key="AlarmLogColorConverter" />
     <l:UserConverter x:Key="UserConverter" />
     <l:ImageConverter x:Key="ImageConverter" />
+    <l:TranslateDatabaseConverter x:Key="TranslateDatabaseConverter" />
 </ResourceDictionary>

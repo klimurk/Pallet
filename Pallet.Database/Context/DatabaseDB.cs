@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Pallet.Database.Entities.Change.Products;
-using Pallet.Database.Entities.Change.Profiles;
-using Pallet.Database.Entities.Change.Tables;
-using Pallet.Database.Entities.Change.Tools;
-using Pallet.Database.Entities.Change.Types;
+using Pallet.Database.Entities.Log;
 using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Products;
+using Pallet.Database.Entities.ProfileData.Profiles;
+using Pallet.Database.Entities.ProfileData.Tables;
+using Pallet.Database.Entities.ProfileData.Tools;
+using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Database.Entities.Users;
 
 namespace Pallet.Database.Context;
@@ -15,42 +16,75 @@ namespace Pallet.Database.Context;
 /// </summary>
 public class DatabaseDB : DbContext
 {
+    #region System context
+
     /// <summary>
     /// Context for users.
     /// </summary>
     public DbSet<User> Users { get; set; }
+
+    /// <summary>
+    /// Context for EventLogs.
+    /// </summary>
+    public DbSet<Log> Logs { get; set; }
+
+    /// <summary>
+    /// Context for users.
+    /// </summary>
+    public DbSet<SystemEvent> SystemEvents { get; set; }
+
+    #endregion System context
+
+    #region OPC context
+
     /// <summary>
     /// Context for Alarm logs.
     /// </summary>
     public DbSet<AlarmLog> AlarmLogs { get; set; }
+
     /// <summary>
     /// Context for alarms definitions.
     /// </summary>
     public DbSet<Alarm> Alarms { get; set; }
+
     /// <summary>
     /// Context for signals definitions.
     /// </summary>
     public DbSet<Signal> Signals { get; set; }
+
+    #endregion OPC context
+
+    #region Profile context
+
     /// <summary>
     /// Context for profiles.
     /// </summary>
     public DbSet<Profile> Profiles { get; set; }
+
     /// <summary>
     /// Context for products.
     /// </summary>
+    public DbSet<ProfileProducts> ProfileProducts { get; set; }
+
+    public DbSet<ProfileTools> ProfileTools { get; set; }
     public DbSet<Product> Products { get; set; }
+
     /// <summary>
     /// Context for positions of elements.
     /// </summary>
+    ///
     public DbSet<ElementPosition> ElementPositions { get; set; }
+
     /// <summary>
     /// Context for elements.
     /// </summary>
     public DbSet<Element> Elements { get; set; }
+
     /// <summary>
     /// Context for nailers.
     /// </summary>
     public DbSet<Nailer> Nailers { get; set; }
+
     /// <summary>
     /// Context for list of nails.
     /// </summary>
@@ -66,6 +100,10 @@ public class DatabaseDB : DbContext
     /// </summary>
     public DbSet<Tool> Tools { get; set; }
 
+    #endregion Profile context
+
+    #region Ctor
+
     /// <summary>
     /// Initializes a new instance of the <see cref="DatabaseDB"/> class.
     /// Set lazy loading disabled (internal objects must be loaded)
@@ -76,6 +114,10 @@ public class DatabaseDB : DbContext
         ChangeTracker.LazyLoadingEnabled = false;
     }
 
+    #endregion Ctor
+
+    #region Creating model (convertors, keys...)
+
     /// <summary>
     /// On the model creating.
     /// Convert db values to internal and back
@@ -84,6 +126,13 @@ public class DatabaseDB : DbContext
     /// <param name="modelBuilder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Keys
+        modelBuilder.Entity<Profile>().HasIndex(p => p.Name).IsUnique();
+        modelBuilder.Entity<Product>().HasIndex(p => p.Name).IsUnique();
+        modelBuilder.Entity<Table>().HasIndex(p => p.Name).IsUnique();
+        //modelBuilder.Entity<Nailer>().HasIndex(p => p.Name).IsUnique();
+        //modelBuilder.Entity<Element>().HasIndex(p => p.Name).IsUnique();
+
         // With converters
         var Pos10To1Converter = new ValueConverter<double, int>(
         from => (int)(from * 10),
@@ -260,7 +309,7 @@ public class DatabaseDB : DbContext
 
         // Add all relatives datas
         modelBuilder.Entity<ProfileProducts>()
-            .HasKey(bc => new { bc.ProductId, bc.ProfileId });
+            .HasKey(bc => new { bc.ProductId, bc.ProfileId, bc.Position });
         modelBuilder.Entity<ProfileProducts>()
             .HasOne(bc => bc.Profile)
             .WithMany(b => b.ProfileProducts)
@@ -284,5 +333,19 @@ public class DatabaseDB : DbContext
         modelBuilder.Entity<Profile>()
             .Property(p => p.DateCreate)
             .ValueGeneratedOnAdd();
+
+        //modelBuilder.Entity<Nailer>()
+        //    .HasKey(bc => new { bc.Name, bc.Dock });
     }
+
+    #endregion Creating model (convertors, keys...)
+
+    #region Extensions
+
+    public void RefreshAll()
+    {
+        foreach (var entity in ChangeTracker.Entries()) entity.Reload();
+    }
+
+    #endregion Extensions
 }

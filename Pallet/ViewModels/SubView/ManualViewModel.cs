@@ -1,9 +1,8 @@
-﻿using Pallet.Database.Entities.Change.Types;
-using Pallet.Entities.Models;
+﻿using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Infrastructure.Commands;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.OPC.Interfaces;
-using Pallet.Services.UserDialog.Interfaces;
 using Pallet.ViewModels.Base;
 
 namespace Pallet.ViewModels.SubView
@@ -16,7 +15,7 @@ namespace Pallet.ViewModels.SubView
 
         private readonly IManagerNailTypes _ManagerNailTypes;
         private readonly IManagerUser _UserManager;
-        private readonly ObservableCollection<SignalOPC> _Signals;
+        private readonly ObservableCollection<Signal> _Signals;
 
         #endregion Services
 
@@ -46,16 +45,17 @@ namespace Pallet.ViewModels.SubView
 
         #region Constructor
 
-        public ManualViewModel()
+        public ManualViewModel(IManagerNailTypes ManagerNailTypes, IManagerUser ManagerUser, IOPC OPC)
         {
-            _Signals = (App.Services.GetService(typeof(IOPC)) as IOPC)?.Signals;
-            _ManagerNailTypes = App.Services.GetService(typeof(IManagerNailTypes)) as IManagerNailTypes;
-            _UserManager = App.Services.GetService(typeof(IManagerUser)) as IManagerUser;
+            _ManagerNailTypes = ManagerNailTypes;
+            _Signals = OPC.Signals;
+            //_ManagerNailTypes = ManagerNailTypes;
+            _UserManager = ManagerUser;
             NailTypeActive = _ManagerNailTypes.ActiveNailType;
-
+            List<Nailer> nailers = _ManagerNailTypes.NailTypes.ToList();
             _NailTypeViewSource = new()
             {
-                Source = NailTypes,
+                Source = nailers,
                 SortDescriptions = {
                     new SortDescription(
                         nameof(Nailer.Dock),
@@ -74,179 +74,60 @@ namespace Pallet.ViewModels.SubView
 
         #region Commands
 
-        #region RobotMoveLeft
+        #region SetPrg101Command
 
-        #region SetRobotMoveLeftCommand
+        private ICommand _SetPrg101Command;
+        public ICommand SetPrg101Command => _SetPrg101Command ??= new LambdaCommand(OnSetPrg101CommandExecuted, CanSetPrg101CommandExecute);
 
-        private ICommand _SetRobotMoveLeftCommand;
-        public ICommand SetRobotMoveLeftCommand => _SetRobotMoveLeftCommand ??= new LambdaCommand(OnSetRobotMoveLeftCommandExecuted, CanSetRobotMoveLeftCommandExecute);
+        private bool CanSetPrg101CommandExecute(object arg) => !(bool)_Signals.First(s => s.Name == "R01_Prg101").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
-        private bool CanSetRobotMoveLeftCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_Links").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private void OnSetPrg101CommandExecuted(object obj) => _Signals.First(s => s.Name == "R01_Prg101").Value = true;
 
-        private void OnSetRobotMoveLeftCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_Links").Value = true;
+        #endregion SetPrg101Command
 
-        #endregion SetRobotMoveLeftCommand
+        #region SetWithoutNailCommand
 
-        #region ResetRobotMoveLeftCommand
+        private ICommand _SetWithoutNailCommand;
+        public ICommand SetWithoutNailCommand => _SetWithoutNailCommand ??= new LambdaCommand(OnSetWithoutNailCommandExecuted, CanSetWithoutNailCommandExecute);
 
-        private ICommand _ResetRobotMoveLeftCommand;
-        public ICommand ResetRobotMoveLeftCommand => _ResetRobotMoveLeftCommand ??= new LambdaCommand(OnResetRobotMoveLeftCommandExecuted, CanResetRobotMoveLeftCommandExecute);
+        private bool CanSetWithoutNailCommandExecute(object arg) => (bool)_Signals.First(s => s.Name == "R01_Ohne_Shooting").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
-        private bool CanResetRobotMoveLeftCommandExecute(object arg) => (bool)_Signals.First(s => s.Info.Name == "M_Links").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private void OnSetWithoutNailCommandExecuted(object obj) => _Signals.First(s => s.Name == "R01_Ohne_Shooting").Value = false;
 
-        private void OnResetRobotMoveLeftCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_Links").Value = false;
+        #endregion SetWithoutNailCommand
 
-        #endregion ResetRobotMoveLeftCommand
+        #region SetWithoutProductCommand
 
-        #endregion RobotMoveLeft
+        private ICommand _SetWithoutProductCommand;
+        public ICommand SetWithoutProductCommand => _SetWithoutProductCommand ??= new LambdaCommand(OnSetWithoutProductCommandExecuted, CanSetWithoutProductCommandExecute);
 
-        #region RobotMoveRight
+        private bool CanSetWithoutProductCommandExecute(object arg) => !(bool)_Signals.First(s => s.Name == "R01_Ohne_Production").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
-        #region SetRobotMoveRightCommand
+        private void OnSetWithoutProductCommandExecuted(object obj) => _Signals.First(s => s.Name == "R01_Ohne_Production").Value = true;
 
-        private ICommand _SetRobotMoveRightCommand;
-        public ICommand SetRobotMoveRightCommand => _SetRobotMoveRightCommand ??= new LambdaCommand(OnSetRobotMoveRightCommandExecuted, CanSetRobotMoveRightCommandExecute);
+        #endregion SetWithoutProductCommand
 
-        private bool CanSetRobotMoveRightCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_rechts").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        #region EndProcessCommand
 
-        private void OnSetRobotMoveRightCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_rechts").Value = true;
+        private ICommand _EndProcessCommand;
+        public ICommand EndProcessCommand => _EndProcessCommand ??= new LambdaCommand(OnEndProcessCommandExecuted, CanEndProcessCommandExecute);
 
-        #endregion SetRobotMoveRightCommand
+        private bool CanEndProcessCommandExecute(object arg) => (bool)_Signals.First(s => s.Name == "R01_Abort").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
-        #region ResetRobotMoveRightCommand
+        private void OnEndProcessCommandExecuted(object obj) => _Signals.First(s => s.Name == "R01_Abort").Value = false;
 
-        private ICommand _ResetRobotMoveRightCommand;
-        public ICommand ResetRobotMoveRightCommand => _ResetRobotMoveRightCommand ??= new LambdaCommand(OnResetRobotMoveRightCommandExecuted, CanResetRobotMoveRightCommandExecute);
+        #endregion EndProcessCommand
 
-        private bool CanResetRobotMoveRightCommandExecute(object arg) => (bool)_Signals.First(s => s.Info.Name == "M_rechts").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        #region StopProductCommand
 
-        private void OnResetRobotMoveRightCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_rechts").Value = false;
+        private ICommand _StopProductCommand;
+        public ICommand StopProductCommand => _StopProductCommand ??= new LambdaCommand(OnStopProductCommandExecuted, CanStopProductCommandExecute);
 
-        #endregion ResetRobotMoveRightCommand
+        private bool CanStopProductCommandExecute(object arg) => !(bool)_Signals.First(s => s.Name == "R01_PauseProduction").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
-        #endregion RobotMoveRight
+        private void OnStopProductCommandExecuted(object obj) => _Signals.First(s => s.Name == "R01_PauseProduction").Value = true;
 
-        #region RobotMoveUp
-
-        #region SetRobotMoveUpCommand
-
-        private ICommand _SetRobotMoveUpCommand;
-        public ICommand SetRobotMoveUpCommand => _SetRobotMoveUpCommand ??= new LambdaCommand(OnSetRobotMoveUpCommandExecuted, CanSetRobotMoveUpCommandExecute);
-
-        private bool CanSetRobotMoveUpCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_up").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetRobotMoveUpCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_up").Value = true;
-
-        #endregion SetRobotMoveUpCommand
-
-        #region ResetRobotMoveUpCommand
-
-        private ICommand _ResetRobotMoveUpCommand;
-        public ICommand ResetRobotMoveUpCommand => _ResetRobotMoveUpCommand ??= new LambdaCommand(OnResetRobotMoveUpCommandExecuted, CanResetRobotMoveUpCommandExecute);
-
-        private bool CanResetRobotMoveUpCommandExecute(object arg) => (bool)_Signals.First(s => s.Info.Name == "M_up").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnResetRobotMoveUpCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_up").Value = false;
-
-        #endregion ResetRobotMoveUpCommand
-
-        #endregion RobotMoveUp
-
-        #region RobotMoveDown
-
-        #region SetRobotMoveDownCommand
-
-        private ICommand _SetRobotMoveDownCommand;
-        public ICommand SetRobotMoveDownCommand => _SetRobotMoveDownCommand ??= new LambdaCommand(OnSetRobotMoveDownCommandExecuted, CanSetRobotMoveDownCommandExecute);
-
-        private bool CanSetRobotMoveDownCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_down").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetRobotMoveDownCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_down").Value = true;
-
-        #endregion SetRobotMoveDownCommand
-
-        #region ResetRobotMoveDownCommand
-
-        private ICommand _ResetRobotMoveDownCommand;
-        public ICommand ResetRobotMoveDownCommand => _ResetRobotMoveDownCommand ??= new LambdaCommand(OnResetRobotMoveDownCommandExecuted, CanResetRobotMoveDownCommandExecute);
-
-        private bool CanResetRobotMoveDownCommandExecute(object arg) => (bool)_Signals.First(s => s.Info.Name == "M_down").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnResetRobotMoveDownCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_down").Value = false;
-
-        #endregion ResetRobotMoveDownCommand
-
-        #endregion RobotMoveDown
-
-        #region LampTest
-
-        #region SetLampTestCommand
-
-        private ICommand _SetLampTestCommand;
-        public ICommand SetLampTestCommand => _SetLampTestCommand ??= new LambdaCommand(OnSetLampTestCommandExecuted, CanSetLampTestCommandExecute);
-
-        private bool CanSetLampTestCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_LampTeste").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetLampTestCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_LampTeste").Value = true;
-
-        #endregion SetLampTestCommand
-
-        #region ResetLampTestCommand
-
-        private ICommand _ResetLampTestCommand;
-        public ICommand ResetLampTestCommand => _ResetLampTestCommand ??= new LambdaCommand(OnResetLampTestCommandExecuted, CanResetLampTestCommandExecute);
-
-        private bool CanResetLampTestCommandExecute(object arg) => (bool)_Signals.First(s => s.Info.Name == "M_LampTeste").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnResetLampTestCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_LampTeste").Value = false;
-
-        #endregion ResetLampTestCommand
-
-        #endregion LampTest
-
-        #region SetRobotNailShootCommand
-
-        private ICommand _SetRobotNailShootCommand;
-        public ICommand SetRobotNailShootCommand => _SetRobotNailShootCommand ??= new LambdaCommand(OnSetRobotNailShootCommandExecuted, CanSetRobotNailShootCommandExecute);
-
-        private bool CanSetRobotNailShootCommandExecute(object arg) => !(bool)_Signals.First(s => s.Info.Name == "M_shooting").Value && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetRobotNailShootCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_nail").Value = true;
-
-        #endregion SetRobotNailShootCommand
-
-        #region SetMoveToConveyorCommand
-
-        private ICommand _SetMoveToConveyorCommand;
-        public ICommand SetMoveToConveyorCommand => _SetMoveToConveyorCommand ??= new LambdaCommand(OnSetMoveToConveyorCommandExecuted, CanSetMoveToConveyorCommandExecute);
-
-        private bool CanSetMoveToConveyorCommandExecute(object arg) => false && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetMoveToConveyorCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_MoveToConveyor").Value = true;
-
-        #endregion SetMoveToConveyorCommand
-
-        #region SetRobotToHomePositionCommand
-
-        private ICommand _SetRobotToHomePositionCommand;
-        public ICommand SetRobotToHomePositionCommand => _SetRobotToHomePositionCommand ??= new LambdaCommand(OnSetRobotToHomePositionCommandExecuted, CanSetRobotToHomePositionCommandExecute);
-
-        private bool CanSetRobotToHomePositionCommandExecute(object arg) => false && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnSetRobotToHomePositionCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_Home").Value = true;
-
-        #endregion SetRobotToHomePositionCommand
-
-        #region RotateTableCommand
-
-        private ICommand _RotateTableCommand;
-        public ICommand RotateTableCommand => _RotateTableCommand ??= new LambdaCommand(OnRotateTableCommandExecuted, CanRotateTableCommandExecute);
-
-        private bool CanRotateTableCommandExecute(object arg) => false && _UserManager.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
-
-        private void OnRotateTableCommandExecuted(object obj) => _Signals.First(s => s.Info.Name == "M_TableRotate").Value = true;
-
-        #endregion RotateTableCommand
+        #endregion StopProductCommand
 
         #endregion Commands
     }

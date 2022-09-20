@@ -1,6 +1,7 @@
 ﻿using Pallet.Database.Entities.Base.Interfaces;
 
 namespace Pallet.Services.Managers.InMemory.Interfaces;
+
 /// <summary>
 /// Base inMemory repository.
 /// </summary>

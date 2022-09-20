@@ -5,16 +5,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EntityFramework" Version="6.4.4" />
+		<!--<PackageReference Include="EntityFramework" Version="6.4.4" />-->
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="6.13.21" />
-		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.13.21" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.370.12" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.4.370.12" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
 	</ItemGroup>
 
 </Project>

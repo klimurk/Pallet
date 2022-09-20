@@ -1,0 +1,136 @@
+Date/Time: 8.9.2022 8:44:35
+Exception Type: System.IO.InvalidDataException
+Message: Failed to load configuration from file 'F:\Projects\Pallet\Pallet\appsettings.json'.
+Source: System.Private.CoreLib
+Stack Trace:    at Microsoft.Extensions.Configuration.FileConfigurationProvider.HandleException(ExceptionDispatchInfo info)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationRoot..ctor(IList`1 providers)
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Microsoft.Extensions.Hosting.HostBuilder.BuildAppConfiguration()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in F:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 8.9.2022 8:44:35
+Exception Type: System.FormatException
+Message: Could not parse the JSON file.
+Source: Microsoft.Extensions.Configuration.Json
+Stack Trace:    at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+Date/Time: 8.9.2022 8:44:35
+Exception Type: System.Text.Json.JsonReaderException
+Message: '"' is invalid after a value. Expected either ',', '}', or ']'. LineNumber: 15 | BytePositionInLine: 6.
+Source: System.Text.Json
+Stack Trace:    at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenUntilAfterAllCommentsAreSkipped(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextToken(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenOrRollback(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+Date/Time: 8.9.2022 8:44:36
+Exception Type: System.IO.InvalidDataException
+Message: Failed to load configuration from file 'F:\Projects\Pallet\Pallet\appsettings.json'.
+Source: System.Private.CoreLib
+Stack Trace:    at Microsoft.Extensions.Configuration.FileConfigurationProvider.HandleException(ExceptionDispatchInfo info)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationRoot..ctor(IList`1 providers)
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Microsoft.Extensions.Hosting.HostBuilder.BuildAppConfiguration()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in F:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 8.9.2022 8:44:36
+Exception Type: System.FormatException
+Message: Could not parse the JSON file.
+Source: Microsoft.Extensions.Configuration.Json
+Stack Trace:    at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+Date/Time: 8.9.2022 8:44:36
+Exception Type: System.Text.Json.JsonReaderException
+Message: '"' is invalid after a value. Expected either ',', '}', or ']'. LineNumber: 15 | BytePositionInLine: 6.
+Source: System.Text.Json
+Stack Trace:    at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenUntilAfterAllCommentsAreSkipped(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextToken(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenOrRollback(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+Date/Time: 8.9.2022 10:12:57
+Exception Type: System.IO.InvalidDataException
+Message: Failed to load configuration from file 'F:\Projects\Pallet\Pallet\appsettings.json'.
+Source: System.Private.CoreLib
+Stack Trace:    at Microsoft.Extensions.Configuration.FileConfigurationProvider.HandleException(ExceptionDispatchInfo info)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationRoot..ctor(IList`1 providers)
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Microsoft.Extensions.Hosting.HostBuilder.BuildAppConfiguration()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in F:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 8.9.2022 10:12:57
+Exception Type: System.FormatException
+Message: Could not parse the JSON file.
+Source: Microsoft.Extensions.Configuration.Json
+Stack Trace:    at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+Date/Time: 8.9.2022 10:12:57
+Exception Type: System.Text.Json.JsonReaderException
+Message: '"' is invalid after a value. Expected either ',', '}', or ']'. LineNumber: 15 | BytePositionInLine: 6.
+Source: System.Text.Json
+Stack Trace:    at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenUntilAfterAllCommentsAreSkipped(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextToken(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenOrRollback(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+Date/Time: 8.9.2022 10:13:02
+Exception Type: System.IO.InvalidDataException
+Message: Failed to load configuration from file 'F:\Projects\Pallet\Pallet\appsettings.json'.
+Source: System.Private.CoreLib
+Stack Trace:    at Microsoft.Extensions.Configuration.FileConfigurationProvider.HandleException(ExceptionDispatchInfo info)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationRoot..ctor(IList`1 providers)
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Microsoft.Extensions.Hosting.HostBuilder.BuildAppConfiguration()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in F:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 8.9.2022 10:13:02
+Exception Type: System.FormatException
+Message: Could not parse the JSON file.
+Source: Microsoft.Extensions.Configuration.Json
+Stack Trace:    at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+Date/Time: 8.9.2022 10:13:02
+Exception Type: System.Text.Json.JsonReaderException
+Message: '"' is invalid after a value. Expected either ',', '}', or ']'. LineNumber: 15 | BytePositionInLine: 6.
+Source: System.Text.Json
+Stack Trace:    at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenUntilAfterAllCommentsAreSkipped(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextToken(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenOrRollback(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)

@@ -29,6 +29,7 @@ public class ManagerLanguage : IManagerLanguage
 
     public ManagerLanguage()
     {
+        "Manager language init --------------".CheckStage();
         _ResourceManager = new ResourceManager("Pallet.Resources.Windows.LanguageWindow.LanguageWindowResource", Assembly.GetExecutingAssembly());
         Langs = new()
         {
@@ -41,6 +42,7 @@ public class ManagerLanguage : IManagerLanguage
         SelectedLang = Langs[0];
 
         _Managers = new();
+        "Manager language init --------------".CheckStage();
     }
 
     private readonly List<ResourceManager> _Managers;

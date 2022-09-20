@@ -1,11 +1,12 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
-using Pallet.Database.Entities.Change.Types;
+﻿using Pallet.Database.Entities.Log;
 using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Profiles;
+using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Database.Entities.Users;
 using Pallet.Database.Repositories.Interfaces;
-using Pallet.Entities.Models;
 using Pallet.Infrastructure.Commands;
 using Pallet.Models;
+using Pallet.Services.Draw.Interface;
 using Pallet.Services.Logging.Interfaces;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.OPC.Interfaces;
@@ -24,16 +25,23 @@ namespace Pallet.ViewModels.Windows
         #region Services
 
         private readonly IDbRepository<Alarm> _RepositoryAlarms;
+        private readonly IDbRepository<Element> _RepositoryElements;
         private readonly IDbRepository<Signal> _RepositorySignals;
         private readonly IManagerProfiles _ManagerProfiles;
         private readonly IAlarmLogService _AlarmLogService;
 
         private readonly IUserDialogService _UserDialogService;
 
-        private readonly IManagerLanguage _LanguageManager;
+        private readonly IManagerLanguage _ManagerLanguage;
         private readonly IManagerUser _ManagerUser;
         private readonly IOPC _OPCProxy;
 
+        private readonly IManagerNailTypes _ManagerNailTypes;
+        private readonly ILogService _LogService;
+        private readonly IManagerUser _UserManager;
+
+        private IDrawer _Drawer;
+        private readonly IDbRepository<SystemEvent> _RepositorySystemEvents;
 
         #endregion Services
 
@@ -55,63 +63,69 @@ namespace Pallet.ViewModels.Windows
 
         #region Alarms
 
-        public ObservableCollection<AlarmOpc> Alarms
+        public ObservableCollection<Alarm> Alarms
         {
             get => _Alarms;
             set => Set(ref _Alarms, value);
         }
 
-        private ObservableCollection<AlarmOpc> _Alarms;
+        private ObservableCollection<Alarm> _Alarms;
 
         #endregion Alarms
 
         #region Signals
 
-        public ObservableCollection<SignalOPC> Signals
+        public ObservableCollection<Signal> Signals
         {
             get => _Signals;
             set => Set(ref _Signals, value);
         }
 
-        private ObservableCollection<SignalOPC> _Signals;
+        private ObservableCollection<Signal> _Signals;
 
         #endregion Signals
 
         #region IsAutoMode
 
-        public SignalOPC IsAutoMode
+        public bool? IsAutoMode
         {
-            get => _IsAutoMode;
-            set => Set(ref _IsAutoMode, value);
+            get
+            {
+                _IsAutoMode = _OPCProxy.IsAutoMode;
+                return _IsAutoMode;
+            }
+
+            set
+            {
+                _OPCProxy.IsAutoMode = value;
+                Set(ref _IsAutoMode, value);
+            }
         }
 
-        private SignalOPC _IsAutoMode;
+        private bool? _IsAutoMode;
 
         #endregion IsAutoMode
 
         #region IsStopMode
 
-        public SignalOPC IsStopMode
+        public bool? IsStopMode
         {
-            get => _IsStopMode;
-            set => Set(ref _IsStopMode, value);
+            get
+            {
+                _IsStopMode = _OPCProxy.IsStopMode;
+                return _IsStopMode;
+            }
+
+            set
+            {
+                _OPCProxy.IsStopMode = value;
+                Set(ref _IsStopMode, value);
+            }
         }
 
-        private SignalOPC _IsStopMode;
+        private bool? _IsStopMode;
 
         #endregion IsStopMode
-
-        #region IsRequestProfile
-
-        public SignalOPC IsRequestProfile
-        {
-            get => _IsRequestProfile;
-            set => Set(ref _IsRequestProfile, value);
-        }
-
-        private SignalOPC _IsRequestProfile;
-
-        #endregion IsRequestProfile
 
         #region OPC Connection status
 
@@ -197,12 +211,14 @@ namespace Pallet.ViewModels.Windows
 
         private User _User;
 
+        public bool IsUserAuthorized => _ManagerUser.IsLogined;
+
         #endregion User
 
         #region Selected Language
 
         public Lang SelectedLang
-        { get => _SelectedLang; set { Set(ref _SelectedLang, value); _LanguageManager.SelectedLang = value; } }
+        { get => _SelectedLang; set { Set(ref _SelectedLang, value); _ManagerLanguage.SelectedLang = value; } }
 
         private Lang _SelectedLang;
 
@@ -233,12 +249,14 @@ namespace Pallet.ViewModels.Windows
                 IsCurrentViewModelIsAlarmViewModel = value is AlarmViewModel;
                 IsCurrentViewModelIsPalletViewModel = value is PalletViewModel;
                 IsCurrentViewModelIsManualViewModel = value is ManualViewModel;
+                IsCurrentViewModelIsLogViewModel = value is LogViewModel;
             }
         }
 
         private PalletViewModel _PalletViewModel;
         private ManualViewModel _ManualViewModel;
         private AlarmViewModel _AlarmViewModel;
+        private LogViewModel _LogViewModel;
 
         private ViewModel _CurrentModel;
 
@@ -266,7 +284,25 @@ namespace Pallet.ViewModels.Windows
 
         private bool _IsCurrentViewModelIsManualViewModel;
 
+        public bool IsCurrentViewModelIsLogViewModel
+        {
+            get => _IsCurrentViewModelIsLogViewModel;
+            set => Set(ref _IsCurrentViewModelIsLogViewModel, value);
+        }
+
+        private bool _IsCurrentViewModelIsLogViewModel;
+
         #endregion Current Model (View)
+
+        #region Nail Types
+
+        public ICollectionView NailTypesView => _NailTypeViewSource.View;
+
+        private readonly CollectionViewSource _NailTypeViewSource;
+
+        private IEnumerable<Nailer> NailTypes => _ManagerNailTypes.NailTypes;
+
+        #endregion Nail Types
 
         #endregion Fields
 
@@ -278,34 +314,62 @@ namespace Pallet.ViewModels.Windows
         /// <param name="RepositorySignals">The repository signals.</param>
         /// <param name="RepositoryAlarms">The repository alarms.</param>
         /// <param name="ManagerProfiles">The manager profiles.</param>
-        /// <param name="UserManager">The user manager.</param>
-        /// <param name="languageManager">The language manager.</param>
+        /// <param name="ManagerUser">The user manager.</param>
+        /// <param name="ManagerLanguage">The language manager.</param>
         /// <param name="UserDialogService">The user dialog service.</param>
         /// <param name="AlarmLogService">The alarm log service.</param>
         /// <param name="OPCProxy">The OPC proxy.</param>
         public MainWindowViewModel(
-            IDbRepository<Signal> RepositorySignals,
-            IDbRepository<Alarm> RepositoryAlarms,
-            IManagerProfiles ManagerProfiles,
-            IManagerUser UserManager,
-            IManagerLanguage languageManager,
-            IUserDialogService UserDialogService,
-            IAlarmLogService AlarmLogService,
-            IOPC OPCProxy
-            )
+                IDbRepository<Signal> RepositorySignals,
+                IDbRepository<Alarm> RepositoryAlarms,
+                IDbRepository<SystemEvent> RepositorySystemEvents,
+                IDbRepository<Element> RepositoryElements,
+                IManagerProfiles ManagerProfiles,
+                IManagerUser ManagerUser,
+                IManagerLanguage ManagerLanguage,
+                IUserDialogService UserDialogService,
+                IAlarmLogService AlarmLogService,
+                IOPC OPCProxy,
+                IManagerNailTypes ManagerNailTypes,
+                ILogService LogsService,
+                IDrawer Drawer
+                )
         {
-            _AlarmLogService = AlarmLogService;
+            "MainWindow view model init".CheckStage();
+
+            _RepositoryElements = RepositoryElements;
             _RepositorySignals = RepositorySignals;
             _RepositoryAlarms = RepositoryAlarms;
-            _LanguageManager = languageManager;
-            _ManagerUser = UserManager;
+            _AlarmLogService = AlarmLogService;
+            _ManagerLanguage = ManagerLanguage;
+            _ManagerUser = ManagerUser;
             _ManagerProfiles = ManagerProfiles;
             _OPCProxy = OPCProxy;
             _UserDialogService = UserDialogService;
+            _ManagerNailTypes = ManagerNailTypes;
+            _LogService = LogsService;
+            _Drawer = Drawer;
+            _RepositorySystemEvents = RepositorySystemEvents;
+            NailTypeActive = _ManagerNailTypes.ActiveNailType;
 
+            _NailTypeViewSource = new()
+            {
+                Source = NailTypes,
+                SortDescriptions = {
+                    new SortDescription(
+                        nameof(Nailer.Dock),
+                        ListSortDirection.Ascending),
+                    new SortDescription(
+                        nameof(Nailer.Width),
+                        ListSortDirection.Ascending),
+                    new SortDescription(
+                        nameof(Nailer.Size),
+                        ListSortDirection.Ascending)
+                }
+            };
             //_ResourceManager = new ResourceManager("Pallet.Resources.Windows.MainWindow.MainWindowResource", Assembly.GetExecutingAssembly());
-            SelectedLang = _LanguageManager.SelectedLang;
-            Langs = _LanguageManager.Langs;
+            SelectedLang = _ManagerLanguage.SelectedLang;
+            Langs = _ManagerLanguage.Langs;
 
             _ProfileViewSource = new()
             {
@@ -320,15 +384,22 @@ namespace Pallet.ViewModels.Windows
             Signals = _OPCProxy.Signals;
             Alarms = _OPCProxy.Alarms;
 
+            Alarms.CollectionChanged -= Alarms_CollectionChanged;
+            Signals.CollectionChanged -= Signals_CollectionChanged;
+
             Alarms.CollectionChanged += Alarms_CollectionChanged;
             Signals.CollectionChanged += Signals_CollectionChanged;
-
-            new Thread(() => InitializeOPC()).Start();
 
             ActiveProfile = _ManagerProfiles.GetActiveProfile();
             _ManagerProfiles.ActiveProfileChanged -= ManagerProfiles_ActiveProfileChanged;
             _ManagerProfiles.ActiveProfileChanged += ManagerProfiles_ActiveProfileChanged;
+
+            // _LogService.MakeLog(_RepositorySystemEvents.Items.First(s => s.Name == "StartApp"));
         }
+
+        #endregion Constructor - Destructor
+
+        #region Events
 
         /// <summary>
         /// Handler event when Active profile changed.
@@ -343,62 +414,6 @@ namespace Pallet.ViewModels.Windows
             OnPropertyChanged(nameof(ActiveProfile));
         }
 
-        #endregion Constructor - Destructor
-
-        #region Private Functions
-
-        /// <summary>
-        /// Initializes OPC Connection.
-        /// </summary>
-        /// <returns>A Task.</returns>
-        private Task InitializeOPC()
-        {
-            _OPCProxy.Connect();
-            _OPCProxy.AddSubcribeFolder(Services.OPC.OPCProxy.SubForlderAlarm);
-            _OPCProxy.AddSubcribeFolder(Services.OPC.OPCProxy.SubForlderSystem);
-
-            foreach (var alarm in _RepositoryAlarms.Items.ToArray())
-            {
-                AlarmOpc temp = new()
-                {
-                    Info = alarm,
-                    NodeOpc = _OPCProxy.GetNode(alarm.Address),
-                    Value = new bool()
-                };
-                _OPCProxy.SubscribeValue(temp, Services.OPC.OPCProxy.SubForlderAlarm);
-            }
-            foreach (var signal in _RepositorySignals.Items.ToArray())
-            {
-                SignalOPC temp = new()
-                {
-                    Info = signal,
-                    NodeOpc = _OPCProxy.GetNode(signal.Address),
-                    Value = new bool()
-                };
-                _OPCProxy.SubscribeValue(temp, Services.OPC.OPCProxy.SubForlderSystem);
-            }
-
-            IsAutoMode = Signals.First(s => s.Info.Name == "M_Auto");
-            IsStopMode = Signals.First(s => s.Info.Name == "M_Halt");
-            return Task.CompletedTask;
-        }
-
-        #endregion Private Functions
-
-        #region Events
-
-        #region Active profile property changed event
-
-        /// <summary>
-        /// Active profile property changed - must refresh profiles view to show active profile.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        //private void ActiveProfile_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        //{
-
-        #endregion Active profile property changed event
-
         #region Profiles filter event
 
         /// <summary>
@@ -409,7 +424,7 @@ namespace Pallet.ViewModels.Windows
         private void ProfileListSource_Filter(object sender, FilterEventArgs e)
         {
             if (e.Item is not Profile profile || string.IsNullOrEmpty(FilterName)) return;
-            if (!profile.Name.Contains(FilterName))
+            if (!profile.Name.ToLower().Contains(FilterName.ToLower()))
                 e.Accepted = false;
         }
 
@@ -424,17 +439,17 @@ namespace Pallet.ViewModels.Windows
         /// <param name="e">The e.</param>
         private void Alarms_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.OldItems != null)
+            if (e.OldItems is not null)
             {
-                foreach (AlarmOpc item in e.OldItems)
+                foreach (Alarm item in e.OldItems)
                 {
                     item.PropertyChanged -= AlarmsValue_PropertyChanged;
                 }
             }
 
-            if (e.NewItems != null)
+            if (e.NewItems is not null)
             {
-                foreach (AlarmOpc item in e.NewItems)
+                foreach (Alarm item in e.NewItems)
                 {
                     item.PropertyChanged += AlarmsValue_PropertyChanged;
                 }
@@ -446,12 +461,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void AlarmsValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //CollectionViewSource.GetDefaultView(Alarms).Refresh();
-            Alarms.Refresh();
-            OnPropertyChanged(nameof(Alarms));
-        }
+        private void AlarmsValue_PropertyChanged(object sender, PropertyChangedEventArgs e) => Alarms.Refresh();
 
         #endregion Alarms Collection changed Event
 
@@ -466,7 +476,7 @@ namespace Pallet.ViewModels.Windows
         {
             if (e.OldItems != null)
             {
-                foreach (SignalOPC item in e.OldItems)
+                foreach (Signal item in e.OldItems)
                 {
                     item.PropertyChanged -= SignalsValue_PropertyChanged;
                 }
@@ -474,7 +484,7 @@ namespace Pallet.ViewModels.Windows
 
             if (e.NewItems != null)
             {
-                foreach (SignalOPC item in e.NewItems)
+                foreach (Signal item in e.NewItems)
                 {
                     item.PropertyChanged += SignalsValue_PropertyChanged;
                 }
@@ -486,11 +496,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void SignalsValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //CollectionViewSource.GetDefaultView(Signals).Refresh();
-            Signals.Refresh();
-        }
+        private void SignalsValue_PropertyChanged(object sender, PropertyChangedEventArgs e) => Signals.Refresh();
 
         #endregion Signals Collection changed Event
 
@@ -503,6 +509,7 @@ namespace Pallet.ViewModels.Windows
         #region SendProfileCommand
 
         private ICommand _SendProfileCommand;
+
         /// <summary>
         /// Send profile command.
         /// </summary>
@@ -513,7 +520,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSendProfileCommandExecute(object arg) => _ManagerProfiles.ActiveProfile != null && (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
+        private bool CanSendProfileCommandExecute(object arg) => _OPCProxy.IsDataRequest == true && _ManagerProfiles.ActiveProfile != null && (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
 
         /// <summary>
         /// Sending  profile.
@@ -528,6 +535,7 @@ namespace Pallet.ViewModels.Windows
         #region SetAutoModeCommand
 
         private ICommand _SetAutoModeCommand;
+
         /// <summary>
         /// Set auto mode command.
         /// </summary>
@@ -538,20 +546,20 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSetAutoModeCommandExecute(object arg) => !(bool)IsAutoMode.Value && !(bool)IsStopMode.Value && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanSetAutoModeCommandExecute(object arg) => _OPCProxy.IsAutoMode == false && IsStopMode == false && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Setting auto mode .
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnSetAutoModeCommandExecuted(object obj)
-        { IsAutoMode.Value = true; _OPCProxy.WriteActualValue((bool)IsAutoMode.Value, IsAutoMode.NodeOpc); }
+        private void OnSetAutoModeCommandExecuted(object obj) => IsAutoMode = true;
 
         #endregion SetAutoModeCommand
 
         #region ResetAutoModeCommand
 
         private ICommand _ResetAutoModeCommand;
+
         /// <summary>
         /// Reset auto mode command.
         /// </summary>
@@ -562,14 +570,13 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanResetAutoModeCommandExecute(object arg) => (bool)IsAutoMode.Value && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanResetAutoModeCommandExecute(object arg) => IsAutoMode == true && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Resetting auto mode.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnResetAutoModeCommandExecuted(object obj)
-        { IsAutoMode.Value = false; _OPCProxy.WriteActualValue((bool)IsAutoMode.Value, IsAutoMode.NodeOpc); }
+        private void OnResetAutoModeCommandExecuted(object obj) => IsAutoMode = false;
 
         #endregion ResetAutoModeCommand
 
@@ -580,6 +587,7 @@ namespace Pallet.ViewModels.Windows
         #region SetStopModeCommand
 
         private ICommand _SetStopModeCommand;
+
         /// <summary>
         /// Set stop mode command.
         /// </summary>
@@ -590,7 +598,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSetStopModeCommandExecute(object arg) => !(bool)IsStopMode.Value && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanSetStopModeCommandExecute(object arg) => IsStopMode == false && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Setting stop mode.
@@ -598,8 +606,8 @@ namespace Pallet.ViewModels.Windows
         /// <param name="obj">The obj.</param>
         private void OnSetStopModeCommandExecuted(object obj)
         {
-            IsStopMode.Value = true; _OPCProxy.WriteActualValue((bool)IsStopMode.Value, IsStopMode.NodeOpc);
-            IsAutoMode.Value = false; _OPCProxy.WriteActualValue((bool)IsAutoMode.Value, IsAutoMode.NodeOpc);
+            IsStopMode = true;
+            IsAutoMode = false;
         }
 
         #endregion SetStopModeCommand
@@ -607,6 +615,7 @@ namespace Pallet.ViewModels.Windows
         #region ResetStopModeCommand
 
         private ICommand _ResetStopModeCommand;
+
         /// <summary>
         /// Reset stop mode command.
         /// </summary>
@@ -617,14 +626,13 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanResetStopModeCommandExecute(object arg) => (bool)IsStopMode.Value && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanResetStopModeCommandExecute(object arg) => (bool)IsStopMode && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Resetting stop mode .
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnResetStopModeCommandExecuted(object obj)
-        { IsStopMode.Value = false; _OPCProxy.WriteActualValue((bool)IsStopMode.Value, IsStopMode.NodeOpc); }
+        private void OnResetStopModeCommandExecuted(object obj) => IsStopMode = false;
 
         #endregion ResetStopModeCommand
 
@@ -633,6 +641,7 @@ namespace Pallet.ViewModels.Windows
         #region OPCConnectCommand
 
         private ICommand _OPCConnectCommand;
+
         /// <summary>
         /// OPC connect command.
         /// </summary>
@@ -649,7 +658,7 @@ namespace Pallet.ViewModels.Windows
         /// Resetting OPC connection.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnOPCConnectCommandExecuted(object obj) => _OPCProxy.Reconnect();
+        private void OnOPCConnectCommandExecuted(object obj) => new Thread(() => _OPCProxy.InitializeOPC()).Start();
 
         #endregion OPCConnectCommand
 
@@ -660,6 +669,7 @@ namespace Pallet.ViewModels.Windows
         #region ShowManualViewCommand
 
         private ICommand _ShowManualViewCommand;
+
         /// <summary>
         /// Show manual view command.
         /// </summary>
@@ -676,13 +686,14 @@ namespace Pallet.ViewModels.Windows
         /// Show manual view.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnShowManualViewCommandExecuted(object obj) => CurrentModel = _ManualViewModel ??= new ManualViewModel();
+        private void OnShowManualViewCommandExecuted(object obj) => CurrentModel = _ManualViewModel ??= new ManualViewModel(_ManagerNailTypes, _ManagerUser, _OPCProxy);
 
         #endregion ShowManualViewCommand
 
         #region ShowPalletViewCommand
 
         private ICommand _ShowPalletViewCommand;
+
         /// <summary>
         /// Show pallet view command.
         /// </summary>
@@ -702,7 +713,7 @@ namespace Pallet.ViewModels.Windows
         private void OnShowPalletViewCommandExecuted(object obj)
         {
             //CurrentModel?.Dispose();
-            CurrentModel = _PalletViewModel ??= new PalletViewModel();
+            CurrentModel = _PalletViewModel ??= new PalletViewModel(_ManagerProfiles, _Drawer, _ManagerLanguage, _RepositoryElements);
         }
 
         #endregion ShowPalletViewCommand
@@ -710,6 +721,7 @@ namespace Pallet.ViewModels.Windows
         #region ShowAlarmViewCommand
 
         private ICommand _ShowAlarmViewCommand;
+
         /// <summary>
         /// Show alarm view command.
         /// </summary>
@@ -729,6 +741,30 @@ namespace Pallet.ViewModels.Windows
         private void OnShowAlarmViewCommandExecuted(object obj) => CurrentModel = _AlarmViewModel ??= new AlarmViewModel(_AlarmLogService);
 
         #endregion ShowAlarmViewCommand
+
+        #region ShowLogViewCommand
+
+        private ICommand _ShowLogViewCommand;
+
+        /// <summary>
+        /// Show alarm view command.
+        /// </summary>
+        public ICommand ShowLogViewCommand => _ShowLogViewCommand ??= new LambdaCommand(OnShowLogViewCommandExecuted, CanShowLogViewCommandExecute);
+
+        /// <summary>
+        /// Can show alarm view .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanShowLogViewCommandExecute(object arg) => !IsCurrentViewModelIsLogViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+
+        /// <summary>
+        /// Show alarm view.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnShowLogViewCommandExecuted(object obj) => CurrentModel = _LogViewModel ??= new LogViewModel(_LogService);
+
+        #endregion ShowLogViewCommand
 
         #endregion ViewModelCommands
 
@@ -756,6 +792,38 @@ namespace Pallet.ViewModels.Windows
         }
 
         #endregion LogoutCommand
+
+        #region StartWinccCommand
+
+        private ICommand _StartWinccCommand;
+
+        /// <summary>
+        /// Default command.
+        /// </summary>
+        public ICommand StartWinccCommand => _StartWinccCommand ??= new LambdaCommand(OnStartWinccCommandExecuted, CanStartWinccCommandExecute);
+
+        /// <summary>
+        /// Can execute default command .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanStartWinccCommandExecute(object arg) => true;
+
+        /// <summary>
+        /// Default function.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnStartWinccCommandExecuted(object obj)
+        {
+            string path = @"C:\Users\benthor\Documents\Automation\KISTIR2\IM\HMI\C\4\Generates\pdata.fwc";
+            try
+            {
+                Process.Start(path);
+            }
+            catch (Exception e) { _UserDialogService.ShowError(e.Message, "Wincc error"); }
+        }
+
+        #endregion StartWinccCommand
 
         #region DefaultCommand
 

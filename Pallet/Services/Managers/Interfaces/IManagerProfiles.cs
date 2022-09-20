@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 
 namespace Pallet.Services.Managers.Interfaces;
 
@@ -29,6 +29,8 @@ public interface IManagerProfiles
     public Profile GetActiveProfile();
 
     void SetSelectedProfile(Profile newprofile);
+
+    void DeactivateProfile();
 
     public Profile ActiveProfile { get; }
 

@@ -11,6 +11,7 @@ public interface IManagerLanguage
     /// Selected language on interface
     /// </summary>
     public Lang SelectedLang { get; set; }
+
     /// <summary>
     ///List of languages.
     /// </summary>

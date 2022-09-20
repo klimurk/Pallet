@@ -37,8 +37,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = MultipleSheets
-		RESX_NeutralResourcesLanguage = ru-RU
 		SolutionGuid = {03EDF312-0CDE-45AF-A80A-597727B0BC4E}
+		RESX_NeutralResourcesLanguage = ru-RU
+		RESX_ExcelExportMode = MultipleSheets
 	EndGlobalSection
 EndGlobal

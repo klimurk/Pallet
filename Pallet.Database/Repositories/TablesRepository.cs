@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pallet.Database.Context;
-using Pallet.Database.Entities.Change.Tables;
+using Pallet.Database.Entities.ProfileData.Tables;
 using System.Linq;
 
 namespace Pallet.Database.Repositories

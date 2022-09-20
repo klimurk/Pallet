@@ -168,4 +168,10 @@
   <data name="Login" xml:space="preserve">
     <value>Авторизуватися</value>
   </data>
+  <data name="NotAutorized" xml:space="preserve">
+    <value>Не авторизований</value>
+  </data>
+  <data name="LogHistory" xml:space="preserve">
+    <value>Журнал подій</value>
+  </data>
 </root>

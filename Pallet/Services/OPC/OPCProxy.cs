@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Opc.Ua;
-using Pallet.Database.Entities.Change.Profiles;
-using Pallet.Entities.Models;
-using Pallet.Models;
-using Pallet.Models.Interfaces;
-using Pallet.Models.Interfaces.Base;
+using Pallet.Database.Entities.Base;
+using Pallet.Database.Entities.Log;
+using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Profiles;
+using Pallet.Database.Repositories.Interfaces;
 using Pallet.Services.Logging.Interfaces;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.OPC.Interfaces;
+using Pallet.Services.UserDialog.Interfaces;
 
 namespace Pallet.Services.OPC;
 
@@ -15,9 +16,11 @@ internal class OPCProxy : IOPC
 {
     #region Services
 
-    private readonly IOPC _ConnectorOPC;
     private readonly IAlarmLogService _AlarmLogService;
+    private readonly IOPC _ConnectorOPC;
+    private readonly ILogService _LogsService;
     private readonly IManagerProfiles _ManagerProfiles;
+    private readonly IDbRepository<SystemEvent> _SystemEvents;
 
     #endregion Services
 
@@ -25,31 +28,117 @@ internal class OPCProxy : IOPC
 
     #region Static OPC
 
-    public static readonly string SubForlderAlarm = "Alarm";
-    public static readonly string SubForlderSystem = "System";
-    public const string SubForlderAlarmC = "Alarm";
-    public bool PLCRequestProfileData { get; private set; }
+    public const string SubForlderAlarm = "Alarm";
+    public const string SubForlderSystem = "System";
+
+    private readonly Signal _IsAnforderungJobEnd;
+    private readonly Signal _IsAnforderungJobHalt;
+
+    private readonly Signal _IsAutoModeRead;
+    private readonly Signal _IsAutoModeWrite;
+
+    private readonly Signal _IsDataActual;
+    private readonly Signal _IsDataReady;
+    private readonly Signal _IsDataRequest;
+    private readonly Signal _IsFQuitt;
+    private readonly Signal _IsHaveFailure;
+    private readonly Signal _IsJobDone;
+    private readonly Signal _IsJobQuittierung;
+    private readonly Signal _IsOP1Acknowledge;
+    private readonly Signal _IsStopModeRead;
+    private readonly Signal _IsStopModeWrite;
+    public bool? IsAnforderungJobEnd { get => (bool)_IsAnforderungJobEnd.Value; set => WriteActualValue(value, _IsAnforderungJobEnd.Node); }
+    public bool? IsAnforderungJobHalt { get => (bool)_IsAnforderungJobHalt.Value; set => WriteActualValue(value, _IsAnforderungJobHalt.Node); }
+
+    public bool? IsAutoMode
+    {
+        get => (bool)_IsAutoModeRead.Value;
+        set
+        {
+            WriteActualValue(value, _IsAutoModeWrite.Node);
+            if (value == true)
+                WriteActualValue(!value, _IsAutoModeWrite.Node);
+        }
+    }
+
+    public bool? IsDataActual { get => (bool)_IsDataActual.Value; }
+    public bool? IsDataReady { get => (bool)_IsDataReady.Value; set => WriteActualValue(value, _IsDataReady.Node); }
+
+    public bool? IsDataRequest => (bool)_IsDataRequest.Value;
+
+    public bool? IsFQuitt { get => (bool)_IsFQuitt.Value; set => WriteActualValue(value, _IsFQuitt.Node); }
+    public bool? IsHaveFailure { get => (bool)_IsHaveFailure.Value; }
+    public bool? IsJobDone { get => (bool)_IsJobDone.Value; }
+    public bool? IsJobQuittierung { get => (bool)_IsJobQuittierung.Value; set => WriteActualValue(value, _IsJobQuittierung.Node); }
+    public bool? IsOP1Acknowledge { get => (bool)_IsOP1Acknowledge.Value; set => WriteActualValue(value, _IsOP1Acknowledge.Node); }
+    public bool? IsStopMode { get => (bool)_IsStopModeRead.Value; set => WriteActualValue(value, _IsStopModeWrite.Node); }
 
     #endregion Static OPC
 
-    public ObservableCollection<AlarmOpc> Alarms { get; set; }
-
-    public ObservableCollection<SignalOPC> Signals { get; set; }
-
     private readonly AutoResetEvent _AutoResetEvent = new(true);
+    public ObservableCollection<Alarm> Alarms { get; set; }
+
+    public ObservableCollection<Signal> Signals { get; set; }
 
     #endregion Fields
 
     #region Ctor
 
-    public OPCProxy(IAlarmLogService AlarmLogService, IManagerProfiles ManagerProfiles, IConfiguration Configuration)
+    public OPCProxy(
+        IAlarmLogService AlarmLogService,
+        IManagerProfiles ManagerProfiles,
+        IDbRepository<Signal> SignalsRepository,
+        IDbRepository<Alarm> AlarmsRepository,
+        IDbRepository<SystemEvent> SystemEvents,
+        ILogService LogsService,
+        IUserDialogService UserDialogService,
+        IConfiguration Configuration)
     {
         Signals = new();
         Alarms = new();
-
-        _ConnectorOPC = new OPCConnector(this, Configuration.GetConnectionString(Configuration["OPCAdrressType"]));
-        _AlarmLogService = AlarmLogService;
         _ManagerProfiles = ManagerProfiles;
+        _ConnectorOPC = new OPCConnector(SystemEvents, LogsService, UserDialogService, this, Configuration["OPC:ConnectionStrings:" + Configuration["OPC:Type"]]);
+        _LogsService = LogsService;
+        _SystemEvents = SystemEvents;
+        _AlarmLogService = AlarmLogService;
+
+        Signals.Add(SignalsRepository.Items);
+        Alarms.Add(AlarmsRepository.Items);
+
+        InitializeOPC();
+
+        _IsAutoModeWrite = Signals.First(s => s.Name == "Vizu_AutoStart");
+        _IsStopModeWrite = Signals.First(s => s.Name == "Vizu_Autostop");
+        _IsAutoModeRead = Signals.First(s => s.Name == "MOD_Auto");
+        _IsStopModeRead = Signals.First(s => s.Name == "MOD_Hand");
+        _IsDataRequest = Signals.First(s => s.Name == "DatenAnforderung");
+        _IsJobDone = Signals.First(s => s.Name == "JobFertig");
+        _IsDataActual = Signals.First(s => s.Name == "AktuellDaten_niO");
+        _IsHaveFailure = Signals.First(s => s.Name == "Stoerung");
+        _IsDataReady = Signals.First(s => s.Name == "DatenBereit");
+        _IsJobQuittierung = Signals.First(s => s.Name == "JobQuittierung");
+        _IsAnforderungJobHalt = Signals.First(s => s.Name == "Anforderung_JobHalt");
+        _IsAnforderungJobEnd = Signals.First(s => s.Name == "Anforderung_JobEnd");
+        _IsOP1Acknowledge = Signals.First(s => s.Name == "OP1_Acknowledge");
+        _IsFQuitt = Signals.First(s => s.Name == "F_Quitt");
+    }
+
+    public async Task InitializeOPC()
+    {
+        Connect().Wait();
+
+        AddSubcribeFolder(SubForlderAlarm);
+        AddSubcribeFolder(SubForlderSystem);
+        foreach (var alarm in Alarms)
+        {
+            alarm.Node ??= GetNode(alarm.Address);
+            await _ConnectorOPC.SubscribeValue(alarm, SubForlderAlarm);
+        }
+        foreach (var signal in Signals)
+        {
+            signal.Node ??= GetNode(signal.Address);
+            await _ConnectorOPC.SubscribeValue(signal, SubForlderSystem);
+        }
     }
 
     #endregion Ctor
@@ -64,15 +153,32 @@ internal class OPCProxy : IOPC
 
     public string ReadActualValue(Node inNode) => _ConnectorOPC.ReadActualValue(inNode);
 
-    public bool WriteActualValue<T>(T newValue, Node inNode) => _ConnectorOPC.WriteActualValue(newValue, inNode);
+    public bool WriteActualValue<T>(T newValue, Node inNode)
+    {
+        if (Signals.Any(s => s.Node == inNode))
+        {
+            var sig = Signals.First(s => s.Node == inNode);
+            sig.Value = newValue;
+
+            _LogsService.MakeLog(sig);
+        }
+        if (Alarms.Any(s => s.Node == inNode))
+        {
+            var sig = Alarms.First(s => s.Node == inNode);
+            sig.Value = newValue;
+            _LogsService.MakeLog(sig);
+        }
+
+        return _ConnectorOPC.WriteActualValue(newValue, inNode);
+    }
 
     public void WriteProfile(Profile ActiveProfile)
     {
         if (ActiveProfile == null) return;
+
         _ConnectorOPC.WriteProfile(ActiveProfile);
-        _ConnectorOPC.WriteActualValue(
-            true,
-            Signals.First(signal => signal.NodeOpc.DisplayName.ToString() == "DatenBereit").NodeOpc);
+        IsDataReady = true;
+        _LogsService.MakeLog(_IsDataReady);
     }
 
     #endregion Read / Write
@@ -81,13 +187,13 @@ internal class OPCProxy : IOPC
 
     public async Task AddSubcribeFolder(string SubscriptionName) => await _ConnectorOPC.AddSubcribeFolder(SubscriptionName);
 
-    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : INodeOpc
+    public async Task SubscribeValue<T>(T data, string SubscriptionName) where T : NodeOPC
     {
         _AutoResetEvent.WaitOne();
-        if (SubscriptionName == SubForlderAlarm && data is IAlarmOpc alarmOPC && !Alarms.Any(a => a.Info.Name == (data as AlarmOpc)?.Info.Name))
-            Alarms.Add(alarmOPC as AlarmOpc);
-        if (SubscriptionName == SubForlderSystem && data is ISignalOPC signalOPC && !Signals.Any(a => a.Info.Name == (data as SignalOPC)?.Info.Name))
-            Signals.Add(signalOPC as SignalOPC);
+        if (SubscriptionName == SubForlderAlarm && !Alarms.Any(a => a.Name == data?.Name))
+            Alarms.Add(data as Alarm);
+        if (SubscriptionName == SubForlderSystem && !Signals.Any(a => a.Name == data?.Name))
+            Signals.Add(data as Signal);
         _AutoResetEvent.Set();
         await _ConnectorOPC.SubscribeValue(data, SubscriptionName);
     }
@@ -106,22 +212,49 @@ internal class OPCProxy : IOPC
     {
         if (newValue == null) return;
         if (newValue.GetType() == typeof(short)) newValue = (int)(short)newValue;
+        //_AutoResetEvent.WaitOne();
 
-        if (RepositoryName == SubForlderAlarm && Alarms.Any(alarm => alarm?.NodeOpc.DisplayName.ToString() == Name))
+        switch (RepositoryName)
         {
-            var alarm = Alarms.First(alarm => alarm?.NodeOpc.DisplayName.ToString() == Name);
-            alarm.Value = newValue;
-            alarm.TimeStamp = DateTime.Now;
-            await AlarmLog(alarm);
-            return;
+            case SubForlderAlarm:
+
+                Alarm? alarm = Alarms.First(alarm => alarm?.Name == Name);
+                alarm.Value = newValue;
+                alarm.TimeStamp = DateTime.Now;
+                switch (alarm.Value)
+                {
+                    case int intVal:
+                        if (alarm.Inverted ^ intVal >= 0)
+                            await _AlarmLogService.MakeAlarmLog(alarm.Name);
+                        else
+                            await _AlarmLogService.FinishAlarmLog(alarm.Name);
+                        break;
+
+                    case bool boolVal:
+                        if (alarm.Inverted ^ boolVal)
+                            await _AlarmLogService.MakeAlarmLog(alarm.Name);
+                        else
+                            await _AlarmLogService.FinishAlarmLog(alarm.Name);
+                        break;
+                }
+
+                _LogsService.MakeLog(alarm);
+                break;
+
+            case SubForlderSystem:
+
+                Signal? signal = Signals.First(signal => signal.Name == Name);
+                signal.Value = newValue;
+
+                _LogsService.MakeLog(signal);
+
+                if (((bool)_IsAutoModeRead.Value) && ((bool)_IsDataRequest.Value) && (_ManagerProfiles.ActiveProfile is not null))
+                    WriteProfile(_ManagerProfiles.ActiveProfile);
+
+                break;
         }
-        if (RepositoryName == SubForlderSystem && Signals.Any(signal => signal.NodeOpc.DisplayName.ToString() == Name))
-        {
-            var signal = Signals.First(signal => signal.NodeOpc.DisplayName.ToString() == Name);
-            signal.Value = newValue;
-            SignalHandler(signal);
-            return;
-        }
+
+        //_AutoResetEvent.Set();
     }
 
     #endregion UpdateValue
@@ -130,7 +263,9 @@ internal class OPCProxy : IOPC
 
     #region Connection
 
-    public void Connect()
+    public bool ConnectionStatus { get => _ConnectorOPC.ConnectionStatus; }
+
+    public async Task Connect()
     {
         if (ConnectionStatus) return;
         _ConnectorOPC.Connect();
@@ -142,34 +277,22 @@ internal class OPCProxy : IOPC
         _ConnectorOPC.Disconnect();
     }
 
-    public bool ConnectionStatus { get => _ConnectorOPC.ConnectionStatus; }
-
     #endregion Connection
 
     #region OPC handler
 
     /// <summary>
+    /// Reset all not finished alarm logs. Must be complete at the begin and at the end of program.
+    /// </summary>
+    /// <returns>A Task.</returns>
+    public void Reconnect() => _ConnectorOPC.Reconnect();
+
+    /// <summary>
     /// Alarms logging.
     /// </summary>
     /// <param name="Alarm">The alarm</param>
-    private async Task AlarmLog(AlarmOpc Alarm)
+    private async Task AlarmLog(Alarm Alarm)
     {
-        switch (Alarm.Value)
-        {
-            case int intVal:
-                if (Alarm.Info.Inverted ^ intVal >= 0)
-                    await _AlarmLogService.MakeAlarmLog(Alarm.Info.Name);
-                else
-                    await _AlarmLogService.FinishAlarmLog(Alarm.Info.Name);
-                break;
-
-            case bool boolVal:
-                if (Alarm.Info.Inverted ^ boolVal)
-                    await _AlarmLogService.MakeAlarmLog(Alarm.Info.Name);
-                else
-                    await _AlarmLogService.FinishAlarmLog(Alarm.Info.Name);
-                break;
-        }
     }
 
     /// <summary>
@@ -177,25 +300,7 @@ internal class OPCProxy : IOPC
     /// </summary>
     /// <param name="Name">Signal name</param>
     /// <param name="Value">Signal value</param>
-    private void SignalHandler(INodeOpc Signal)
-    {
-        switch (Signal.NodeOpc.DisplayName.ToString())
-        {
-            case "DatenAnforderung":
-                if (_ManagerProfiles.ActiveProfile != null) PLCRequestProfileData = (bool)Signal.Value;
-                break;
-
-            case "JobFertig":
-                WriteActualValue(Signal.Value, Signal.NodeOpc);
-                break;
-        }
-    }
-
-    /// <summary>
-    /// Reset all not finished alarm logs. Must be complete at the begin and at the end of program.
-    /// </summary>
-    /// <returns>A Task.</returns>
-    public void Reconnect() => _ConnectorOPC.Reconnect();
+   
 
     #endregion OPC handler
 }

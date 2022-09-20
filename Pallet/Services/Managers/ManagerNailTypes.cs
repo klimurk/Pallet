@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Types;
+﻿using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Database.Repositories.Interfaces;
 using Pallet.Services.Managers.Interfaces;
 
@@ -6,18 +6,12 @@ namespace Pallet.Services.Managers
 {
     public class ManagerNailTypes : IManagerNailTypes
     {
-        public Nailer ActiveNailType { get; set; }
+        public Nailer ActiveNailType { get; set; } = new();
 
         private readonly IDbRepository<Nailer> _RepositoryNailTypes;
 
-        public ManagerNailTypes(
-            IDbRepository<Nailer> RepositoryNailTypes
-            )
-        {
-            ActiveNailType = new();
-            _RepositoryNailTypes = RepositoryNailTypes;
-        }
+        public ManagerNailTypes(IDbRepository<Nailer> RepositoryNailTypes) => _RepositoryNailTypes = RepositoryNailTypes;
 
-        public List<Nailer> NailTypes => _RepositoryNailTypes.Items.ToList();
+        public IQueryable<Nailer> NailTypes => _RepositoryNailTypes.Items;
     }
 }

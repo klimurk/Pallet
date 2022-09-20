@@ -1,9 +1,11 @@
-﻿namespace Pallet.Models.Interfaces;
+﻿using Pallet.Database.Entities.Base.Interfaces;
+
+namespace Pallet.Models.Interfaces;
 
 /// <summary>
 /// Interface signal definition.
 /// </summary>
-public interface ISignal
+public interface ISignal : IDBTranslateble
 {
     /// <summary>
     /// Signal name.
@@ -14,4 +16,9 @@ public interface ISignal
     /// Signal address.
     /// </summary>
     public string Address { get; set; }
+
+    /// <summary>
+    /// Signal from device .
+    /// </summary>
+    public string Device { get; set; }
 }

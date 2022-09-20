@@ -168,4 +168,10 @@
   <data name="Login" xml:space="preserve">
     <value>Autorisierter</value>
   </data>
+  <data name="NotAutorized" xml:space="preserve">
+    <value>Nicht berechtigt</value>
+  </data>
+  <data name="LogHistory" xml:space="preserve">
+    <value>Ereignisprotokoll</value>
+  </data>
 </root>

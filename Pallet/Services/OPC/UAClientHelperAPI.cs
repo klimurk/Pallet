@@ -32,6 +32,7 @@ public class UAClientHelperAPI
 
     #region Construction
 
+    [Obsolete]
     public UAClientHelperAPI() => mApplicationConfig = CreateClientConfiguration();
 
     #endregion Construction
@@ -280,10 +281,10 @@ public class UAClientHelperAPI
             mSession.Close(10000);
             mSession.Dispose();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -374,10 +375,10 @@ public class UAClientHelperAPI
 
             return referenceDescriptionCollection;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -410,10 +411,10 @@ public class UAClientHelperAPI
 
             return referenceDescriptionCollection;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -486,10 +487,10 @@ public class UAClientHelperAPI
             subscription.ApplyChanges();
             return monitoredItem;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -543,7 +544,7 @@ public class UAClientHelperAPI
     /// <param name="subscription">The subscription</param>
     /// <param name="monitoredItem">The item</param>
     /// <exception cref="Exception">Throws and forwards any exception with short error description.</exception>
-    public static MonitoredItem RemoveMonitoredItem(Subscription subscription, MonitoredItem monitoredItem)
+    public static MonitoredItem? RemoveMonitoredItem(Subscription subscription, MonitoredItem monitoredItem)
     {
         try
         {
@@ -553,10 +554,10 @@ public class UAClientHelperAPI
             subscription.ApplyChanges();
             return null;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -570,10 +571,10 @@ public class UAClientHelperAPI
             //Delete the subscription and all items submitted
             subscription.Delete(true);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -599,10 +600,10 @@ public class UAClientHelperAPI
             subscription.Create();
             return subscription;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //handle Exception here
-            throw e;
+            throw;
         }
     }
 
@@ -1451,6 +1452,7 @@ public class UAClientHelperAPI
     /// <param name="localIpAddress">The ip address of the interface to connect with</param>
     /// <returns>The ApplicationConfiguration</returns>
     /// <exception cref="Exception">Throws and forwards any exception with short error description.</exception>
+    [Obsolete]
     private static ApplicationConfiguration CreateClientConfiguration()
     {
         // The application configuration can be loaded from any file.
@@ -1502,6 +1504,7 @@ public class UAClientHelperAPI
 
             // this code would normally be called as part of the installer - called here to illustrate.
             // create a new certificate and place it in the current user certificate store.
+
             X509Certificate2 clientCertificate2 = CertificateFactory.CreateCertificate(
                 configuration.SecurityConfiguration.ApplicationCertificate.StoreType,
                 configuration.SecurityConfiguration.ApplicationCertificate.StorePath,
@@ -1850,7 +1853,7 @@ public class UAClientHelperAPI
                 bytesToWrite[convertIndex] = Convert.ToByte(val[1]);
                 convertIndex++;
             }
-            else if ((val[2] == "String" && arraySize <= 0)||(val[2] == "CharArray"))
+            else if ((val[2] == "String" && arraySize <= 0) || (val[2] == "CharArray"))
             {
                 Array.Copy(BitConverter.GetBytes(val[1].Length), 0, bytesToWrite, convertIndex, 4);
                 convertIndex += 4;

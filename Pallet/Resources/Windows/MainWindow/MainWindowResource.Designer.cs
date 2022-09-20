@@ -160,6 +160,15 @@ namespace Pallet.Resources.Windows.MainWindow {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Журнал событий.
+        /// </summary>
+        public static string LogHistory {
+            get {
+                return ResourceManager.GetString("LogHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Авторизоваться.
         /// </summary>
         public static string Login {
@@ -183,6 +192,15 @@ namespace Pallet.Resources.Windows.MainWindow {
         public static string Manual {
             get {
                 return ResourceManager.GetString("Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не авторизован.
+        /// </summary>
+        public static string NotAutorized {
+            get {
+                return ResourceManager.GetString("NotAutorized", resourceCulture);
             }
         }
         

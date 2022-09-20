@@ -7,8 +7,5 @@ namespace Pallet.View.SubViews;
 /// </summary>
 public partial class ManualView : UserControl
 {
-    public ManualView()
-    {
-        InitializeComponent();
-    }
+    public ManualView() => InitializeComponent();
 }

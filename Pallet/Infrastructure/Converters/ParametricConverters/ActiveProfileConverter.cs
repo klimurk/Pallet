@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Change.Profiles;
+﻿using Pallet.Database.Entities.ProfileData.Profiles;
 using Pallet.Infrastructure.Converters.ParametricConverters.Base;
 using System.Windows.Markup;
 

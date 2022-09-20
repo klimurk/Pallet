@@ -14,12 +14,33 @@ namespace Pallet
             app.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] Args) =>
-            Host.CreateDefaultBuilder(Args)
-                .UseContentRoot(App.CurrentDirectory)
-                .ConfigureAppConfiguration((host, cfg) =>
-                    cfg.SetBasePath(App.CurrentDirectory)
-                        .AddJsonFile("appsettings.json", true, true))
-                .ConfigureServices(App.ConfigureServices);
+        public static IHostBuilder CreateHostBuilder(string[] Args)
+        {
+            "create  host builder ".CheckStage();
+
+            IHostBuilder hostBuilder = Host.CreateDefaultBuilder(Args);
+            "CreateDefaultBuilder".CheckStage();
+
+            hostBuilder.UseContentRoot(App.CurrentDirectory);
+            "UseContentRoot".CheckStage();
+
+            try
+            {
+                hostBuilder.ConfigureAppConfiguration((host, cfg) =>
+                {
+                    cfg.SetBasePath(App.CurrentDirectory);
+                    "SetBasePath".CheckStage();
+                    cfg.AddJsonFile("appsettings.json", true, true);
+                    "AddJsonFile".CheckStage();
+                });
+                "ConfigureAppConfiguration".CheckStage();
+            }
+            catch (Exception e) { e.ExceptionToString(); }
+
+            hostBuilder.ConfigureServices(App.ConfigureServices);
+            "ConfigureServices".CheckStage();
+
+            return hostBuilder;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Pallet.Database.Entities.OPC;
 
 namespace Pallet.Services.Logging.Interfaces;
+
 /// <summary>
 /// Alarm log service interface.
 /// </summary>

@@ -168,4 +168,10 @@
   <data name="Login" xml:space="preserve">
     <value>Přihlásit se</value>
   </data>
+  <data name="NotAutorized" xml:space="preserve">
+    <value>Neautorizovaný</value>
+  </data>
+  <data name="LogHistory" xml:space="preserve">
+    <value>Historie protokolu</value>
+  </data>
 </root>

@@ -13,9 +13,9 @@ public interface IManagerUser
     public User LoginedUser { get; protected set; }
 
     /// <summary>
-    /// List of users from database.
+    /// Query of users from database.
     /// </summary>
-    List<User> Users { get; }
+    IQueryable<User> Users { get; }
 
     /// <summary>
     /// Login by login and password.

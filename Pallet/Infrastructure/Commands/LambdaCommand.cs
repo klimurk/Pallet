@@ -1,6 +1,7 @@
 ﻿using Pallet.Infrastructure.Commands.Base;
 
 namespace Pallet.Infrastructure.Commands;
+
 /// <summary>
 /// The lambda command for visualization.
 /// </summary>

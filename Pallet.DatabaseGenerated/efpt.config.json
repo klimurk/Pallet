@@ -1,0 +1,95 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "WOODNAIL_DB_PavelContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "Pallet.DatabaseGenerated",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[ALARM_DEF]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ALARM_LOG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NAILER_DEF]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROFILE_DEF]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROG_LANG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROG_PARAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROG_TXT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROG_USER]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WPROD_DEF]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WPROD_ELE_POS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WPROD_ELEMENTS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WPROD_NAIL_POS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WTABLE_DEF]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WTABLE_TOOLS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WTABLE_WPROD]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "KLYMOV-PC.WOODNAIL_DB_Pavel",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}
