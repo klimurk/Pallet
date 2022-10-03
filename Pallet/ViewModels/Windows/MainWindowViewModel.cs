@@ -904,7 +904,7 @@ namespace Pallet.ViewModels.Windows
 
                         Product prod = new()
                         {
-                            Name = $"{table.Name} Product",
+                            Name = $"{table.Name}",
                             Size1X = table.SideASizeX,
                             Size1Y = table.SideASizeY,
                             Nails = nailgrous.ToList(),

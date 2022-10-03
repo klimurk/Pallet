@@ -16,8 +16,8 @@ namespace Pallet.Database.Repositories
     {
         #region Fields
 
-        private readonly DatabaseDB _db;
-        private readonly DbSet<T> _Set;
+        protected readonly DatabaseDB _db;
+        protected readonly DbSet<T> _Set;
 
         /// <summary>
         /// Autosave for changes.
@@ -73,7 +73,7 @@ namespace Pallet.Database.Repositories
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>A T.</returns>
-        public T Add(T item)
+        public virtual T Add(T item)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
             _db.Entry(item).State = EntityState.Added;
