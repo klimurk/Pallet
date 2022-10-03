@@ -89,4 +89,13 @@ public class Table : NamedEntity
 
     [InverseProperty("Table")]
     public ICollection<Profile> Profiles { get; set; } = new HashSet<Profile>();
+
+    [NotMapped]
+    public string c_process_id { get; set; }
+    [NotMapped]
+    public string c_package_id{get;set;}
+    [NotMapped]
+    public int n_item_id {get;set;}
+    [NotMapped]
+    public int n_part_count  {get;set;}
 }

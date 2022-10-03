@@ -134,3 +134,39 @@ Stack Trace:    at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8Jso
    at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
    at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
    at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+Date/Time: 29.9.2022 7:21:30
+Exception Type: System.IO.DirectoryNotFoundException
+Message: K:\Projects\Pallet\Pallet\
+Source: Microsoft.Extensions.FileProviders.Physical
+Stack Trace:    at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateHostingEnvironment()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in K:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 29.9.2022 7:21:31
+Exception Type: System.IO.DirectoryNotFoundException
+Message: K:\Projects\Pallet\Pallet\
+Source: Microsoft.Extensions.FileProviders.Physical
+Stack Trace:    at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateHostingEnvironment()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in K:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 29.9.2022 8:17:53
+Exception Type: System.IO.DirectoryNotFoundException
+Message: K:\Projects\Pallet\Pallet\
+Source: Microsoft.Extensions.FileProviders.Physical
+Stack Trace:    at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateHostingEnvironment()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in K:\Projects\Pallet\Pallet\App.xaml.cs:line 46
+Date/Time: 29.9.2022 8:17:53
+Exception Type: System.IO.DirectoryNotFoundException
+Message: K:\Projects\Pallet\Pallet\
+Source: Microsoft.Extensions.FileProviders.Physical
+Stack Trace:    at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root, ExclusionFilters filters)
+   at Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(String root)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateHostingEnvironment()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Pallet.App.get_Host() in K:\Projects\Pallet\Pallet\App.xaml.cs:line 46

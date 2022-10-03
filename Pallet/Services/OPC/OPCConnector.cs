@@ -247,7 +247,9 @@ internal class OPCConnector : IOPC
         {
             nails.Add((int)NailList[i].PosX * 10);
             nails.Add((int)NailList[i].PosY * 10);
-            nails.Add((int)NailList[i].MoveNextType);
+
+            nails.Add((int)NailList[i].PosZ * 10);
+            nails.Add(1);
             //nails.Add(NailList[i].PosZ * 10);
             //nails.Add(NailList[i].NailType);
             //nails.Add(NailList[i].NailID);
@@ -263,6 +265,7 @@ internal class OPCConnector : IOPC
             {
                 Profile.OPCData.Nails.Fields.CoorX,
                 Profile.OPCData.Nails.Fields.CoorY,
+                Profile.OPCData.Nails.Fields.CoorZ,
                 Profile.OPCData.Nails.Fields.Active
                 //NailsPositions.OPCDataInfo.Fields.CoorZ,
                 //NailsPositions.OPCDataInfo.Fields.NailType,
@@ -321,7 +324,8 @@ internal class OPCConnector : IOPC
                 certCol = store.Certificates.Find(X509FindType.FindByThumbprint, e.Certificate.Thumbprint, true);
             }
             if (certCol.Capacity > 0) e.Accept = true;
-        }).Start();
+        })
+        { IsBackground = true }.Start();
     }
 
     private void Notification_KeepAlive(Session sender, KeepAliveEventArgs e)
@@ -339,7 +343,8 @@ internal class OPCConnector : IOPC
                 Thread.Sleep(1000);
                 Reconnect();
             }
-        }).Start();
+        })
+        { IsBackground = true }.Start();
     }
 
     private void Notification_MonitoredItem(MonitoredItem monitoredItem, MonitoredItemNotificationEventArgs e) => new Thread(() => UpdateSubValue(monitoredItem, e)).Start();

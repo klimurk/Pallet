@@ -49,7 +49,7 @@ namespace Pallet.Services.Managers
         /// </summary>
         /// <param name="profile">The profile.</param>
         /// <returns>A Profile.</returns>
-        public Profile Add(Profile profile) => _RepositoryProfiles.Items.Append(profile).First();
+        public Profile Add(Profile profile) => _RepositoryProfiles.Add(profile);
 
         /// <summary>
         /// Add query of profiles.

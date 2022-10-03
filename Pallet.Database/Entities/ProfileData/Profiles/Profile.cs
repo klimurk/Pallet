@@ -47,6 +47,14 @@ public class Profile : NamedEntity, IDBTranslateble
     [InverseProperty("Profile")]
     public ICollection<ProfileTools> ProfileTools { get; set; }
 
+    [NotMapped]
+    public string c_verp_id { get; set; }
+
+    [NotMapped]
+    public int n_robo_id { get; set; }
+
+
+
     public struct OPCData
     {
         public struct Nails

@@ -290,6 +290,35 @@ internal class DbInitializer
                 WorkAreaBOffsetX= 50,
                 WorkAreaBOffsetY= 50
             },
+            new Table
+            {
+                Name="Test1",
+                //PlaceA1Cofiguration="PROD1",
+                //PlaceA2Cofiguration="PREP1",
+                //PlaceB1Cofiguration="PROD1",
+                //PlaceB2Cofiguration="PREP1",
+                Enabled=true,
+                PlaceA1OffsetX =0,
+                PlaceA1OffsetY =0,
+                PlaceA2OffsetX =2000,
+                PlaceA2OffsetY =0,
+                PlaceB1OffsetX =0,
+                PlaceB1OffsetY =0,
+                PlaceB2OffsetX =2000,
+                PlaceB2OffsetY =0,
+                SideASizeX = 2000,
+                SideASizeY =1000,
+                SideBSizeX =0,
+                SideBSizeY = 0,
+                WorkAreaASizeX= 2000,
+                WorkAreaASizeY=1000,
+                WorkAreaBSizeX=0,
+                WorkAreaBSizeY=0,
+                WorkAreaAOffsetX=0,
+                WorkAreaAOffsetY=0,
+                WorkAreaBOffsetX=0,
+                WorkAreaBOffsetY=0
+            },
         };
 
         await _db.Tables.AddRangeAsync(_Tables);
@@ -529,6 +558,18 @@ internal class DbInitializer
                 SizeX=50,
                 SizeY=50,
                 SizeZ=100,
+                Direction=2,
+            },
+            new Element
+            {
+                Name="NULL",
+                DescriptionEn="null",
+                DescriptionDe="null",
+                DescriptionLocal="null",
+                Count=0,
+                SizeX=0,
+                SizeY=0,
+                SizeZ=0,
                 Direction=2,
             },
         };

@@ -147,7 +147,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.RowSpan="2" Grid.Column="0" Height="100" Command="{Binding SendProfileCommand}"
+            <Button Grid.RowSpan="2" Grid.Column="0" Height="100" Command="{Binding SendProfileCommand, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -452,7 +452,7 @@
                         <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemSelectedCollapsedStyle}" />
                     </ComboBox.ItemContainerStyle>
                 </ComboBox>
-
+                <Button Content="Copy" DockPanel.Dock="Right" Command="{Binding CopyDatabaseCommand}" Margin="0 0 10 0" />
                 <ItemsControl ItemsSource ="{Binding NailTypesView }">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

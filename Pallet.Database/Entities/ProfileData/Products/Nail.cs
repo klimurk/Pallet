@@ -45,5 +45,8 @@ namespace Pallet.Database.Entities.ProfileData.Products
         [ForeignKey("PROD_ID")]
         [InverseProperty("Nails")]
         public Product Product { get; set; }
+
+        [NotMapped]
+        public string c_process_id { get; set; } 
     }
 }

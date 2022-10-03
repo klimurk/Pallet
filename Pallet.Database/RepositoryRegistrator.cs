@@ -23,6 +23,8 @@ namespace Pallet.Database
 
             .AddTransient<IDbRepository<Profile>, ProfilesRepository>()
 
+            .AddTransient<IDbRepository<ProfileProducts>, DbRepository<ProfileProducts>>()
+
             .AddTransient<IDbRepository<Table>, TablesRepository>()
 
             .AddTransient<IDbRepository<Tool>, DbRepository<Tool>>()

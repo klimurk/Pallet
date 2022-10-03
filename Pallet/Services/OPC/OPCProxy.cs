@@ -105,7 +105,7 @@ internal class OPCProxy : IOPC
         Signals.Add(SignalsRepository.Items);
         Alarms.Add(AlarmsRepository.Items);
 
-        InitializeOPC();
+        new Thread(() => InitializeOPC()) { IsBackground = true }.Start();
 
         _IsAutoModeWrite = Signals.First(s => s.Name == "Vizu_AutoStart");
         _IsStopModeWrite = Signals.First(s => s.Name == "Vizu_Autostop");
@@ -248,6 +248,8 @@ internal class OPCProxy : IOPC
 
                 _LogsService.MakeLog(signal);
 
+                if (Name == "DatenAnforderung") _IsDataRequest.Value = newValue;
+
                 if (((bool)_IsAutoModeRead.Value) && ((bool)_IsDataRequest.Value) && (_ManagerProfiles.ActiveProfile is not null))
                     WriteProfile(_ManagerProfiles.ActiveProfile);
 
@@ -300,7 +302,6 @@ internal class OPCProxy : IOPC
     /// </summary>
     /// <param name="Name">Signal name</param>
     /// <param name="Value">Signal value</param>
-   
 
     #endregion OPC handler
 }

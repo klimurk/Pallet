@@ -1,6 +1,9 @@
-﻿using Pallet.Database.Entities.Log;
+﻿using MySqlConnector;
+using Pallet.Database.Entities.Log;
 using Pallet.Database.Entities.OPC;
+using Pallet.Database.Entities.ProfileData.Products;
 using Pallet.Database.Entities.ProfileData.Profiles;
+using Pallet.Database.Entities.ProfileData.Tables;
 using Pallet.Database.Entities.ProfileData.Types;
 using Pallet.Database.Entities.Users;
 using Pallet.Database.Repositories.Interfaces;
@@ -25,7 +28,11 @@ namespace Pallet.ViewModels.Windows
         #region Services
 
         private readonly IDbRepository<Alarm> _RepositoryAlarms;
+        private readonly IDbRepository<Table> _RepositoryTables;
         private readonly IDbRepository<Element> _RepositoryElements;
+        private readonly IDbRepository<Nail> _RepositoryNails;
+        private readonly IDbRepository<Product> _RepositoryProducts;
+        private readonly IDbRepository<ProfileProducts> _RepositoryProfileProducts;
         private readonly IDbRepository<Signal> _RepositorySignals;
         private readonly IManagerProfiles _ManagerProfiles;
         private readonly IAlarmLogService _AlarmLogService;
@@ -324,6 +331,10 @@ namespace Pallet.ViewModels.Windows
                 IDbRepository<Alarm> RepositoryAlarms,
                 IDbRepository<SystemEvent> RepositorySystemEvents,
                 IDbRepository<Element> RepositoryElements,
+                IDbRepository<Table> RepositoryTables,
+                IDbRepository<Nail> RepositoryNails,
+                IDbRepository<Product> RepositoryProducts,
+                IDbRepository<ProfileProducts> RepositoryProfileProducts,
                 IManagerProfiles ManagerProfiles,
                 IManagerUser ManagerUser,
                 IManagerLanguage ManagerLanguage,
@@ -338,9 +349,13 @@ namespace Pallet.ViewModels.Windows
             "MainWindow view model init".CheckStage();
 
             _RepositoryElements = RepositoryElements;
+            _RepositoryNails = RepositoryNails;
+            _RepositoryProducts = RepositoryProducts;
+            _RepositoryProfileProducts = RepositoryProfileProducts;
             _RepositorySignals = RepositorySignals;
             _RepositoryAlarms = RepositoryAlarms;
             _AlarmLogService = AlarmLogService;
+            _RepositoryTables = RepositoryTables;
             _ManagerLanguage = ManagerLanguage;
             _ManagerUser = ManagerUser;
             _ManagerProfiles = ManagerProfiles;
@@ -373,7 +388,7 @@ namespace Pallet.ViewModels.Windows
 
             _ProfileViewSource = new()
             {
-                Source = _ManagerProfiles.Items.ToList(),
+                Source = _ManagerProfiles.Items,
                 SortDescriptions =
                 {
                     new SortDescription(nameof(Profile.DateLastUse), ListSortDirection.Descending)
@@ -520,7 +535,9 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSendProfileCommandExecute(object arg) => _OPCProxy.IsDataRequest == true && _ManagerProfiles.ActiveProfile != null && (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
+        private bool CanSendProfileCommandExecute(object arg) => _OPCProxy.IsDataRequest == true && _ManagerProfiles.ActiveProfile != null;
+
+        //&& (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
 
         /// <summary>
         /// Sending  profile.
@@ -658,7 +675,7 @@ namespace Pallet.ViewModels.Windows
         /// Resetting OPC connection.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnOPCConnectCommandExecuted(object obj) => new Thread(() => _OPCProxy.InitializeOPC()).Start();
+        private void OnOPCConnectCommandExecuted(object obj) => new Thread(() => _OPCProxy.InitializeOPC()) { IsBackground = true }.Start();
 
         #endregion OPCConnectCommand
 
@@ -824,6 +841,248 @@ namespace Pallet.ViewModels.Windows
         }
 
         #endregion StartWinccCommand
+
+        #region CopyDatabaseCommand
+
+        private ICommand _CopyDatabaseCommand;
+
+        /// <summary>
+        /// CopyDatabase command.
+        /// </summary>
+        public ICommand CopyDatabaseCommand => _CopyDatabaseCommand ??= new LambdaCommand(OnCopyDatabaseCommandExecuted, CanCopyDatabaseCommandExecute);
+
+        /// <summary>
+        /// Can execute default command .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanCopyDatabaseCommandExecute(object arg) => true;
+
+        /// <summary>
+        /// CopyDatabase function.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnCopyDatabaseCommandExecuted(object obj)
+        {
+            new Thread(() =>
+            {
+                List<Profile> ProfileList = new();
+                List<Nail> NailsList = new();
+                List<Table> TableList = new();
+
+                string _connStr = @"server=192.168.0.50;uid=cratemaker;database=p_cratemaker;port=3306;password=maker;SslMode=none";
+                MySqlConnection _conn;
+                _conn = new MySqlConnection(_connStr);
+                _conn.Open();
+
+                MySqlCommand cmdGroup = new()
+                {
+                    Connection = _conn
+                };
+                ProfileList = ReadProfilesGroups(cmdGroup);
+                TableList = ReadTablesGroups(cmdGroup);
+                NailsList = ReadNailsGroups(cmdGroup);
+
+                foreach (var nailgrous in NailsList.GroupBy(s => s.c_process_id))
+                {
+                    if (TableList.Any(t => t.c_process_id == nailgrous.First().c_process_id))
+                    {
+                        Table table = TableList.First(t => t.c_process_id == nailgrous.First().c_process_id);
+                        if (!_RepositoryTables.Items.Any(t => t.Name == table.Name))
+                        {
+                            _RepositoryTables.Add(table);
+                        }
+                        string c_package_id = table.c_package_id;
+                        string c_process_id = table.c_process_id;
+                        table = _RepositoryTables.Items.IncludeAll().First(t => t.Name == table.Name);
+                        table.c_package_id = c_package_id;
+                        table.c_process_id = c_process_id;
+                        Profile prof = ProfileList.First(p => p.c_verp_id == table.c_package_id);
+
+                        table.Profiles.Add(prof);
+                        prof.Table = table;
+
+                        Product prod = new()
+                        {
+                            Name = $"{table.Name} Product",
+                            Size1X = table.SideASizeX,
+                            Size1Y = table.SideASizeY,
+                            Nails = nailgrous.ToList(),
+                        };
+                        prod.Elements = (List<ElementPosition>)(new()
+                    {
+                        new()
+                        {
+                            Element = _RepositoryElements.Items.First(s => s.Name == "NULL"),
+                            PosX = 0,
+                            PosY = 0,
+                            PosZ = 0,
+                            Product = prod
+                        }
+                    });
+                        foreach (var nail in nailgrous)
+                            nail.Product = prod;
+                        List<ProfileProducts> profProd = new(); ;
+
+                        if (prof.ProfileProducts is null)
+                        {
+                            profProd.Add(
+                                new()
+                                {
+                                    Position = 1,
+                                    Product = prod,
+                                    Profile = prof
+                                }
+                            );
+                            prof.ProfileProducts = profProd;
+                            prod.ProfileProducts = profProd;
+                        }
+                        try
+                        {
+                            if (!_ManagerProfiles.Items.Any(s => s.Name == prof.Name))
+                            {
+                                _ManagerProfiles.Add(prof);
+                            }
+                            else
+                            {
+                                var prof1 = prof;
+                                prof = _ManagerProfiles.Items.First(s => s.Name == prof.Name);
+                                prof.ProfileProducts = prof1.ProfileProducts;
+
+                                if (!_RepositoryProducts.Items.Any(s => s.Name == prod.Name))
+                                {
+                                    _RepositoryProducts.Add(prod);
+                                }
+                                else
+                                {
+                                    prod = _RepositoryProducts.Items.First(s => s.Name == prod.Name);
+                                    prod.ProfileProducts = profProd;
+                                    prod.Nails = nailgrous.ToList();
+                                }
+
+                                "product added".CheckStage();
+                                foreach (var nail in nailgrous)
+                                {
+                                    if (!_RepositoryNails.Items.Any(s => s.Product.Name == nail.Product.Name))
+                                    {
+                                        _RepositoryNails.Add(nail);
+                                    }
+                                }
+
+                                "nails added".CheckStage();
+                                foreach (var prpr in profProd)
+                                    if (!_RepositoryProfileProducts.Items.Any(s => s.Product.Name == prpr.Product.Name && s.Profile.Name == prpr.Profile.Name))
+                                        _RepositoryProfileProducts.Add(prpr);
+
+                                "proprof added".CheckStage();
+
+                                _ManagerProfiles.Update(prof);
+                            }
+                            "profile added".CheckStage();
+                        }
+                        catch (Exception e)
+                        {
+                            e.ExceptionToString();
+                        }
+                    }
+                }
+            }).Start();
+            //foreach(var profile in ProfileList)
+            //{
+            //    if(TableList.Any(t=>t.c_process_id == profile.c_verp_id))
+            //    {
+            //        Table table = TableList.First(t => t.c_process_id == profile.c_verp_id);
+            //        if (!_RepositoryTables.Items.Any(t=>t.Name == $"Table {table.SideASizeX}x{table.SideASizeY}"))
+            //        {
+            //            _RepositoryTables.Add(table);
+            //        }
+            //        table = _RepositoryTables.Items.First(t => t.Name == $"Table {table.SideASizeX}x{table.SideASizeY}");
+            //        profile.Table = table;
+            //        table.Profiles.Add(profile);
+
+            //        _RepositoryTables.Update(table);
+            //        _ManagerProfiles.Add(profile);
+            //    }
+            //}
+
+            //Profile newProf = new()
+            //{
+            //    Name = "",
+            //    Table =
+            //}
+        }
+
+        private List<Nail> ReadNailsGroups(MySqlCommand cmdGroup)
+        {
+            List<Nail> nails = new();
+            cmdGroup.CommandText = "SELECT * FROM t_robo_package_item_nailing_data";
+            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
+            while (rdrGroup.Read())
+            {
+                nails.Add(new()
+                {
+                    c_process_id = rdrGroup[0].ToString(),
+                    PosX = int.Parse(rdrGroup[2].ToString()),
+                    PosY = int.Parse(rdrGroup[3].ToString()),
+                    PosZ = int.Parse(rdrGroup[4].ToString()),
+                    NailID = int.Parse(rdrGroup[5].ToString())
+                });
+            }
+            rdrGroup.Close();
+            return nails;
+        }
+
+        private List<Profile> ReadProfilesGroups(MySqlCommand cmdGroup)
+        {
+            List<Profile> profiles = new();
+            cmdGroup.CommandText = "SELECT * FROM t_robo_task_item";
+            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
+            while (rdrGroup.Read())
+            {
+                if (DateTime.TryParse(rdrGroup[8].ToString(), out DateTime time))
+                {
+                    profiles.Add(new()
+                    {
+                        n_robo_id = int.Parse(rdrGroup[0].ToString()),
+                        c_verp_id = rdrGroup[1].ToString(),
+                        Name = rdrGroup[3].ToString(),
+                        DateCreate = time
+                    });
+                }
+            }
+            rdrGroup.Close();
+            return profiles;
+        }
+
+        private List<Table> ReadTablesGroups(MySqlCommand cmdGroup)
+        {
+            List<Table> TableList = new();
+            cmdGroup.CommandText = "SELECT * FROM t_robo_package_item";
+            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
+            while (rdrGroup.Read())
+            {
+                TableList.Add(new()
+                {
+                    SideASizeX = int.Parse(rdrGroup[4].ToString()),
+                    SideASizeY = int.Parse(rdrGroup[5].ToString()),
+                    WorkAreaAOffsetX = 0,
+                    WorkAreaAOffsetY = 0,
+                    WorkAreaASizeX = int.Parse(rdrGroup[4].ToString()),
+                    WorkAreaASizeY = int.Parse(rdrGroup[5].ToString()),
+                    Enabled = true,
+                    c_process_id = rdrGroup[0].ToString(),
+                    c_package_id = rdrGroup[1].ToString(),
+                    n_item_id = int.Parse(rdrGroup[2].ToString()),
+                    n_part_count = int.Parse(rdrGroup[3].ToString()),
+                    Name = $"Table {rdrGroup[4]}x{rdrGroup[5]}"
+                });
+            }
+
+            rdrGroup.Close();
+            return TableList;
+        }
+
+        #endregion CopyDatabaseCommand
 
         #region DefaultCommand
 
