@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:l="clr-namespace:Pallet.Infrastructure.Commands">
 
-    <l:OpenProfileWindowCommand x:Key="OpenProfileWindowCommand" />
-    <l:ActivateNailTypeCommand  x:Key="ActivateNailTypeCommand" />
-    <l:OpenLoginWindowCommand   x:Key="OpenLoginWindowCommand" />
+   <!-- <l:ActivateNailTypeCommand  x:Key="ActivateNailTypeCommand" />
+    <l:OpenLoginWindowCommand   x:Key="OpenLoginWindowCommand" />-->
 </ResourceDictionary>

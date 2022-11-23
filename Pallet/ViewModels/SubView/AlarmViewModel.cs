@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.OPC;
+﻿using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.Services.Logging.Interfaces;
 using Pallet.ViewModels.Base;
 using System.Collections.Specialized;
@@ -13,7 +13,7 @@ public class AlarmViewModel : ViewModel
 {
     #region Services
 
-    private readonly IAlarmLogService _AlarmLogService;
+    private readonly ILogService _AlarmLogService;
 
     #endregion Services
 
@@ -87,9 +87,9 @@ public class AlarmViewModel : ViewModel
     /// Initializes a new instance of the <see cref="AlarmViewModel"/> class.
     /// </summary>
     /// <param name="AlarmLogService">The alarm log service.</param>
-    public AlarmViewModel(IAlarmLogService AlarmLogService)
+    public AlarmViewModel()
     {
-        _AlarmLogService = AlarmLogService;
+        _AlarmLogService = App.Services.GetService(typeof(ILogService)) as ILogService;
         LogsViewSourse = new()
         {
             Source = _AlarmLogService.AlarmLogs,

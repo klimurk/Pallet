@@ -1,0 +1,24 @@
+{
+  "LoginWindow": {
+    "Cancel": {
+      "en": "Cancel",
+      "de-DE": "Annullierung"
+    },
+    "Login": {
+      "en": "Login",
+      "de-DE": "Autorisierter"
+    },
+    "Password": {
+      "en": "Password",
+      "de-DE": "Passwort"
+    },
+    "User": {
+      "en": "User",
+      "de-DE": "Benutzer"
+    },
+    "WindowName": {
+      "en": "Login window",
+      "de-DE": "Anmeldefenster"
+    }
+  }
+}

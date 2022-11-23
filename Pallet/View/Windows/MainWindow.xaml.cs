@@ -1,4 +1,6 @@
 ﻿using Pallet.ViewModels.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace Pallet
 {
@@ -16,5 +18,21 @@ namespace Pallet
 
             DataContext = App.Services.GetService(typeof(MainWindowViewModel)) as MainWindowViewModel;
         }
+
+        private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //until we had a StaysOpen flag to Drawer, this will help with scroll bars
+            var dependencyObject = Mouse.Captured as DependencyObject;
+
+            while (dependencyObject != null)
+            {
+                if (dependencyObject is ScrollBar) return;
+                dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
+            }
+
+            MenuToggleButton.IsChecked = false;
+        }
+
+        public static string DialogName = "RootDialog";
     }
 }

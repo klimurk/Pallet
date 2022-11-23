@@ -1,0 +1,28 @@
+{
+  "CreateUserDialog": {
+    "Accept": {
+      "en": "Accept",
+      "de-DE": "Akzeptieren"
+    },
+    "Cancel": {
+      "en": "Cancel",
+      "de-DE": "Stornieren"
+    },
+    "Title": {
+      "en": "Edit user",
+      "de-DE": "Benutzer bearbeiten"
+    },
+    "Description": {
+      "en": "Beschreibung",
+      "de-DE": "Benutzer bearbeiten"
+    },
+    "Name": {
+      "en": "Name",
+      "de-DE": "Name"
+    },
+    "Password": {
+      "en": "Password",
+      "de-DE": "Passwort"
+    }
+  }
+}

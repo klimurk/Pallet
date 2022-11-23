@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.Log;
+﻿using Pallet.InternalDatabase.Entities.Log;
 using Pallet.Services.Logging.Interfaces;
 using Pallet.ViewModels.Base;
 using System.Collections.Specialized;
@@ -74,9 +74,9 @@ public class LogViewModel : ViewModel
     /// Initializes a new instance of the <see cref="LogViewModel"/> class.
     /// </summary>
     /// <param name="AlarmLogService">The alarm log service.</param>
-    public LogViewModel(ILogService LogService)
+    public LogViewModel()
     {
-        _LogService = LogService;
+        _LogService = App.Services.GetService(typeof(ILogService)) as ILogService;
         LogsViewSourse = new()
         {
             Source = _LogService.Logs,

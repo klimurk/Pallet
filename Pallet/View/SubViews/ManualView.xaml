@@ -9,22 +9,31 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    d:DesignHeight="668" d:DesignWidth="1066">
+    d:DesignHeight="668" d:DesignWidth="1066" Background="LightGray">
     <UserControl.Resources>
         <ParametricConverters:ActiveNailTypeConverter x:Key="ActiveNailTypeConverter" ActiveNailType="{Binding NailTypeActive.Name, UpdateSourceTrigger=PropertyChanged}" />
     </UserControl.Resources>
-    <Grid Background="White" Margin="0 10">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Prg101" Command="{Binding SetPrg101Command}"/>
-        <Button Grid.Row="1" Content="Bez hrebiku" Command="{Binding SetWithoutNailCommand}"/>
-        <Button Grid.Row="2" Content="Bez Produkce" Command="{Binding SetWithoutProductCommand}"/>
-        <Button Grid.Row="3" Content="Ukončit process" Command="{Binding EndProcessCommand}"/>
-        <Button Grid.Row="4" Content="Pozastavit produkci" Command="{Binding StopProductCommand}"/>
-    </Grid>
+    <md:Card Margin="10">
+        <Grid Background="White" Margin="0 10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="1" Content="{Tr 'ManualView.Prg101', DefaultText='Prg101'}" Command="{Binding SetPrg101Command}"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="{Tr 'ManualView.WithoutNails', DefaultText='WithoutNails'}" Command="{Binding SetWithoutNailCommand}"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="{Tr 'ManualView.WithoutProduct', DefaultText='WithoutProduct'}" Command="{Binding SetWithoutProductCommand}"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="{Tr 'ManualView.EndProcess', DefaultText='EndProcess'}" Command="{Binding EndProcessCommand}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="{Tr 'ManualView.SuspendProduction', DefaultText='SuspendProduction'}" Command="{Binding StopProductCommand}"/>
+        </Grid>
+    </md:Card>
 </UserControl>

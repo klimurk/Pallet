@@ -1,0 +1,16 @@
+{
+  "LoginInfo": {
+    "DialogTitle": {
+      "en": "Login",
+      "de-DE": "Login"
+    },
+    "LoginSuccessful": {
+      "en": "Login successful",
+      "de-DE": "Anmeldung erfolgreich"
+    },
+    "WrongData": {
+      "en": "Login or password are incorrect",
+      "de-DE": "Login oder Passwort sind falsch"
+    }
+  }
+}

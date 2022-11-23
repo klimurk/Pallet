@@ -1,0 +1,40 @@
+{
+  "AlarmView": {
+    "Title": {
+      "en": "Alarm list",
+      "de-DE": "Alarmliste"
+    },
+    "Text": {
+      "en": "Message text",
+      "de-DE": "Text der Nachricht"
+    },
+    "StartTimeStamp": {
+      "en": "Begin",
+      "de-DE": "Anfang"
+    },
+    "Priority": {
+      "en": "Priority",
+      "de-DE": "Priorität"
+    },
+    "MessageNumber": {
+      "en": "N. Message",
+      "de-DE": "Nachrichtennummer"
+    },
+    "EndTimeStamp": {
+      "en": "End",
+      "de-DE": "Ende"
+    },
+    "Ended": {
+      "en": "Ended in range?",
+      "de-DE": "In Reichweite beendet?"
+    },
+    "Duration": {
+      "en": "Duration",
+      "de-DE": "Dauer"
+    },
+    "Device": {
+      "en": "Device",
+      "de-DE": "Gerät"
+    }
+  }
+}

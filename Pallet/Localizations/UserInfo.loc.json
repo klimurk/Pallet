@@ -1,0 +1,34 @@
+{
+  "UserInfo": {
+    "DeleteUser": {
+      "Text": {
+        "en": "Are you sure delete user",
+        "de-DE": "Sind Sie sicher, dass Sie den Benutzer löschen"
+      },
+      "Title": {
+        "en": "Delete User",
+        "de-DE": "Benutzer löschen"
+      }
+    },
+    "Errors": {
+      "NotCreated": {
+        "en": "New user cannot be created",
+        "de-DE": "Ein neuer Benutzer kann nicht erstellt werden"
+      },
+      "NotModified": {
+        "en": "The new user data contains an error",
+        "de-DE": "Neue Benutzerdaten enthalten einen Fehler"
+      }
+    },
+    "Info": {
+      "Created": {
+        "en": "New user has been created",
+        "de-DE": "Neuer Benutzer wurde erstellt"
+      },
+      "Modified": {
+        "en": "User data has been changed",
+        "de-DE": "Die Benutzerdaten wurden geändert"
+      }
+    }
+  }
+}

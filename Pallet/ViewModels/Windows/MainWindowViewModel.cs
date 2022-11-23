@@ -1,19 +1,15 @@
-﻿using MySqlConnector;
-using Pallet.Database.Entities.Log;
-using Pallet.Database.Entities.OPC;
-using Pallet.Database.Entities.ProfileData.Products;
-using Pallet.Database.Entities.ProfileData.Profiles;
-using Pallet.Database.Entities.ProfileData.Tables;
-using Pallet.Database.Entities.ProfileData.Types;
-using Pallet.Database.Entities.Users;
-using Pallet.Database.Repositories.Interfaces;
+﻿using CodingSeb.Localization;
+using MaterialDesignThemes.Wpf;
+using Pallet.Extensions;
 using Pallet.Infrastructure.Commands;
-using Pallet.Models;
-using Pallet.Services.Draw.Interface;
-using Pallet.Services.Logging.Interfaces;
+using Pallet.InternalDatabase.Entities.OPC;
+using Pallet.InternalDatabase.Entities.Users;
+using Pallet.Services.Language;
 using Pallet.Services.Managers.Interfaces;
+using Pallet.Services.Models;
 using Pallet.Services.OPC.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
+using Pallet.View.Dialogs;
 using Pallet.ViewModels.Base;
 using Pallet.ViewModels.SubView;
 using System.Collections.Specialized;
@@ -27,28 +23,13 @@ namespace Pallet.ViewModels.Windows
     {
         #region Services
 
-        private readonly IDbRepository<Alarm> _RepositoryAlarms;
-        private readonly IDbRepository<Table> _RepositoryTables;
-        private readonly IDbRepository<Element> _RepositoryElements;
-        private readonly IDbRepository<Nail> _RepositoryNails;
-        private readonly IDbRepository<Product> _RepositoryProducts;
-        private readonly IDbRepository<ProfileProducts> _RepositoryProfileProducts;
-        private readonly IDbRepository<Signal> _RepositorySignals;
         private readonly IManagerProfiles _ManagerProfiles;
-        private readonly IAlarmLogService _AlarmLogService;
 
         private readonly IUserDialogService _UserDialogService;
 
         private readonly IManagerLanguage _ManagerLanguage;
         private readonly IManagerUser _ManagerUser;
-        private readonly IOPC _OPCProxy;
-
-        private readonly IManagerNailTypes _ManagerNailTypes;
-        private readonly ILogService _LogService;
-        private readonly IManagerUser _UserManager;
-
-        private IDrawer _Drawer;
-        private readonly IDbRepository<SystemEvent> _RepositorySystemEvents;
+        private readonly IOPC _OPC;
 
         #endregion Services
 
@@ -56,83 +37,55 @@ namespace Pallet.ViewModels.Windows
 
         #region OPC
 
-        #region Nail Type Active
-
-        private Nailer _NailTypeActive;
-
-        public Nailer NailTypeActive
-        {
-            get => _NailTypeActive;
-            set => Set(ref _NailTypeActive, value);
-        }
-
-        #endregion Nail Type Active
-
-        #region Alarms
+        #region Collections
 
         public ObservableCollection<Alarm> Alarms
         {
             get => _Alarms;
-            set => Set(ref _Alarms, value);
+            set => Set(ref value, _Alarms);
         }
 
         private ObservableCollection<Alarm> _Alarms;
 
-        #endregion Alarms
-
-        #region Signals
-
         public ObservableCollection<Signal> Signals
         {
             get => _Signals;
-            set => Set(ref _Signals, value);
+            set => Set(ref value, _Signals);
         }
 
         private ObservableCollection<Signal> _Signals;
 
-        #endregion Signals
+        #endregion Collections
 
-        #region IsAutoMode
+        #region Signals
+
+        public bool? IsAnforderungJobEnd { get => (bool)Signals.FirstOrDefault(s => s.Name == "Anforderung_JobEnd").Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "Anforderung_JobEnd").Node); }
+        public bool? IsAnforderungJobHalt { get => (bool)Signals.FirstOrDefault(s => s.Name == "Anforderung_JobHalt").Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "Anforderung_JobHalt").Node); }
 
         public bool? IsAutoMode
         {
-            get
-            {
-                _IsAutoMode = _OPCProxy.IsAutoMode;
-                return _IsAutoMode;
-            }
-
+            get => (bool)Signals.FirstOrDefault(s => s.Name == "MOD_Auto")?.Value;
             set
             {
-                _OPCProxy.IsAutoMode = value;
-                Set(ref _IsAutoMode, value);
+                _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "Vizu_AutoStart")?.Node);
+                if (value == true)
+                    _OPC.WriteValue(!value, Signals.FirstOrDefault(s => s.Name == "Vizu_AutoStart")?.Node);
             }
         }
 
-        private bool? _IsAutoMode;
+        public bool? IsDataActual { get => (bool)Signals.FirstOrDefault(s => s.Name == "AktuellDaten_niO")?.Value; }
+        public bool? IsDataReady { get => (bool)Signals.FirstOrDefault(s => s.Name == "DatenBereit")?.Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "DatenBereit")?.Node); }
 
-        #endregion IsAutoMode
+        public bool? IsDataRequest => (bool)Signals.FirstOrDefault(s => s.Name == "DatenAnforderung")?.Value;
 
-        #region IsStopMode
+        public bool? IsFQuitt { get => (bool)Signals.FirstOrDefault(s => s.Name == "F_Quitt")?.Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "F_Quitt")?.Node); }
+        public bool? IsHaveFailure { get => (bool)Signals.FirstOrDefault(s => s.Name == "Stoerung")?.Value; }
+        public bool? IsJobDone { get => (bool)Signals.FirstOrDefault(s => s.Name == "JobFertig")?.Value; }
+        public bool? IsJobQuittierung { get => (bool)Signals.FirstOrDefault(s => s.Name == "JobQuittierung")?.Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "JobQuittierung")?.Node); }
+        public bool? IsOP1Acknowledge { get => (bool)Signals.FirstOrDefault(s => s.Name == "OP1_Acknowledge")?.Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "OP1_Acknowledge")?.Node); }
+        public bool? IsStopMode { get => (bool)Signals.FirstOrDefault(s => s.Name == "MOD_Hand")?.Value; set => _OPC.WriteValue(value, Signals.FirstOrDefault(s => s.Name == "Vizu_Autostop")?.Node); }
 
-        public bool? IsStopMode
-        {
-            get
-            {
-                _IsStopMode = _OPCProxy.IsStopMode;
-                return _IsStopMode;
-            }
-
-            set
-            {
-                _OPCProxy.IsStopMode = value;
-                Set(ref _IsStopMode, value);
-            }
-        }
-
-        private bool? _IsStopMode;
-
-        #endregion IsStopMode
+        #endregion Signals
 
         #region OPC Connection status
 
@@ -140,7 +93,7 @@ namespace Pallet.ViewModels.Windows
         {
             get
             {
-                Set(ref _ConnectionStatus, _OPCProxy.ConnectionStatus);
+                Set(ref _ConnectionStatus, _OPC.IsConnected);
                 return _ConnectionStatus;
             }
         }
@@ -149,83 +102,53 @@ namespace Pallet.ViewModels.Windows
 
         #endregion OPC Connection status
 
+        #region Page internals
+
+        public bool IsNavigationDrawer
+        {
+            get => _IsNavigationDrawer;
+            set => Set(ref _IsNavigationDrawer, value);
+        }
+
+        private bool _IsNavigationDrawer;
+        public SnackbarMessageQueue MyMessageQueue => _UserDialogService.MessageQueue;
+
+        #endregion Page internals
+
         #endregion OPC
 
         #region SQL
 
-        #region Profiles
-
-        public ICollectionView? ProfilesView => _ProfileViewSource.View;
-
-        private readonly CollectionViewSource _ProfileViewSource;
-
-        //private ObservableCollection<ProfileInfoData> ProfilesInfoData
-        //{
-        //    get => _ProfilesInfoData;
-        //    set
-        //    {
-        //        if (Set(ref _ProfilesInfoData, value))
-        //        {
-        //            _ProfileViewSource.Source = value;
-        //            _ProfileViewSource.View.Refresh();
-        //        }
-        //        OnPropertyChanged(nameof(ProfilesView));
-        //    }
-        //}
-
-        //private ObservableCollection<ProfileInfoData> _ProfilesInfoData;
-
-        #endregion Profiles
-
-        #region Filtering (view)
-
-        public string FilterName
-        {
-            get => _FilterName;
-            set
-            {
-                if (Set(ref _FilterName, value))
-                    _ProfileViewSource.View.Refresh();
-            }
-        }
-
-        private string _FilterName;
-
-        #endregion Filtering (view)
-
-        #region Active Profile (view)
-
-        /// <summary>
-        /// Gets or sets the active profile.
-        /// </summary>
-        public Profile ActiveProfile
-        {
-            get => _ActiveProfile;
-            set => Set(ref _ActiveProfile, value);
-        }
-
-        private Profile _ActiveProfile;
-
-        #endregion Active Profile (view)
-
         #region User
 
-        public User User
+        public User LoginedUser
         {
             get => _User;
             set => Set(ref _User, value);
         }
 
         private User _User;
-
-        public bool IsUserAuthorized => _ManagerUser.IsLogined;
+        public bool IsUserAuthorized => _ManagerUser.LoginedUser != null;
 
         #endregion User
 
         #region Selected Language
 
         public Lang SelectedLang
-        { get => _SelectedLang; set { Set(ref _SelectedLang, value); _ManagerLanguage.SelectedLang = value; } }
+        {
+            get => _SelectedLang;
+            set
+            {
+                Loc.Instance.CurrentLanguage = value.Culture.IetfLanguageTag;
+                //try
+                //{
+                //    CultureManager.UICulture = value.Culture;
+                //}
+                //catch { }
+                Set(ref _SelectedLang, value);
+                //_ManagerLanguage.SelectedLang = value;
+            }
+        }
 
         private Lang _SelectedLang;
 
@@ -253,63 +176,26 @@ namespace Pallet.ViewModels.Windows
             set
             {
                 Set(ref _CurrentModel, value);
-                IsCurrentViewModelIsAlarmViewModel = value is AlarmViewModel;
-                IsCurrentViewModelIsPalletViewModel = value is PalletViewModel;
-                IsCurrentViewModelIsManualViewModel = value is ManualViewModel;
-                IsCurrentViewModelIsLogViewModel = value is LogViewModel;
+                IsNavigationDrawer = false;
             }
         }
 
-        private PalletViewModel _PalletViewModel;
-        private ManualViewModel _ManualViewModel;
-        private AlarmViewModel _AlarmViewModel;
-        private LogViewModel _LogViewModel;
-
         private ViewModel _CurrentModel;
-
-        public bool IsCurrentViewModelIsAlarmViewModel
-        {
-            get => _IsCurrentViewModelIsAlarmViewModel;
-            set => Set(ref _IsCurrentViewModelIsAlarmViewModel, value);
-        }
-
-        private bool _IsCurrentViewModelIsAlarmViewModel;
-
-        public bool IsCurrentViewModelIsPalletViewModel
-        {
-            get => _IsCurrentViewModelIsPalletViewModel;
-            set => Set(ref _IsCurrentViewModelIsPalletViewModel, value);
-        }
-
-        private bool _IsCurrentViewModelIsPalletViewModel;
-
-        public bool IsCurrentViewModelIsManualViewModel
-        {
-            get => _IsCurrentViewModelIsManualViewModel;
-            set => Set(ref _IsCurrentViewModelIsManualViewModel, value);
-        }
-
-        private bool _IsCurrentViewModelIsManualViewModel;
-
-        public bool IsCurrentViewModelIsLogViewModel
-        {
-            get => _IsCurrentViewModelIsLogViewModel;
-            set => Set(ref _IsCurrentViewModelIsLogViewModel, value);
-        }
-
-        private bool _IsCurrentViewModelIsLogViewModel;
 
         #endregion Current Model (View)
 
-        #region Nail Types
+        public int? CountTaskMade => _ManagerProfiles.RobotTaskItem?.Count;
+        public int? CountTaskDone => _ManagerProfiles.RobotTaskItem?.DoneCount;
 
-        public ICollectionView NailTypesView => _NailTypeViewSource.View;
+        public string? CustomerName => _ManagerProfiles.Firm?.Kundekrz;
+        public string? ContractNum => _ManagerProfiles.Contract?.CNr;
+        public string? PackaeNum => _ManagerProfiles.CrateCharacteristics?.VerpNr; // todo: check if this or not
 
-        private readonly CollectionViewSource _NailTypeViewSource;
-
-        private IEnumerable<Nailer> NailTypes => _ManagerNailTypes.NailTypes;
-
-        #endregion Nail Types
+        public string? TaskElementName => _ManagerProfiles.RobotTaskItem?.CLayerId;
+        public string? TaskNextElementName => _ManagerProfiles.NextRobotTaskItem?.CLayerId;
+        public string? NextCustomerName => _ManagerProfiles.NextFirm?.Kundekrz;
+        public string? NextContractNum => _ManagerProfiles.NextContract?.CNr;
+        public string? NextPackaeNum => _ManagerProfiles.NextCrateCharacteristics?.VerpNr; // todo: check if this or not
 
         #endregion Fields
 
@@ -324,126 +210,55 @@ namespace Pallet.ViewModels.Windows
         /// <param name="ManagerUser">The user manager.</param>
         /// <param name="ManagerLanguage">The language manager.</param>
         /// <param name="UserDialogService">The user dialog service.</param>
-        /// <param name="AlarmLogService">The alarm log service.</param>
         /// <param name="OPCProxy">The OPC proxy.</param>
         public MainWindowViewModel(
-                IDbRepository<Signal> RepositorySignals,
-                IDbRepository<Alarm> RepositoryAlarms,
-                IDbRepository<SystemEvent> RepositorySystemEvents,
-                IDbRepository<Element> RepositoryElements,
-                IDbRepository<Table> RepositoryTables,
-                IDbRepository<Nail> RepositoryNails,
-                IDbRepository<Product> RepositoryProducts,
-                IDbRepository<ProfileProducts> RepositoryProfileProducts,
-                IManagerProfiles ManagerProfiles,
-                IManagerUser ManagerUser,
-                IManagerLanguage ManagerLanguage,
-                IUserDialogService UserDialogService,
-                IAlarmLogService AlarmLogService,
-                IOPC OPCProxy,
-                IManagerNailTypes ManagerNailTypes,
-                ILogService LogsService,
-                IDrawer Drawer
-                )
-        {
-            "MainWindow view model init".CheckStage();
 
-            _RepositoryElements = RepositoryElements;
-            _RepositoryNails = RepositoryNails;
-            _RepositoryProducts = RepositoryProducts;
-            _RepositoryProfileProducts = RepositoryProfileProducts;
-            _RepositorySignals = RepositorySignals;
-            _RepositoryAlarms = RepositoryAlarms;
-            _AlarmLogService = AlarmLogService;
-            _RepositoryTables = RepositoryTables;
+            IManagerProfiles ManagerProfiles,
+            IManagerUser ManagerUser,
+            IManagerLanguage ManagerLanguage,
+            IUserDialogService UserDialogService,
+            IOPC OPCProxy
+            )
+        {
+
             _ManagerLanguage = ManagerLanguage;
             _ManagerUser = ManagerUser;
             _ManagerProfiles = ManagerProfiles;
-            _OPCProxy = OPCProxy;
+            _OPC = OPCProxy;
             _UserDialogService = UserDialogService;
-            _ManagerNailTypes = ManagerNailTypes;
-            _LogService = LogsService;
-            _Drawer = Drawer;
-            _RepositorySystemEvents = RepositorySystemEvents;
-            NailTypeActive = _ManagerNailTypes.ActiveNailType;
 
-            _NailTypeViewSource = new()
-            {
-                Source = NailTypes,
-                SortDescriptions = {
-                    new SortDescription(
-                        nameof(Nailer.Dock),
-                        ListSortDirection.Ascending),
-                    new SortDescription(
-                        nameof(Nailer.Width),
-                        ListSortDirection.Ascending),
-                    new SortDescription(
-                        nameof(Nailer.Size),
-                        ListSortDirection.Ascending)
-                }
-            };
             //_ResourceManager = new ResourceManager("Pallet.Resources.Windows.MainWindow.MainWindowResource", Assembly.GetExecutingAssembly());
-            SelectedLang = _ManagerLanguage.SelectedLang;
+
+            SelectedLang = _ManagerLanguage.Langs.First(s => s.Culture.IetfLanguageTag == "en");
             Langs = _ManagerLanguage.Langs;
 
-            _ProfileViewSource = new()
-            {
-                Source = _ManagerProfiles.Items,
-                SortDescriptions =
-                {
-                    new SortDescription(nameof(Profile.DateLastUse), ListSortDirection.Descending)
-                }
-            };
-            _ProfileViewSource.Filter += ProfileListSource_Filter;
+            _Signals = _OPC.Signals;
+            _Alarms = _OPC.Alarms;
 
-            Signals = _OPCProxy.Signals;
-            Alarms = _OPCProxy.Alarms;
+            _Alarms.CollectionChanged -= Alarms_CollectionChanged;
+            _Signals.CollectionChanged -= Signals_CollectionChanged;
 
-            Alarms.CollectionChanged -= Alarms_CollectionChanged;
-            Signals.CollectionChanged -= Signals_CollectionChanged;
+            _Alarms.CollectionChanged += Alarms_CollectionChanged;
+            _Signals.CollectionChanged += Signals_CollectionChanged;
 
-            Alarms.CollectionChanged += Alarms_CollectionChanged;
-            Signals.CollectionChanged += Signals_CollectionChanged;
+            _OPC.DataChanged += _OPC_DataChanged;
 
-            ActiveProfile = _ManagerProfiles.GetActiveProfile();
-            _ManagerProfiles.ActiveProfileChanged -= ManagerProfiles_ActiveProfileChanged;
-            _ManagerProfiles.ActiveProfileChanged += ManagerProfiles_ActiveProfileChanged;
+            _ManagerUser.LoginedUserChanged += _ManagerUser_LoginedUserChanged;
+            _ManagerUser.Login("administrator", "btadmin");
 
             // _LogService.MakeLog(_RepositorySystemEvents.Items.First(s => s.Name == "StartApp"));
         }
 
+        private void _OPC_DataChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(default);
+        }
+
+        private void _ManagerUser_LoginedUserChanged(object? sender, EventArgs e) => LoginedUser = _ManagerUser.LoginedUser;
+
         #endregion Constructor - Destructor
 
         #region Events
-
-        /// <summary>
-        /// Handler event when Active profile changed.
-        /// Get active profile and refresh list view
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void ManagerProfiles_ActiveProfileChanged(object? sender, EventArgs e)
-        {
-            ActiveProfile = _ManagerProfiles.GetActiveProfile();
-            ProfilesView.Refresh();
-            OnPropertyChanged(nameof(ActiveProfile));
-        }
-
-        #region Profiles filter event
-
-        /// <summary>
-        /// _S the profile list source_ filter.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void ProfileListSource_Filter(object sender, FilterEventArgs e)
-        {
-            if (e.Item is not Profile profile || string.IsNullOrEmpty(FilterName)) return;
-            if (!profile.Name.ToLower().Contains(FilterName.ToLower()))
-                e.Accepted = false;
-        }
-
-        #endregion Profiles filter event
 
         #region Alarms Collection changed Event
 
@@ -476,7 +291,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void AlarmsValue_PropertyChanged(object sender, PropertyChangedEventArgs e) => Alarms.Refresh();
+        private void AlarmsValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Alarms.Refresh();
+        }
 
         #endregion Alarms Collection changed Event
 
@@ -511,7 +329,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void SignalsValue_PropertyChanged(object sender, PropertyChangedEventArgs e) => Signals.Refresh();
+        private void SignalsValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Signals.Refresh();
+        }
 
         #endregion Signals Collection changed Event
 
@@ -535,7 +356,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSendProfileCommandExecute(object arg) => _OPCProxy.IsDataRequest == true && _ManagerProfiles.ActiveProfile != null;
+        private bool CanSendProfileCommandExecute(object arg) =>
+            IsDataRequest == true
+            && _ManagerProfiles.CurrentTask != null
+            && _OPC.IsConnected;
 
         //&& (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
 
@@ -543,9 +367,80 @@ namespace Pallet.ViewModels.Windows
         /// Sending  profile.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnSendProfileCommandExecuted(object obj) => _OPCProxy.WriteProfile(_ManagerProfiles.ActiveProfile);
+        private void OnSendProfileCommandExecuted(object obj)
+        {
+            _OPC.WriteTaskNails(_ManagerProfiles.GetTaskNails());
+            IsDataReady = true;
+        }
 
         #endregion SendProfileCommand
+
+        #region SendProfileBackwardCommand
+
+        private ICommand _SendProfileBackwardCommand;
+
+        /// <summary>
+        /// Send profile command.
+        /// </summary>
+        public ICommand SendProfileBackwardCommand => _SendProfileBackwardCommand ??= new LambdaCommand(OnSendProfileBackwardCommandExecuted, CanSendProfileBackwardCommandExecute);
+
+        /// <summary>
+        /// Can Send  profile .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanSendProfileBackwardCommandExecute(object arg) =>
+            IsDataRequest == true
+            && _ManagerProfiles.CurrentTask != null
+            && _OPC.IsConnected;
+
+        //&& (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
+
+        /// <summary>
+        /// Sending  profile.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnSendProfileBackwardCommandExecuted(object obj)
+        {
+            _OPC.WriteTaskNails(_ManagerProfiles.GetTaskNails().OrderByDescending(s => s.NOrder).ToList());
+
+            IsDataReady = true;
+        }
+
+        #endregion SendProfileBackwardCommand
+
+        #region SendProfileRandomCommand
+
+        private ICommand _SendProfileRandomCommand;
+
+        /// <summary>
+        /// Send profile command.
+        /// </summary>
+        public ICommand SendProfileRandomCommand => _SendProfileRandomCommand ??= new LambdaCommand(OnSendProfileRandomCommandExecuted, CanSendProfileRandomCommandExecute);
+
+        /// <summary>
+        /// Can Send  profile .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanSendProfileRandomCommandExecute(object arg) =>
+            IsDataRequest == true
+            && _ManagerProfiles.CurrentTask != null
+            && _OPC.IsConnected;
+
+        //&& (_ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker);
+
+        /// <summary>
+        /// Sending  profile.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnSendProfileRandomCommandExecuted(object obj)
+        {
+            _OPC.WriteTaskNails(_ManagerProfiles.GetTaskNails().Shuffle(new Random()).ToList());
+            IsDataReady = true;
+        }
+
+        #endregion SendProfileRandomCommand
 
         #region AutoMode
 
@@ -563,7 +458,11 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSetAutoModeCommandExecute(object arg) => _OPCProxy.IsAutoMode == false && IsStopMode == false && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanSetAutoModeCommandExecute(object arg) =>
+            IsAutoMode == false
+            && IsStopMode == false
+            && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker
+            && _OPC.IsConnected;
 
         /// <summary>
         /// Setting auto mode .
@@ -587,7 +486,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanResetAutoModeCommandExecute(object arg) => IsAutoMode == true && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanResetAutoModeCommandExecute(object arg) =>
+            IsAutoMode == true
+            && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker
+            && _OPC.IsConnected;
 
         /// <summary>
         /// Resetting auto mode.
@@ -615,7 +517,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanSetStopModeCommandExecute(object arg) => IsStopMode == false && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanSetStopModeCommandExecute(object arg) =>
+            IsStopMode == false
+            && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker
+            && _OPC.IsConnected;
 
         /// <summary>
         /// Setting stop mode.
@@ -643,7 +548,10 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanResetStopModeCommandExecute(object arg) => (bool)IsStopMode && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanResetStopModeCommandExecute(object arg) =>
+            (bool)IsStopMode
+            && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker
+            && _OPC.IsConnected;
 
         /// <summary>
         /// Resetting stop mode .
@@ -669,13 +577,15 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanOPCConnectCommandExecute(object arg) => !ConnectionStatus && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanOPCConnectCommandExecute(object arg) =>
+            !_OPC.IsConnected
+            && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Resetting OPC connection.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnOPCConnectCommandExecuted(object obj) => new Thread(() => _OPCProxy.InitializeOPC()) { IsBackground = true }.Start();
+        private void OnOPCConnectCommandExecuted(object obj) => Task.Run(() => _OPC.InitializeOPC());
 
         #endregion OPCConnectCommand
 
@@ -697,13 +607,13 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanShowManualViewCommandExecute(object arg) => !IsCurrentViewModelIsManualViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Manager;
+        private bool CanShowManualViewCommandExecute(object arg) => CurrentModel is not ManualViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Manager;
 
         /// <summary>
         /// Show manual view.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnShowManualViewCommandExecuted(object obj) => CurrentModel = _ManualViewModel ??= new ManualViewModel(_ManagerNailTypes, _ManagerUser, _OPCProxy);
+        private void OnShowManualViewCommandExecuted(object obj) => CurrentModel = new ManualViewModel();
 
         #endregion ShowManualViewCommand
 
@@ -721,7 +631,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanShowPalletViewCommandExecute(object arg) => !IsCurrentViewModelIsPalletViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanShowPalletViewCommandExecute(object arg) => CurrentModel is not PalletViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Show pallet view .
@@ -730,7 +640,7 @@ namespace Pallet.ViewModels.Windows
         private void OnShowPalletViewCommandExecuted(object obj)
         {
             //CurrentModel?.Dispose();
-            CurrentModel = _PalletViewModel ??= new PalletViewModel(_ManagerProfiles, _Drawer, _ManagerLanguage, _RepositoryElements);
+            CurrentModel = new PalletViewModel();
         }
 
         #endregion ShowPalletViewCommand
@@ -749,13 +659,13 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanShowAlarmViewCommandExecute(object arg) => !IsCurrentViewModelIsAlarmViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanShowAlarmViewCommandExecute(object arg) => CurrentModel is not AlarmViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Show alarm view.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnShowAlarmViewCommandExecuted(object obj) => CurrentModel = _AlarmViewModel ??= new AlarmViewModel(_AlarmLogService);
+        private void OnShowAlarmViewCommandExecuted(object obj) => CurrentModel = new AlarmViewModel();
 
         #endregion ShowAlarmViewCommand
 
@@ -773,15 +683,39 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanShowLogViewCommandExecute(object arg) => !IsCurrentViewModelIsLogViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
+        private bool CanShowLogViewCommandExecute(object arg) => CurrentModel is not LogViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Worker;
 
         /// <summary>
         /// Show alarm view.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnShowLogViewCommandExecuted(object obj) => CurrentModel = _LogViewModel ??= new LogViewModel(_LogService);
+        private void OnShowLogViewCommandExecuted(object obj) => CurrentModel = new LogViewModel();
 
         #endregion ShowLogViewCommand
+
+        #region ShowUsersViewCommand
+
+        private ICommand _ShowUsersViewCommand;
+
+        /// <summary>
+        /// Show alarm view command.
+        /// </summary>
+        public ICommand ShowUsersViewCommand => _ShowUsersViewCommand ??= new LambdaCommand(OnShowUsersViewCommandExecuted, CanShowUsersViewCommandExecute);
+
+        /// <summary>
+        /// Can show alarm view .
+        /// </summary>
+        /// <param name="arg">The arg.</param>
+        /// <returns>A bool.</returns>
+        private bool CanShowUsersViewCommandExecute(object arg) => CurrentModel is not UsersViewModel && _ManagerUser.LoginedUser?.RoleNum >= (int)IManagerUser.UserRoleNum.Admin;
+
+        /// <summary>
+        /// Show alarm view.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void OnShowUsersViewCommandExecuted(object obj) => CurrentModel = new UsersViewModel();
+
+        #endregion ShowUsersViewCommand
 
         #endregion ViewModelCommands
 
@@ -795,7 +729,7 @@ namespace Pallet.ViewModels.Windows
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanLogoutCommandExecute(object arg) => _ManagerUser.IsLogined;
+        private bool CanLogoutCommandExecute(object arg) => _ManagerUser.LoginedUser != null;
 
         /// <summary>
         /// Logout.
@@ -804,8 +738,7 @@ namespace Pallet.ViewModels.Windows
         private void OnLogoutCommandExecuted(object obj)
         {
             _ManagerUser.LogOut();
-            User = null;
-            _UserDialogService.ShowInformation("You have been logout", "Login");
+            _UserDialogService.ShowInformation("You have been logout");
         }
 
         #endregion LogoutCommand
@@ -837,252 +770,46 @@ namespace Pallet.ViewModels.Windows
             {
                 Process.Start(path);
             }
-            catch (Exception e) { _UserDialogService.ShowError(e.Message, "Wincc error"); }
+            catch (Exception e) { _UserDialogService.ShowDialogError(e.Message, "Wincc error"); }
         }
 
         #endregion StartWinccCommand
 
-        #region CopyDatabaseCommand
+        #region OpenLoginWindowCommand
 
-        private ICommand _CopyDatabaseCommand;
+        private ICommand _OpenLoginWindowCommand;
 
         /// <summary>
-        /// CopyDatabase command.
+        /// OpenLoginWindow command.
         /// </summary>
-        public ICommand CopyDatabaseCommand => _CopyDatabaseCommand ??= new LambdaCommand(OnCopyDatabaseCommandExecuted, CanCopyDatabaseCommandExecute);
+        public ICommand OpenLoginWindowCommand => _OpenLoginWindowCommand ??= new LambdaCommand(OnOpenLoginWindowCommandExecuted, CanOpenLoginWindowCommandExecute);
 
         /// <summary>
         /// Can execute default command .
         /// </summary>
         /// <param name="arg">The arg.</param>
         /// <returns>A bool.</returns>
-        private bool CanCopyDatabaseCommandExecute(object arg) => true;
+        private bool CanOpenLoginWindowCommandExecute(object arg) => true;
 
         /// <summary>
-        /// CopyDatabase function.
+        /// OpenLoginWindow function.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        private void OnCopyDatabaseCommandExecuted(object obj)
+        private async void OnOpenLoginWindowCommandExecuted(object obj)
         {
-            new Thread(() =>
+            var view = new LoginWindow
             {
-                List<Profile> ProfileList = new();
-                List<Nail> NailsList = new();
-                List<Table> TableList = new();
+                //Owner = Application.Current.MainWindow,
+                //WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                DataContext = new LoginViewModel()
+            };
 
-                string _connStr = @"server=192.168.0.50;uid=cratemaker;database=p_cratemaker;port=3306;password=maker;SslMode=none";
-                MySqlConnection _conn;
-                _conn = new MySqlConnection(_connStr);
-                _conn.Open();
-
-                MySqlCommand cmdGroup = new()
-                {
-                    Connection = _conn
-                };
-                ProfileList = ReadProfilesGroups(cmdGroup);
-                TableList = ReadTablesGroups(cmdGroup);
-                NailsList = ReadNailsGroups(cmdGroup);
-
-                foreach (var nailgrous in NailsList.GroupBy(s => s.c_process_id))
-                {
-                    if (TableList.Any(t => t.c_process_id == nailgrous.First().c_process_id))
-                    {
-                        Table table = TableList.First(t => t.c_process_id == nailgrous.First().c_process_id);
-                        if (!_RepositoryTables.Items.Any(t => t.Name == table.Name))
-                        {
-                            _RepositoryTables.Add(table);
-                        }
-                        string c_package_id = table.c_package_id;
-                        string c_process_id = table.c_process_id;
-                        table = _RepositoryTables.Items.IncludeAll().First(t => t.Name == table.Name);
-                        table.c_package_id = c_package_id;
-                        table.c_process_id = c_process_id;
-                        Profile prof = ProfileList.First(p => p.c_verp_id == table.c_package_id);
-
-                        table.Profiles.Add(prof);
-                        prof.Table = table;
-
-                        Product prod = new()
-                        {
-                            Name = $"{table.Name}",
-                            Size1X = table.SideASizeX,
-                            Size1Y = table.SideASizeY,
-                            Nails = nailgrous.ToList(),
-                        };
-                        prod.Elements = (List<ElementPosition>)(new()
-                    {
-                        new()
-                        {
-                            Element = _RepositoryElements.Items.First(s => s.Name == "NULL"),
-                            PosX = 0,
-                            PosY = 0,
-                            PosZ = 0,
-                            Product = prod
-                        }
-                    });
-                        foreach (var nail in nailgrous)
-                            nail.Product = prod;
-                        List<ProfileProducts> profProd = new(); ;
-
-                        if (prof.ProfileProducts is null)
-                        {
-                            profProd.Add(
-                                new()
-                                {
-                                    Position = 1,
-                                    Product = prod,
-                                    Profile = prof
-                                }
-                            );
-                            prof.ProfileProducts = profProd;
-                            prod.ProfileProducts = profProd;
-                        }
-                        try
-                        {
-                            if (!_ManagerProfiles.Items.Any(s => s.Name == prof.Name))
-                            {
-                                _ManagerProfiles.Add(prof);
-                            }
-                            else
-                            {
-                                var prof1 = prof;
-                                prof = _ManagerProfiles.Items.First(s => s.Name == prof.Name);
-                                prof.ProfileProducts = prof1.ProfileProducts;
-
-                                if (!_RepositoryProducts.Items.Any(s => s.Name == prod.Name))
-                                {
-                                    _RepositoryProducts.Add(prod);
-                                }
-                                else
-                                {
-                                    prod = _RepositoryProducts.Items.First(s => s.Name == prod.Name);
-                                    prod.ProfileProducts = profProd;
-                                    prod.Nails = nailgrous.ToList();
-                                }
-
-                                "product added".CheckStage();
-                                foreach (var nail in nailgrous)
-                                {
-                                    if (!_RepositoryNails.Items.Any(s => s.Product.Name == nail.Product.Name))
-                                    {
-                                        _RepositoryNails.Add(nail);
-                                    }
-                                }
-
-                                "nails added".CheckStage();
-                                foreach (var prpr in profProd)
-                                    if (!_RepositoryProfileProducts.Items.Any(s => s.Product.Name == prpr.Product.Name && s.Profile.Name == prpr.Profile.Name))
-                                        _RepositoryProfileProducts.Add(prpr);
-
-                                "proprof added".CheckStage();
-
-                                _ManagerProfiles.Update(prof);
-                            }
-                            "profile added".CheckStage();
-                        }
-                        catch (Exception e)
-                        {
-                            e.ExceptionToString();
-                        }
-                    }
-                }
-            }).Start();
-            //foreach(var profile in ProfileList)
-            //{
-            //    if(TableList.Any(t=>t.c_process_id == profile.c_verp_id))
-            //    {
-            //        Table table = TableList.First(t => t.c_process_id == profile.c_verp_id);
-            //        if (!_RepositoryTables.Items.Any(t=>t.Name == $"Table {table.SideASizeX}x{table.SideASizeY}"))
-            //        {
-            //            _RepositoryTables.Add(table);
-            //        }
-            //        table = _RepositoryTables.Items.First(t => t.Name == $"Table {table.SideASizeX}x{table.SideASizeY}");
-            //        profile.Table = table;
-            //        table.Profiles.Add(profile);
-
-            //        _RepositoryTables.Update(table);
-            //        _ManagerProfiles.Add(profile);
-            //    }
-            //}
-
-            //Profile newProf = new()
-            //{
-            //    Name = "",
-            //    Table =
-            //}
+            //show the dialog
+            var result = await DialogHost.Show(view, MainWindow.DialogName);
+            IsNavigationDrawer = false;
         }
 
-        private List<Nail> ReadNailsGroups(MySqlCommand cmdGroup)
-        {
-            List<Nail> nails = new();
-            cmdGroup.CommandText = "SELECT * FROM t_robo_package_item_nailing_data";
-            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
-            while (rdrGroup.Read())
-            {
-                nails.Add(new()
-                {
-                    c_process_id = rdrGroup[0].ToString(),
-                    PosX = int.Parse(rdrGroup[2].ToString()),
-                    PosY = int.Parse(rdrGroup[3].ToString()),
-                    PosZ = int.Parse(rdrGroup[4].ToString()),
-                    NailID = int.Parse(rdrGroup[5].ToString())
-                });
-            }
-            rdrGroup.Close();
-            return nails;
-        }
-
-        private List<Profile> ReadProfilesGroups(MySqlCommand cmdGroup)
-        {
-            List<Profile> profiles = new();
-            cmdGroup.CommandText = "SELECT * FROM t_robo_task_item";
-            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
-            while (rdrGroup.Read())
-            {
-                if (DateTime.TryParse(rdrGroup[8].ToString(), out DateTime time))
-                {
-                    profiles.Add(new()
-                    {
-                        n_robo_id = int.Parse(rdrGroup[0].ToString()),
-                        c_verp_id = rdrGroup[1].ToString(),
-                        Name = rdrGroup[3].ToString(),
-                        DateCreate = time
-                    });
-                }
-            }
-            rdrGroup.Close();
-            return profiles;
-        }
-
-        private List<Table> ReadTablesGroups(MySqlCommand cmdGroup)
-        {
-            List<Table> TableList = new();
-            cmdGroup.CommandText = "SELECT * FROM t_robo_package_item";
-            MySqlDataReader rdrGroup = cmdGroup.ExecuteReader();
-            while (rdrGroup.Read())
-            {
-                TableList.Add(new()
-                {
-                    SideASizeX = int.Parse(rdrGroup[4].ToString()),
-                    SideASizeY = int.Parse(rdrGroup[5].ToString()),
-                    WorkAreaAOffsetX = 0,
-                    WorkAreaAOffsetY = 0,
-                    WorkAreaASizeX = int.Parse(rdrGroup[4].ToString()),
-                    WorkAreaASizeY = int.Parse(rdrGroup[5].ToString()),
-                    Enabled = true,
-                    c_process_id = rdrGroup[0].ToString(),
-                    c_package_id = rdrGroup[1].ToString(),
-                    n_item_id = int.Parse(rdrGroup[2].ToString()),
-                    n_part_count = int.Parse(rdrGroup[3].ToString()),
-                    Name = $"Table {rdrGroup[4]}x{rdrGroup[5]}"
-                });
-            }
-
-            rdrGroup.Close();
-            return TableList;
-        }
-
-        #endregion CopyDatabaseCommand
+        #endregion OpenLoginWindowCommand
 
         #region DefaultCommand
 

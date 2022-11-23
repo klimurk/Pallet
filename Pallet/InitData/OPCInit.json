@@ -1,0 +1,304 @@
+{
+  "Alarms": [
+    {
+      "NR": 1,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "Not Automatic Mode",
+      "DescriptionDe": "Ohne Automatik",
+      "DescriptionLocal": "Není v automatickém režimu",
+      "Name": "N_auto",
+      "Address": "ns=3;s=\"Stoe_DB\".\"N_auto\""
+    },
+    {
+      "NR": 2,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "O",
+      "DescriptionEn": "Stop",
+      "DescriptionDe": "Halt",
+      "DescriptionLocal": "Stop",
+      "Name": "Halt",
+      "Address": "ns=3;s=\"Stoe_DB\".\"Halt\""
+    },
+    {
+      "NR": 3,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "O",
+      "DescriptionEn": "Emergency Stop",
+      "DescriptionDe": "Not-Aus",
+      "DescriptionLocal": "Nouzový stop",
+      "Name": "EmStop",
+      "Address": "ns=3;s=\"Stoe_DB\".\"EmStop\""
+    },
+    {
+      "NR": 4,
+      "Device": "Robot",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "Robot - System Fault",
+      "DescriptionDe": "Roboter - Systemfehler",
+      "DescriptionLocal": "Robot - systémová porucha",
+      "Name": "R_systemFault",
+      "Address": "ns=3;s=\"Stoe_DB\".\"R_sytemFault\""
+    },
+    {
+      "NR": 5,
+      "Device": "Robot",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "O",
+      "DescriptionEn": "Robot - Emergency Stop",
+      "DescriptionDe": "Roboter - Not - Aus",
+      "DescriptionLocal": "Robot - Nouzový stop",
+      "Name": "R_EmStop",
+      "Address": "ns=3;s=\"Stoe_DB\".\"R_EmStop\""
+    },
+    {
+      "NR": 6,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "General Fault",
+      "DescriptionDe": "Gesamtfehler",
+      "DescriptionLocal": "Celková porucha",
+      "Name": "Gesamtfehler",
+      "Address": "ns=3;s=\"Stoe_DB\".\"Gesamtfehler\""
+    },
+    {
+      "NR": 7,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "General BS",
+      "DescriptionDe": "BS-Gesamt",
+      "DescriptionLocal": "Celková BS",
+      "Name": "BS_gesamt",
+      "Address": "ns=3;s=\"Stoe_DB\".\"BS_gesamt\""
+    },
+    {
+      "NR": 8,
+      "Device": "Robot",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "Robot - Not Auto",
+      "DescriptionDe": "Roboter -Ohne Automatik",
+      "DescriptionLocal": "Robot -Není v automatice",
+      "Name": "N_R_Auto",
+      "Address": "ns=3;s=\"Stoe_DB\".\"N_R_Auto\""
+    },
+    {
+      "NR": 9,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "Z",
+      "StopType": "-",
+      "DescriptionEn": "Motor Off",
+      "DescriptionDe": "Motor aus",
+      "DescriptionLocal": "Motor vypnut",
+      "Name": "MotOffState",
+      "Address": "ns=3;s=\"Stoe_DB\".\"MotOffState\""
+    },
+    {
+      "NR": 10,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "T",
+      "DescriptionEn": "Motor Not On",
+      "DescriptionDe": "Motor nicht ein",
+      "DescriptionLocal": "Motor neběží",
+      "Name": "N_MotOnState",
+      "Address": "ns=3;s=\"Stoe_DB\".\"N_MotOnState\""
+    },
+    {
+      "NR": 11,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "M",
+      "StopType": "-",
+      "DescriptionEn": "PC Not Connected",
+      "DescriptionDe": "PC nicht angebunden",
+      "DescriptionLocal": "PC nepřipojeno",
+      "Name": "PC_not_connected",
+      "Address": "ns=3;s=\"Stoe_DB\".\"PC_not_connected\""
+    },
+    {
+      "NR": 12,
+      "Device": "Station",
+      "Inverted": false,
+      "Priority": "S",
+      "StopType": "O",
+      "DescriptionEn": "Emergency Stop",
+      "DescriptionDe": "Not - Aus",
+      "DescriptionLocal": "Nouzový stop",
+      "Name": "Not_halt",
+      "Address": "ns=3;s=\"Stoe_DB\".\"Not_halt\""
+    }
+  ],
+  "Signals": [
+    {
+      "Name": "DatenAnforderung",
+      "Address": "ns=3;s=\"status\".\"PC_IN\".\"DatenAnforderung\"",
+      "DescriptionEn": "Data request",
+      "DescriptionDe": "DatenAnforderung",
+      "DescriptionLocal": "Žádost o údaje",
+      "Device": "PLC"
+    },
+    {
+      "Name": "JobFertig",
+      "Address": "ns=3;s=\"status\".\"PC_IN\".\"JobFertig\"",
+      "DescriptionEn": "Job Done",
+      "DescriptionDe": "Job Fertig",
+      "DescriptionLocal": "Práce Dokončena",
+      "Device": "PLC"
+    },
+    {
+      "Name": "AktuellDaten_niO",
+      "Address": "ns=3;s=\"status\".\"PC_IN\".\"AktuellDaten_niO\"",
+      "DescriptionEn": "Data is actual",
+      "DescriptionDe": "Daten sind aktuell",
+      "DescriptionLocal": "Data jsou aktuální",
+      "Device": "PLC"
+    },
+    {
+      "Name": "Stoerung",
+      "Address": "ns=3;s=\"status\".\"PC_IN\".\"Stoerung\"",
+      "DescriptionEn": "Failure",
+      "DescriptionDe": "Stoerung",
+      "DescriptionLocal": "porucha",
+      "Device": "PLC"
+    },
+
+    {
+      "Name": "DatenBereit",
+      "Address": "ns=3;s=\"status\".\"PC_OUT\".\"DatenBereit\"",
+      "DescriptionEn": "Data Is Ready",
+      "DescriptionDe": "Daten Bereit",
+      "DescriptionLocal": "Data Připravena",
+      "Device": "PLC"
+    },
+    {
+      "Name": "JobQuittierung",
+      "Address": "ns=3;s=\"status\".\"PC_OUT\".\"JobQuittierung\"",
+      "DescriptionEn": "On kvit we delete dates",
+      "DescriptionDe": "Auf kvit löschen wir Daten",
+      "DescriptionLocal": "Na kvit smažeme data",
+      "Device": "PLC"
+    },
+    {
+      "Name": "Anforderung_JobHalt",
+      "Address": "ns=3;s=\"status\".\"PC_OUT\".\"Anforderung_JobHalt\"",
+      "DescriptionEn": "Finish the last nail and stop",
+      "DescriptionDe": "Den letzten Nagel fertigstellen und anhalten",
+      "DescriptionLocal": "Dokončit poslední hřebík a zastavit",
+      "Device": "PLC"
+    },
+    {
+      "Name": "Anforderung_JobEnd",
+      "Address": "ns=3;s=\"status\".\"PC_OUT\".\"Anforderung_JobEnd\"",
+      "DescriptionEn": "",
+      "DescriptionDe": "",
+      "DescriptionLocal": "",
+      "Device": "PLC"
+    },
+
+    {
+      "Name": "Vizu_AutoStart",
+      "Address": "ns=3;s=\"Vizu_AutoStart\"",
+      "DescriptionEn": "AutoMode Set",
+      "DescriptionDe": "AutoMode Set",
+      "DescriptionLocal": "AutoMode Set",
+      "Device": "System"
+    },
+    {
+      "Name": "Vizu_Autostop",
+      "Address": "ns=3;s=\"Vizu_Autostop\"",
+      "DescriptionEn": "HandMode Set",
+      "DescriptionDe": "HandMode Set",
+      "DescriptionLocal": "HandMode Set",
+      "Device": "\""
+    },
+    {
+      "Name": "MOD_Auto",
+      "Address": "ns=3;s=\"MOD_Auto\"",
+      "DescriptionEn": "AutoMode Get",
+      "DescriptionDe": "AutoMode Get",
+      "DescriptionLocal": "AutoMode Get",
+      "Device": "System"
+    },
+    {
+      "Name": "MOD_Hand",
+      "Address": "ns=3;s=\"MOD_Hand\"",
+      "DescriptionEn": "HandMode",
+      "DescriptionDe": "HandMode",
+      "DescriptionLocal": "HandMode",
+      "Device": "\""
+    },
+    {
+      "Name": "OP1_Acknowledge",
+      "Address": "ns=3;s=\"OP1_Acknowledge\"",
+      "DescriptionEn": "Acknowledgement",
+      "DescriptionDe": "Quittierung",
+      "DescriptionLocal": "Potvdit Poruchu",
+      "Device": "System"
+    },
+    {
+      "Name": "F_Quitt",
+      "Address": "ns=3;s=\"F_Quitt\"",
+      "DescriptionEn": "Depasivation",
+      "DescriptionDe": "Depasivation",
+      "DescriptionLocal": "Depasivace",
+      "Device": ""
+    },
+    {
+      "Name": "R01_Prg101",
+      "Address": "ns=3;s=\"90_HMI_DB\".\"R01_Prg101\".\"HAnf\"",
+      "DescriptionEn": "Robot prg 101",
+      "DescriptionDe": "Robot prg 101",
+      "DescriptionLocal": "Robot prg 101",
+      "Device": ""
+    },
+    {
+      "Name": "R01_Ohne_Production",
+      "Address": "ns=3;s=\"90_HMI_DB\".\"R01_Ohne_Production\".\"HAnf\"",
+      "DescriptionEn": "Without production",
+      "DescriptionDe": "Without production",
+      "DescriptionLocal": "Without production",
+      "Device": ""
+    },
+    {
+      "Name": "R01_Ohne_Shooting",
+      "Address": "ns=3;s=\"90_HMI_DB\".\"R01_Ohne_Shooting\".\"HAnf\"",
+      "DescriptionEn": "Without shooting",
+      "DescriptionDe": "Without shooting",
+      "DescriptionLocal": "Without shooting",
+      "Device": ""
+    },
+    {
+      "Name": "R01_PauseProduction",
+      "Address": "ns=3;s=\"90_HMI_DB\".\"R01_PauseProduction\".\"HAnf\"",
+      "DescriptionEn": "Robot pause production",
+      "DescriptionDe": "Robot pause production",
+      "DescriptionLocal": "Robot pause production",
+      "Device": ""
+    },
+    {
+      "Name": "R01_Abort",
+      "Address": "ns=3;s=\"90_HMI_DB\".\"R01_Abort\".\"HAnf\"",
+      "DescriptionEn": "Robot abort work",
+      "DescriptionDe": "Robot abort work",
+      "DescriptionLocal": "Robot abort work",
+      "Device": ""
+    }
+  ]
+}

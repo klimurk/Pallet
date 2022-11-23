@@ -1,29 +1,29 @@
-﻿using Pallet.Infrastructure.Commands.Base;
-using Pallet.View;
+﻿//using Pallet.Infrastructure.Commands.Base;
+//using Pallet.View;
 
-namespace Pallet.Infrastructure.Commands;
+//namespace Pallet.Infrastructure.Commands;
 
-internal class OpenLoginWindowCommand : Command
-{
-    private LoginWindow _Window;
+//internal class OpenLoginWindowCommand : Command
+//{
+//    private LoginWindow _Window;
 
-    protected override bool CanExecute(object parameter) => _Window == null;
+//    protected override bool CanExecute(object parameter) => _Window == null;
 
-    protected override void Execute(object parameter)
-    {
-        var window = new LoginWindow
-        {
-            Owner = Application.Current.MainWindow,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner
-        };
-        _Window = window;
-        window.Closed += OnWindowClosed;
-        window.ShowDialog();
-    }
+//    protected override void Execute(object parameter)
+//    {
+//        var window = new LoginWindow
+//        {
+//            Owner = Application.Current.MainWindow,
+//            WindowStartupLocation = WindowStartupLocation.CenterOwner
+//        };
+//        _Window = window;
+//        window.Closed += OnWindowClosed;
+//        window.ShowDialog();
+//    }
 
-    private void OnWindowClosed(object sender, EventArgs e)
-    {
-        ((Window)sender).Closed -= OnWindowClosed;
-        _Window = null;
-    }
-}
+//    private void OnWindowClosed(object sender, EventArgs e)
+//    {
+//        ((Window)sender).Closed -= OnWindowClosed;
+//        _Window = null;
+//    }
+//}

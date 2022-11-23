@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Pallet.View.SubViews.UsersView"
+            ResxExtension.DefaultResxName="Pallet.Resources.Stringify.SubViews.UsersView.UsersViewResource" Language="{UICulture}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Pallet.View.SubViews"
+      mc:Ignorable="d"
+     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="149" d:DesignWidth="1398" Background="LightGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <md:Card Margin="10" Style="{StaticResource MaterialDesignElevatedCard}">
+            <StackPanel>
+                <DockPanel Margin="20" LastChildFill="False" VerticalAlignment="Center">
+                    <TextBlock Text="{Tr 'UsersView.Title', DefaultText='Title'}" FontSize="20" VerticalAlignment="Center" />
+                    <Button Content="{Tr 'UsersView.NewUser', DefaultText='NewUser'}" FontFamily="18" Style="{StaticResource MaterialDesignOutlinedDarkButton}" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding OpenCreateUserWindowCommand}" />
+                </DockPanel>
+                <DataGrid
+                ItemsSource="{Binding UsersView}"
+                Grid.Row="0"
+                Padding="20 0"
+                AutoGenerateColumns="False"
+                CanUserReorderColumns="False" CanUserResizeColumns="False"
+                CanUserSortColumns="true"
+                HeadersVisibility="Column"
+                CanUserResizeRows="False" IsReadOnly="True"
+                VerticalScrollBarVisibility="Visible"
+                EnableRowVirtualization="True"
+                FontWeight="Bold" FontSize="14">
+                    <DataGrid.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+                    </DataGrid.Background>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{Tr 'UsersView.Name', DefaultText='Name'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="{Tr 'UsersView.Role', DefaultText='Role'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding RoleNum, Converter={StaticResource RoleNumConverter}}" />
+                        <DataGridTextColumn Header="{Tr 'UsersView.Description', DefaultText='Description'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="{Tr 'UsersView.RegisterDate', DefaultText='RegisterDate'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding RegistrationTime, StringFormat=HH:mm:ss dd.MM}" />
+                        <DataGridTextColumn Header="{Tr 'UsersView.RegisteredBy', DefaultText='RegisteredBy'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding AdminRegisteredName}" />
+                        <DataGridTemplateColumn Header="{Tr 'UsersView.Edit', DefaultText='Edit'}" Width="*" CanUserReorder="False" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Content="{md:PackIcon Kind=Edit}" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignIconForegroundButton}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.ModifySelectedUserCommand}" CommandParameter="{Binding .}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="{Tr 'UsersView.Delete', DefaultText='Delete'}"  Width="*"  CanUserReorder="False" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Content="{md:PackIcon Kind=Trash}" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignIconForegroundButton}" Command="{Binding  RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.DeleteSelectedUserCommand}" CommandParameter="{Binding .}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </md:Card>
+    </Grid>
+</UserControl>

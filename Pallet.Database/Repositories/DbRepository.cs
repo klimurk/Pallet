@@ -12,7 +12,7 @@ namespace Pallet.Database.Repositories
     /// <summary>
     /// The base database repository realization.
     /// </summary>
-    internal class DbRepository<T> : IDbRepository<T> where T : Entity, new()
+    internal class DbRepository<T> : IDbRepository<T>, IDisposable where T : Entity, new()
     {
         #region Fields
 
@@ -160,5 +160,25 @@ namespace Pallet.Database.Repositories
         }
 
         #endregion Remove
+
+
+        private bool disposed = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

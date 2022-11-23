@@ -1,5 +1,5 @@
 ﻿using Pallet.Infrastructure.Converters.ParametricConverters.Base;
-using Pallet.Services.Managers.Interfaces;
+using Pallet.Services.Language;
 using System.Windows.Markup;
 
 namespace Pallet.Infrastructure.Converters.ParametricConverters;

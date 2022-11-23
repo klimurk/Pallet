@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.ProfileData.Profiles;
+﻿
 using Pallet.Infrastructure.Converters.ParametricConverters.Base;
 using System.Windows.Markup;
 
@@ -21,7 +21,7 @@ internal class ActiveProfileConverter : ParametricConverter
         typeof(ActiveProfileConverter),
         new PropertyMetadata(""));
 
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((Profile)value).Name == ActiveProfile;
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => true;
 
     protected override Freezable CreateInstanceCore() => new ActiveProfileConverter { ActiveProfile = ActiveProfile };
 }

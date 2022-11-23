@@ -1,0 +1,40 @@
+{
+  "UsersView": {
+    "Delete": {
+      "en": "Delete",
+      "de-DE": "Entfernen"
+    },
+    "Description": {
+      "en": "Description",
+      "de-DE": "Die Beschreibung"
+    },
+    "Edit": {
+      "en": "Edit",
+      "de-DE": "Redigieren"
+    },
+    "Name": {
+      "en": "Name",
+      "de-DE": "Name"
+    },
+    "NewUser": {
+      "en": "New user",
+      "de-DE": "Neuer Benutzer"
+    },
+    "RegisterDate": {
+      "en": "Register Date",
+      "de-DE": "Anmeldedatum"
+    },
+    "RegisteredBy": {
+      "en": "Registered By",
+      "de-DE": "Registriert von"
+    },
+    "Role": {
+      "en": "Role",
+      "de-DE": "Die Rolle"
+    },
+    "Title": {
+      "en": "Users",
+      "de-DE": "Benutzer"
+    }
+  }
+}

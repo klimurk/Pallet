@@ -10,5 +10,7 @@ public partial class PalletView : UserControl
     public PalletView()
     {
         InitializeComponent();
+        //DataContext = App.Services.GetService(typeof(PalletViewModel)) as PalletViewModel;
+        //((PalletViewModel)DataContext).OnCanvasReloadCommandExecuted(new());
     }
 }

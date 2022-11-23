@@ -1,0 +1,63 @@
+{
+  "MainWindow": {
+    "Views": {
+      "AlarmHistory": {
+        "en": "Alarm history",
+        "de-DE": "Geschichte der Angst"
+      },
+      "LogHistory": {
+        "en": "Event Log",
+        "de-DE": "Ereignisprotokoll"
+      },
+      "Manual": {
+        "en": "Manual control",
+        "de-DE": "Handbedienung"
+      },
+      "Pallet": {
+        "en": "Pallet",
+        "de-DE": "Palette"
+      },
+      "Users": {
+        "en": "Users",
+        "de-DE": "Internetnutzer"
+      }
+    },
+    "Alarms": {
+      "en": "Alarms",
+      "de-DE": "Störung"
+    },
+    "Auto": {
+      "en": "Auto",
+      "de-DE": "Auto"
+    },
+    "ConnectPLC": {
+      "en": "Connect PLC",
+      "de-DE": "SPS anschließen"
+    },
+    "Filter": {
+      "en": "Filter",
+      "de-DE": "Filter"
+    },
+
+    "Login": {
+      "en": "Login",
+      "de-DE": "Autorisierter"
+    },
+    "Logout": {
+      "en": "Logout",
+      "de-DE": "Abmelden"
+    },
+    "NotAutorized": {
+      "en": "Not Authorized",
+      "de-DE": "Nicht berechtigt"
+    },
+    "Start": {
+      "en": "Start",
+      "de-DE": "Start"
+    },
+    "Stop": {
+      "en": "Stop",
+      "de-DE": "Halt"
+    }
+  }
+}

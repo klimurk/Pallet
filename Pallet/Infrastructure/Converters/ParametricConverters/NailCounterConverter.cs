@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.ProfileData.Types;
+﻿
 using Pallet.Infrastructure.Converters.ParametricConverters.Base;
 using System.Windows.Markup;
 
@@ -21,7 +21,7 @@ internal class NailCounterConverter : ParametricConverter
         typeof(NailCounterConverter),
         new PropertyMetadata(""));
 
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((Nailer)value)?.NailLeftCounter <= int.Parse(NailsLeftStartBlinking);
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => true;
 
     protected override Freezable CreateInstanceCore() => new NailCounterConverter { NailsLeftStartBlinking = NailsLeftStartBlinking };
 }

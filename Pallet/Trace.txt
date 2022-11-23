@@ -1,0 +1,42 @@
+2.11.2022 15:45:01 --- create  host builder 
+2.11.2022 15:45:01 --- CreateDefaultBuilder
+2.11.2022 15:45:01 --- UseContentRoot
+2.11.2022 15:45:01 --- ConfigureAppConfiguration
+2.11.2022 15:45:01 --- ConfigureServices
+2.11.2022 15:45:01 --- SetBasePath
+2.11.2022 15:45:01 --- AddJsonFile
+2.11.2022 16:00:19 --- create  host builder 
+2.11.2022 16:00:19 --- CreateDefaultBuilder
+2.11.2022 16:00:19 --- UseContentRoot
+2.11.2022 16:00:19 --- ConfigureAppConfiguration
+2.11.2022 16:00:19 --- ConfigureServices
+2.11.2022 16:00:19 --- SetBasePath
+2.11.2022 16:00:19 --- AddJsonFile
+2.11.2022 16:02:40 --- create  host builder 
+2.11.2022 16:02:40 --- CreateDefaultBuilder
+2.11.2022 16:02:40 --- UseContentRoot
+2.11.2022 16:02:40 --- ConfigureAppConfiguration
+2.11.2022 16:02:40 --- ConfigureServices
+2.11.2022 16:02:40 --- SetBasePath
+2.11.2022 16:02:40 --- AddJsonFile
+2.11.2022 16:04:11 --- create  host builder 
+2.11.2022 16:04:11 --- CreateDefaultBuilder
+2.11.2022 16:04:11 --- UseContentRoot
+2.11.2022 16:04:11 --- ConfigureAppConfiguration
+2.11.2022 16:04:11 --- ConfigureServices
+2.11.2022 16:04:11 --- SetBasePath
+2.11.2022 16:04:11 --- AddJsonFile
+2.11.2022 16:08:51 --- create  host builder 
+2.11.2022 16:08:51 --- CreateDefaultBuilder
+2.11.2022 16:08:51 --- UseContentRoot
+2.11.2022 16:08:51 --- ConfigureAppConfiguration
+2.11.2022 16:08:51 --- ConfigureServices
+2.11.2022 16:08:51 --- SetBasePath
+2.11.2022 16:08:51 --- AddJsonFile
+2.11.2022 17:01:15 --- create  host builder 
+2.11.2022 17:01:15 --- CreateDefaultBuilder
+2.11.2022 17:01:15 --- UseContentRoot
+2.11.2022 17:01:15 --- ConfigureAppConfiguration
+2.11.2022 17:01:15 --- ConfigureServices
+2.11.2022 17:01:15 --- SetBasePath
+2.11.2022 17:01:15 --- AddJsonFile

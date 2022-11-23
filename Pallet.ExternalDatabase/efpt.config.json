@@ -1,0 +1,1453 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "ExternalDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": "Context",
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Pallet.ExternalDatabase",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "t_3d_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_bohrung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_details",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_details_platten_aufteilung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_mark",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_objects",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_objects_defaults",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_objects_dim",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_3d_verpackung_stahl",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_abteilung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_admin_properties",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_anfrage",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_anfrage_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_anfrage_lieferanten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_anfrage_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_angebot",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_angebot_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ansprechpartner",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ansprechpartner_handy",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ansprechpartner_list",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ansprechpartner_listen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ansprechpartner_schluessel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_aufmass_machine",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_aufmass_machine_img",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_aufmass_main",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_aufmass_package",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_aufmass_package_img",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_comm",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_process_check",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_process_check_item",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_process_check_log",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_app_time",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikel_extern",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikel_kategorie",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikel_preis_hist",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikellieferant",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikellieferant_liefereinheit",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikellieferant_staffelpreis",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_artikelstichwort",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_assistent_rechnung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_kosten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_posten_sonstige",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_posten_sonstige_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_posten_sonstige_termine",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_posten_status",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_posten_zeiten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftrag_user_flag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftragbestaet",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auftragbestaet_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausgang_gutschriftausgang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausgang_gutschriftausgang_file",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausgang_rechausgang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausgang_rechausgang_file",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_kunde_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_kunde_artikel_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_kunde_artikel_p",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_kunde_artikel_p_app_interface",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_kunde_artikel_p_durch_packstueck",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerung_packstueck_app_interface",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_auslagerungartikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausweis_apartner",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ausweis_besucher",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_container",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_extdoc",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_lieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_vlieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_barcode_wareneingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_baufeld",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_beipack_holz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_beipack_holz_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_beipack_holz_bez",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bestell_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bestellung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bestellungartikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bodenkonstranordnung_lk",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bodenkonstranordnung_qk",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bodenkonstreinrueck_lk",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bodenkonstreinrueck_qk",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_bodenkonstrschrauben_lk",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_brettlage_konstr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_brettstaerke",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_capi_fuel_event",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_capi_time_event",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_colliliste",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_colliliste_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_container_typen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_container_typen_bilder",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_deckel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_dokumente",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_eingangs_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_einlagerung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_event_calendar",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_event_calendar_resources",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_event_task",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_external_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_external_firma",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_fem_colli_anschlag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_fem_colli_lastflaeche",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_fem_colli_object",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_fuhrpark",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_gruppentyp",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_mailgruppe",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_mailgruppe_email",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_materialbilder",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_rechnungsanschrift",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firma_typ",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firmazweigstelle",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_firmen_komm_mail",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_freigabe",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_freigabe_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_fremdboden",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ftp_server_config",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_gefahrgut",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_gesamtpreis_detail",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_gutschrift",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_gutschrift_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_holidays",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_chargen_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_imo_details",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_imo_main",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_init_konstr_value",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_initbelegungvalue",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_initdimvalue",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_initstaerkevalue",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_interf_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_interf_auftrag_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_interf_auftrag_posten_inhalt",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_inventar_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_inventar_artikel_verlauf",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ippc_standard",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_allg_optionen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_fertigung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_holz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_nagel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_personal",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_schnell",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_sonstiges",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_sonstiges_allg",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_stdwerte_holz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_stdwerte_naegel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_stdwerte_personal",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_stdwerte_personal_komplex",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_stdwerte_sonstiges",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_verpackung_template",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kalkulation_verpackung_template_fields",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kantholz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_katalog",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_katalog_cs",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_katalog_en",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_khlager",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_khzukauf",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_know_how",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_know_how_attachment",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_know_how_link",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_know_how_tag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kostenstelle",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_container_preise",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_kg_dim",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_lk_abstand",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_maschine_rasterpreis",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_meldung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_verp_preise",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kunde_verp_preise_zuschlag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_kundeartikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_ladeentladestellen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kosten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kosten_allgdef",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kosten_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_auslagerung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_auslagerung_a_zuschlag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_auslagerung_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_auslagerung_zuschlag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_lagerplatz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_wareneingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunde_preise_wareneingang_zuschlag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunden_wep_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lager_kunden_wep_artikel_korrektur",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lagerplatz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lagerverwaltung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lagerverwaltung_korrektur",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lagerverwaltung_umlagern",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_lieferschein_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_mahnung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_mahnungen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_mail_server",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material_kostenstelle",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material_lager",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material_lager_addional_allowed_einheit",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material_lager_history",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_material_lager_planed",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_nachkalkulation",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_nachkalkulation_v2",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_neukunde_logbuch",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_neukunde_termin",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_niederlassung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_notification_lieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packliste_detail_material",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packliste_packstuecke_detail",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packliste_packstuecke_main",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packmittel_gebraucht",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packmittel_gebraucht_details",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_packmittel_gebraucht_eingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_palette",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_paletteinitval",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_pbaufeldkunden",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_pdeclaration",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_pdeclaration_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_phrasen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_plattenwerkstoffe",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_printlists",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_process_item",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_process_item_packaging",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_process_type",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_projekt",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_projekt_ansprechpartner",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_projektkunden",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_properties_common",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_raumstau_objekte",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_raumstau_planung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_raumstau_planung_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_raumstau_raeume",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_raumstau_rel_raume_objekte",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rech_buchungs_text",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_eingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_eingang_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_eingang_kostenstelle",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_eingang_lieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_eingang_zahlung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_lagerplatz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_zahleingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rechnung_zahleingang_multi",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_firma_betreuer",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_firma_firma",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_firma_firma_material",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_firma_typ",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_kunde_verp_standard",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_rel_user_group",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_report",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_resource",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_config",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_config_fixation_type",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_config_nail_type",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_package_item",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_package_item_moving_data",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_package_item_nailing_data",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_package_item_process_order",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_task_item",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_robo_verpackung_pushes",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_schnell_kalk_beipack",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_schnell_kalk_initval",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_schnell_kalk_initval_fertigung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_schnell_kalk_initval_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_solas_dok",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_sonderzeichen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_statik_belastungstyp",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_statik_calc",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_statik_material",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_steuerparagraphen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_stuetzflaechen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_tankstelle_befuellung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_tankstelle_stand",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_text_template",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_text_template_common",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_translation",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_transport_auftrag",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_transport_auftrag_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_umlagerung_packstueck_app_interface",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_account_rights_adjust",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_account_roles",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_grid_color",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_checkin",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_layout",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_pause",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_properties",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_rights",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_role_rights",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_user_roles",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_vci_folie",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_vci_hersteller",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_vci_produkt",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verp_assistent",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verp_konstruktion",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_3d_material",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt_beipack",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt_mat_trans",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt_sonderz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt_stuetz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_beiblatt_verp_mat",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_berech",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_einbauten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_fremd_detail",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_fremd_main",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_kunde_checker",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_kunde_checker_std",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_machine",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_main",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_multi",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_nr_list",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_nr_list_small",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_preiskat",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_preiskat_lief",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_sonstiges_holz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_staffelpreis",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_statik_param",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_status_zeiten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_stuetzflaechen",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_typ_mapping",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackung_zeiten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackungs_nr",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_verpackungs_nr_einbauten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_artikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_artikel_aufmass",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_artikel_blacklist",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_artikel_verpackung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_artikel_wareneing",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_colli",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_container",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_import_conf",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_label_begleitliste",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_lkw",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_versand_packstueck",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_vlieferschein",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_vlieferschein_posten",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_wareneingang",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_wareneingangartikel",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_wareneingangpackstueck",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_wareneingangpackstueck_barcode",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_whats_new",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_worker_bestellung",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_worker_bestellung_pos",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_plattenwerkstoff",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_plattenwerkstoff_final",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_schnittholz",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_station",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_station_cfg",
+         "ObjectType": 0
+      },
+      {
+         "Name": "t_zuschnitt_station_holzart",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": ".p_cratemaker",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

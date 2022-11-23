@@ -1,5 +1,6 @@
-﻿using Pallet.Database.Entities.Base.Interfaces;
+﻿using Pallet.InternalDatabase.Entities.Base.Interfaces;
 using Pallet.Infrastructure.Converters.Converters.Base;
+using Pallet.BaseDatabase.Base.Interfaces;
 
 namespace Pallet.Infrastructure.Converters.Converters;
 

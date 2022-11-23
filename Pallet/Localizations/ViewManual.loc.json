@@ -1,0 +1,24 @@
+{
+  "ManualView": {
+    "Prg101": {
+      "en": "Prg101",
+      "de-DE": "Prg101"
+    },
+    "WithoutNails": {
+      "en": "Without Nails",
+      "de-DE": "Ohne Nägel"
+    },
+    "WithoutProduct": {
+      "en": "Without Product",
+      "de-DE": "Ohne Produkt"
+    },
+    "EndProcess": {
+      "en": "End Process",
+      "de-DE": "Prozess beenden"
+    },
+    "SuspendProduction": {
+      "en": "Suspend Production",
+      "de-DE": "Produktion aussetzen"
+    }
+  }
+}

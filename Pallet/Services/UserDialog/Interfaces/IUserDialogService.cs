@@ -1,33 +1,32 @@
-﻿using Pallet.Database.Entities.Base.Interfaces;
+﻿//using MaterialDesignThemes.Wpf;
+//using Pallet.BaseDatabase.Base.Interfaces;
+//using System.Windows.Threading;
 
-namespace Pallet.Services.UserDialog.Interfaces
-{
-    public interface IUserDialogService
-    {
-        bool Edit(object item);
+//namespace Pallet.Services.UserDialog.Interfaces;
 
-        public bool ConfirmWarning(string Warning, string Caption);
+//public interface IUserDialogService
+//{
+//    SynchronizationContext _syncContext { get; set; }
+//    Dispatcher dispatcher { get; set; }
+//    SnackbarMessageQueue MessageQueue { get; }
 
-        public bool ConfirmWarning(IDBTranslateble Error, IDBTranslateble Caption);
-
-        public bool ConfirmError(string Error, string Caption);
-
-        public bool ConfirmError(IDBTranslateble Error, IDBTranslateble Caption);
-
-        public bool ConfirmInformation(string Information, string Caption);
-
-        public bool ConfirmInformation(IDBTranslateble Error, IDBTranslateble Caption);
-
-        public void ShowInformation(string Information, string Caption);
-
-        public void ShowInformation(IDBTranslateble Error, IDBTranslateble Caption);
-
-        public void ShowWarning(string Warning, string Caption);
-
-        public void ShowWarning(IDBTranslateble Error, IDBTranslateble Caption);
-
-        public void ShowError(string Error, string Caption);
-
-        public void ShowError(IDBTranslateble Error, IDBTranslateble Caption);
-    }
-}
+//    bool ConfirmError(IDBTranslateble Error, IDBTranslateble Caption);
+//    bool ConfirmError(string Error, string Caption);
+//    bool ConfirmInformation(IDBTranslateble Information, IDBTranslateble Caption);
+//    bool ConfirmInformation(string Information, string Caption);
+//    bool ConfirmWarning(IDBTranslateble Warning, IDBTranslateble Caption);
+//    bool ConfirmWarning(string Warning, string Caption);
+//    bool Edit(object item);
+//    void ShowDialogError(IDBTranslateble Error, IDBTranslateble Caption);
+//    void ShowDialogError(string Error, string Caption);
+//    void ShowDialogInformation(IDBTranslateble Information, IDBTranslateble Caption);
+//    void ShowDialogInformation(string Information, string Caption);
+//    void ShowDialogWarning(IDBTranslateble Warning, IDBTranslateble Caption);
+//    void ShowDialogWarning(string Warning, string Caption);
+//    void ShowError(IDBTranslateble Error);
+//    void ShowError(string Error);
+//    void ShowInformation(IDBTranslateble Information);
+//    void ShowInformation(string Information);
+//    void ShowWarning(IDBTranslateble Warning);
+//    void ShowWarning(string Warning);
+//}

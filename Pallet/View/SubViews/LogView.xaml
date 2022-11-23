@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Pallet.View.SubViews.LogView"
+            ResxExtension.DefaultResxName="Pallet.Resources.Stringify.SubViews.LogView.LogViewResource" Language="{UICulture}"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,18 +7,23 @@
             mc:Ignorable="d"
             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="149" d:DesignWidth="1398" Background="White">
+             d:DesignHeight="149" d:DesignWidth="1398" Background="LightGray">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid
+        <md:Card Margin="10 10 10 0" Style="{StaticResource MaterialDesignElevatedCard}">
+            <StackPanel>
+                <DockPanel Margin="20" LastChildFill="False" VerticalAlignment="Center">
+                    <TextBlock Text="{Tr 'LogView.Title', DefaultText='Title'}" FontSize="20" VerticalAlignment="Center" />
+                </DockPanel>
+                <DataGrid
             ItemsSource="{Binding LogsView}"
-            Grid.Row="0"
+            Grid.Row="0" Padding="20 0"
             AutoGenerateColumns="False"
             CanUserReorderColumns="False" CanUserResizeColumns="False"
             CanUserSortColumns="true"
@@ -26,157 +32,161 @@
             VerticalScrollBarVisibility="Visible"
             EnableRowVirtualization="True"
             FontWeight="Bold" FontSize="14">
-            <DataGrid.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
-            </DataGrid.Background>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="{Resx Timestamp ,ResxName=Pallet.Resources.SubViews.LogView.LogViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Timestamp, StringFormat=HH:mm:ss dd.MM}" />
-                <DataGridTextColumn Header="{Resx Text,ResxName=Pallet.Resources.SubViews.LogView.LogViewResource}" Width="3*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding ., Converter={StaticResource TranslateDatabaseConverter}}" />
-                <DataGridTextColumn Header="{Resx Value,ResxName=Pallet.Resources.SubViews.LogView.LogViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Value}" />
-                <DataGridTextColumn Header="{Resx Device,ResxName=Pallet.Resources.SubViews.LogView.LogViewResource}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Device}" />
-                <DataGridTextColumn Header="{Resx Address,ResxName=Pallet.Resources.SubViews.LogView.LogViewResource}" Width="5*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Address}" />
-            </DataGrid.Columns>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Device}" Value="System">
-                            <Setter Property="Background" Value="LemonChiffon" />
+                    <DataGrid.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+                    </DataGrid.Background>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{Tr 'LogView.Timestamp', DefaultText='Timestamp'}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Timestamp, StringFormat=HH:mm:ss dd.MM}" />
+                        <DataGridTextColumn Header="{Tr 'LogView.Text', DefaultText='Text'}" Width="3*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding ., Converter={StaticResource TranslateDatabaseConverter}}" />
+                        <DataGridTextColumn Header="{Tr 'LogView.Value', DefaultText='Value'}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Value}" />
+                        <DataGridTextColumn Header="{Tr 'LogView.Device', DefaultText='Device'}" Width="2*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Device}" />
+                        <DataGridTextColumn Header="{Tr 'LogView.Address', DefaultText='Address'}" Width="*" CanUserReorder="False" IsReadOnly="True" Binding="{Binding Address}" />
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="White" />
                             <Setter Property="Foreground" Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Device}" Value="OPC Connection">
-                            <Setter Property="Background" Value="LightSalmon" />
-                            <Setter Property="Foreground" Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Device}" Value="Robot">
-                            <Setter Property="Background" Value="RosyBrown" />
-                            <Setter Property="Foreground" Value="White" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Device}" Value="PLC">
-                            <Setter Property="Background" Value="DarkGoldenrod" />
-                            <Setter Property="Foreground" Value="White" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Device}" Value="Station">
-                            <Setter Property="Background" Value="Tomato" />
-                            <Setter Property="Foreground" Value="White" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-        </DataGrid>
-        <Border
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Device}" Value="System">
+                                    <Setter Property="Background" Value="LemonChiffon" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Device}" Value="OPC Connection">
+                                    <Setter Property="Background" Value="LightSalmon" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Device}" Value="Robot">
+                                    <Setter Property="Background" Value="RosyBrown" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Device}" Value="PLC">
+                                    <Setter Property="Background" Value="DarkGoldenrod" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Device}" Value="Station">
+                                    <Setter Property="Background" Value="Tomato" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </StackPanel>
+        </md:Card>
+        <md:Card Margin="10" Grid.Row="1" Style="{StaticResource MaterialDesignElevatedCard}">
+
+            <Border
             Grid.Row="1"
             Background="{StaticResource BenthorBlue}"
             BorderBrush="Gray" BorderThickness="0 0 0 1">
 
-            <DockPanel HorizontalAlignment="Stretch" LastChildFill="False">
-                <StackPanel Orientation="Horizontal">
+                <DockPanel HorizontalAlignment="Stretch" LastChildFill="False">
+                    <StackPanel Orientation="Horizontal">
 
-                    <md:DialogHost>
-                        <md:DialogHost.DialogContent>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Calendar
+                        <md:DialogHost>
+                            <md:DialogHost.DialogContent>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Calendar
                                         SelectedDate="{Binding FilterDateFrom, Mode=TwoWay}"
                                         Style="{DynamicResource MaterialDesignCalendarPortraitForeground}" />
-                                    <md:Clock
+                                        <md:Clock
                                         DisplayAutomation="CycleWithSeconds"
                                         Is24Hours="false"
                                         Time="{Binding FilterDateFrom}"
                                         Language="{UICulture}"
                                         Style="{StaticResource MaterialDesignClockHorizontal}" />
-                                </StackPanel>
-                                <StackPanel
+                                    </StackPanel>
+                                    <StackPanel
                                     Margin="8"
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal">
-                                    <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="0" FontSize="20"  Style="{DynamicResource MaterialDesignFlatButton}">Cancel</Button>
-                                    <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="1" FontSize="20" Style="{DynamicResource MaterialDesignFlatButton}">OK</Button>
+                                        <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="0" FontSize="20"  Style="{DynamicResource MaterialDesignFlatButton}">Cancel</Button>
+                                        <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="1" FontSize="20" Style="{DynamicResource MaterialDesignFlatButton}">OK</Button>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </md:DialogHost.DialogContent>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button
+                            </md:DialogHost.DialogContent>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Background="Transparent"
                                 Height="auto"
                                 Padding="5"
                                 Command="{x:Static md:DialogHost.OpenDialogCommand}">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <md:PackIcon
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon
                                             Kind="Clock"
                                             Width="25" Height="25"
                                             VerticalAlignment="Center" />
-                                        <TextBlock
+                                            <TextBlock
                                             Text="{Binding FilterDateFrom, StringFormat=HH:mm:ss\&#x0a;dd.MM.yy}"
                                             Foreground="White" FontSize="15"
                                             VerticalAlignment="Center"
                                             Margin="10 0" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </md:DialogHost>
-                    <TextBlock
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </md:DialogHost>
+                        <TextBlock
                         Text="-"
                         Grid.Column="1"
                         Foreground="white"
                         VerticalAlignment="center"
                         FontSize="30"
                         Margin="10 0" />
-                    <md:DialogHost>
-                        <md:DialogHost.DialogContent>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Calendar
+                        <md:DialogHost>
+                            <md:DialogHost.DialogContent>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Calendar
                                         SelectedDate="{Binding FilterDateTo, Mode=TwoWay}"
                                         Style="{StaticResource MaterialDesignCalendarPortrait}" />
-                                    <md:Clock
+                                        <md:Clock
                                         DisplayAutomation="CycleWithSeconds"
                                         Is24Hours="false"
                                         Time="{Binding FilterDateTo}"
                                         Language="{UICulture}"
                                         Style="{StaticResource MaterialDesignClockHorizontal}" />
-                                </StackPanel>
-                                <StackPanel
+                                    </StackPanel>
+                                    <StackPanel
                                     Margin="8"
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal">
-                                    <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="0" Style="{DynamicResource MaterialDesignFlatButton}">Cancel</Button>
-                                    <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="1" Style="{DynamicResource MaterialDesignFlatButton}">OK</Button>
+                                        <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="0" Style="{DynamicResource MaterialDesignFlatButton}">Cancel</Button>
+                                        <Button Command="{x:Static md:DialogHost.CloseDialogCommand}" CommandParameter="1" Style="{DynamicResource MaterialDesignFlatButton}">OK</Button>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </md:DialogHost.DialogContent>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button
+                            </md:DialogHost.DialogContent>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Background="Transparent"
                                 Height="auto"
                                 Padding="5"
                                 Command="{x:Static md:DialogHost.OpenDialogCommand}">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <md:PackIcon
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon
                                             Kind="Clock"
                                             Width="25" Height="25"
                                             VerticalAlignment="Center" />
-                                        <TextBlock
+                                            <TextBlock
                                             Text="{Binding FilterDateTo, StringFormat=HH:mm:ss\&#x0a;dd.MM.yy}"
                                             Foreground="White" FontSize="15"
                                             VerticalAlignment="Center"
                                             Margin="10 0" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </md:DialogHost>
-                </StackPanel>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </md:DialogHost>
+                    </StackPanel>
 
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Grid.Column="4" Margin="20 0">
-                    <md:PackIcon Kind="FilterVariant" Foreground="White" VerticalAlignment="Center" Width="25" Height="25" />
-                    <TextBox
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Grid.Column="4" Margin="20 0">
+                        <md:PackIcon Kind="FilterList" Foreground="White" VerticalAlignment="Center" Width="25" Height="25" />
+                        <TextBox
                         Text="{Binding FilterDevice, UpdateSourceTrigger=PropertyChanged}"
                         Width="200"
                         Margin="5" Padding="10 0"
@@ -185,8 +195,9 @@
                         Foreground="white" FontSize="20"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         md:TextFieldAssist.DecorationVisibility="Visible" />
-                </StackPanel>
-            </DockPanel>
-        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </md:Card>
     </Grid>
 </UserControl>

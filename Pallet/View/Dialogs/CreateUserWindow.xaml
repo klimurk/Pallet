@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Pallet.View.Dialogs.CreateUserWindow"
+    ResxExtension.DefaultResxName="Pallet.Resources.Stringify.Dialogs.CreateUserDialog.CreateUserDialog" Language="{UICulture}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:domain="clr-namespace:Pallet.Infrastructure.Rules"
+        xmlns:local="clr-namespace:Pallet.View.Dialogs"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+
+        Height="Auto" Width="400">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Tr 'CreateUserDialog.Title', DefaultText='Title'}" Grid.Row="0" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        <DockPanel Grid.Row="1" Margin="0 10">
+            <TextBox md:HintAssist.Hint="{Tr 'CreateUserDialog.Name', DefaultText='Name'}" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding
+                        Path="Name"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Margin="0 10">
+            <PasswordBox md:HintAssist.Hint="{Tr 'CreateUserDialog.Password', DefaultText='Password'}"
+                md:TextFieldAssist.HasClearButton="True"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+                <md:PasswordBoxAssist.Password>
+                    <Binding
+                        Path="Password"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </md:PasswordBoxAssist.Password>
+            </PasswordBox>
+        </DockPanel>
+        <DockPanel Grid.Row="3" Margin="0 10">
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Roles}" md:HintAssist.Hint="{Tr 'CreateUserDialog.Role', DefaultText='Role'}">
+                <ComboBox.SelectedValue>
+                    <Binding Path="SelectedRole" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedValue>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel Grid.Row="4" Margin="0 10">
+            <TextBox md:HintAssist.Hint="{Tr 'CreateUserDialog.Description', DefaultText='Description'}" Text="{Binding Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="5"
+            LastChildFill="False"
+            Margin="0 20 0 5">
+            <Button  DockPanel.Dock="Right"
+                Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                IsCancel="True"
+                     Content="{Tr 'CreateUserDialog.Cancel', DefaultText='Cancel'}"
+                Style="{StaticResource MaterialDesignFlatButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button
+                Command="{Binding CreateNewUserCommand}"
+                IsDefault="True" DockPanel.Dock="Left"
+                Content="{Tr 'CreateUserDialog.Accept', DefaultText='Accept'}"
+                Style="{StaticResource MaterialDesignFlatButton}">
+            </Button>
+        </DockPanel>
+    </Grid>
+</UserControl>

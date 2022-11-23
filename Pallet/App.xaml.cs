@@ -1,7 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CodingSeb.Localization.Loaders;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pallet.Data;
+using Pallet.Extensions;
+using Pallet.ExternalDatabase;
+using Pallet.InternalDatabase;
 using Pallet.Services;
+using Pallet.Services.Draw;
+using Pallet.Services.Draw.Interface;
+using Pallet.Services.Language;
+using Pallet.Services.UserDialog;
+using Pallet.Services.UserDialog.Interfaces;
 using Pallet.ViewModels;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -55,16 +63,12 @@ namespace Pallet
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            string str = "Startup";
-            str.CheckStage();
             IsDesignMode = false;
             var host = Host;
 
-            "Before Services.CreateScope()".CheckStage();
             using (var scope = Services.CreateScope())
             {
-                "Before get required service db init".CheckStage();
-                await scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync();
+                scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().ConfigureAwait(false);
             }
             try
             {
@@ -75,6 +79,9 @@ namespace Pallet
             {
                 ex.ExceptionToString();
             }
+
+            LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
+            LocalizationLoader.Instance.AddDirectory(@"Localizations");
         }
 
         protected override async void OnExit(ExitEventArgs e)
@@ -94,12 +101,13 @@ namespace Pallet
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.RegisterDatabase(host.Configuration.GetSection("Database"));
-            "Register DATABase COMPLETE ----------".CheckStage();
+            services.RegisterInternalDatabase(host.Configuration.GetSection("Database"));
+            services.RegisterExternalDatabase(host.Configuration.GetSection("Database"));
             services.RegisterServices();
-            "Register services complete ---------".CheckStage();
+            services.AddTransient<IDrawer, Drawer>();
+            services.AddSingleton<IManagerLanguage, ManagerLanguage>();
+            services.AddSingleton<IUserDialogService, UserDialogService>();
             services.RegisterViewModels();
-            "Register viewmodels complete --------------".CheckStage();
         }
     }
 }

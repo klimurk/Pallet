@@ -1,0 +1,28 @@
+{
+  "LogView": {
+    "Title": {
+      "en": "Log list",
+      "de-DE": "Protokollliste"
+    },
+    "Text": {
+      "en": "Message text",
+      "de-DE": "Text der Nachricht"
+    },
+    "Timestamp": {
+      "en": "Timestamp",
+      "de-DE": "Zeitstempel"
+    },
+    "Device": {
+      "en": "Device",
+      "de-DE": "Gerät"
+    },
+    "Address": {
+      "en": "Address",
+      "de-DE": "Anschrift"
+    },
+    "Value": {
+      "en": "Value",
+      "de-DE": "Nachrichtennummer"
+    }
+  }
+}

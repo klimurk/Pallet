@@ -1,0 +1,14 @@
+{
+  "OPC": {
+    "Errors": {
+      "ServerNotFinded": {
+        "en": "The server was not found",
+        "de-DE": "Der Server wurde nicht gefunden"
+      },
+      "EndpointsNotFinded": {
+        "en": "The endpoint was not found",
+        "de-DE": "Der Endpunkt wurde nicht gefunden"
+      }
+    }
+  }
+}

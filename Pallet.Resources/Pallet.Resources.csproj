@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Update="SubViews\AlarmView\AlarmViewResource.Designer.cs">
+			<DependentUpon>AlarmViewResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Errors\OPC\ErrorsOPCResource.Designer.cs">
+			<DependentUpon>ErrorsOPCResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="SubViews\LogView\LogViewResource.Designer.cs">
+			<DependentUpon>LogViewResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="SubViews\ManualView\ManualViewResource.Designer.cs">
+			<DependentUpon>ManualViewResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="SubViews\PalletView\PalletViewResource.Designer.cs">
+			<DependentUpon>PalletViewResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="SubViews\UsersView\UsersViewResource.Designer.cs">
+			<DependentUpon>UsersViewResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Dialogs\LoginDialog\LoginWindowResource.Designer.cs">
+			<DependentUpon>LoginWindowResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Windows\LanguageWindow\LanguageWindowResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>LanguageWindowResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Windows\MainWindow\MainWindowResource.Designer.cs">
+			<DependentUpon>MainWindowResource.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="SubViews\AlarmView\AlarmViewResource.resx">
+			<LastGenOutput>AlarmViewResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Errors\OPC\ErrorsOPCResource.resx">
+			<LastGenOutput>ErrorsOPCResource.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SubViews\LogView\LogViewResource.resx">
+			<LastGenOutput>LogViewResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SubViews\ManualView\ManualViewResource.resx">
+			<LastGenOutput>ManualViewResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SubViews\PalletView\PalletViewResource.resx">
+			<LastGenOutput>PalletViewResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SubViews\UsersView\UsersViewResource.resx">
+			<LastGenOutput>UsersViewResource.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Dialogs\LoginDialog\LoginWindowResource.resx">
+			<LastGenOutput>LoginWindowResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Windows\LanguageWindow\LanguageWindowResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>LanguageWindowResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Windows\MainWindow\MainWindowResource.resx">
+			<LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Dialogs\CreateUserDialog\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Include="Resources.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+</Project>

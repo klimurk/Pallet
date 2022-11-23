@@ -1,4 +1,4 @@
-﻿using Pallet.Database.Entities.OPC;
+﻿using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.Infrastructure.Converters.Converters.Base;
 
 namespace Pallet.Infrastructure.Converters.Converters;

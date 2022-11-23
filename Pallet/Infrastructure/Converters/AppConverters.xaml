@@ -5,7 +5,9 @@
     <l:AlarmsListConverter x:Key="AlarmsListConverter" />
     <l:DebugConverter x:Key="DebugConverter" />
     <l:AlarmLogColorConverter x:Key="AlarmLogColorConverter" />
-    <l:UserConverter x:Key="UserConverter" />
+    <l:IsNullConverter x:Key="IsNullConverter" />
     <l:ImageConverter x:Key="ImageConverter" />
     <l:TranslateDatabaseConverter x:Key="TranslateDatabaseConverter" />
+    <l:RoleNumConverter x:Key="RoleNumConverter" />
+    
 </ResourceDictionary>

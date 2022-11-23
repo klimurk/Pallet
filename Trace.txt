@@ -436,3 +436,755 @@
 3.10.2022 10:45:04 --- Register viewmodels complete --------------
 3.10.2022 10:45:05 --- ManagerUser init --------------
 3.10.2022 10:45:05 --- ManagerProfiles init --------------
+3.10.2022 17:01:20 --- create  host builder 
+3.10.2022 17:01:20 --- CreateDefaultBuilder
+3.10.2022 17:01:20 --- UseContentRoot
+3.10.2022 17:01:20 --- ConfigureAppConfiguration
+3.10.2022 17:01:20 --- ConfigureServices
+3.10.2022 17:01:20 --- SetBasePath
+3.10.2022 17:01:20 --- AddJsonFile
+3.10.2022 17:01:20 --- RegisterDatabase
+3.10.2022 17:01:20 --- Before add transient db init
+3.10.2022 17:01:20 --- Before add db repositories
+3.10.2022 17:01:20 --- Register DATABase COMPLETE ----------
+3.10.2022 17:01:20 --- Register services complete ---------
+3.10.2022 17:01:20 --- Register viewmodels complete --------------
+3.10.2022 17:01:21 --- ManagerUser init --------------
+3.10.2022 17:01:21 --- ManagerProfiles init --------------
+3.10.2022 18:43:13 --- create  host builder 
+3.10.2022 18:43:13 --- CreateDefaultBuilder
+3.10.2022 18:43:13 --- UseContentRoot
+3.10.2022 18:43:13 --- ConfigureAppConfiguration
+3.10.2022 18:43:13 --- ConfigureServices
+3.10.2022 18:43:13 --- SetBasePath
+3.10.2022 18:43:13 --- AddJsonFile
+3.10.2022 18:43:13 --- RegisterDatabase
+3.10.2022 18:43:13 --- Before add transient db init
+3.10.2022 18:43:13 --- Before add db repositories
+3.10.2022 18:43:13 --- Register DATABase COMPLETE ----------
+3.10.2022 18:43:13 --- Register services complete ---------
+3.10.2022 18:43:13 --- Register viewmodels complete --------------
+3.10.2022 18:43:14 --- ManagerUser init --------------
+3.10.2022 18:43:14 --- ManagerProfiles init --------------
+4.10.2022 11:11:58 --- create  host builder 
+4.10.2022 11:11:58 --- CreateDefaultBuilder
+4.10.2022 11:11:58 --- UseContentRoot
+4.10.2022 11:11:58 --- ConfigureAppConfiguration
+4.10.2022 11:11:58 --- ConfigureServices
+4.10.2022 11:11:58 --- SetBasePath
+4.10.2022 11:11:58 --- AddJsonFile
+4.10.2022 11:11:58 --- RegisterDatabase
+4.10.2022 11:11:58 --- Before add transient db init
+4.10.2022 11:11:58 --- Before add db repositories
+4.10.2022 11:11:58 --- Register DATABase COMPLETE ----------
+4.10.2022 11:11:58 --- Register services complete ---------
+4.10.2022 11:11:58 --- Register viewmodels complete --------------
+4.10.2022 11:11:59 --- ManagerUser init --------------
+4.10.2022 11:11:59 --- ManagerProfiles init --------------
+4.10.2022 11:19:46 --- create  host builder 
+4.10.2022 11:19:46 --- CreateDefaultBuilder
+4.10.2022 11:19:46 --- UseContentRoot
+4.10.2022 11:19:46 --- ConfigureAppConfiguration
+4.10.2022 11:19:46 --- ConfigureServices
+4.10.2022 11:19:46 --- SetBasePath
+4.10.2022 11:19:46 --- AddJsonFile
+4.10.2022 11:19:46 --- RegisterDatabase
+4.10.2022 11:19:46 --- Before add transient db init
+4.10.2022 11:19:46 --- Before add db repositories
+4.10.2022 11:19:46 --- Register DATABase COMPLETE ----------
+4.10.2022 11:19:46 --- Register services complete ---------
+4.10.2022 11:19:46 --- Register viewmodels complete --------------
+4.10.2022 11:19:48 --- ManagerUser init --------------
+4.10.2022 11:19:48 --- ManagerProfiles init --------------
+5.10.2022 17:37:37 --- create  host builder 
+5.10.2022 17:37:37 --- CreateDefaultBuilder
+5.10.2022 17:37:37 --- UseContentRoot
+5.10.2022 17:37:37 --- ConfigureAppConfiguration
+5.10.2022 17:37:37 --- ConfigureServices
+5.10.2022 17:37:37 --- SetBasePath
+5.10.2022 17:37:37 --- AddJsonFile
+5.10.2022 17:37:38 --- RegisterDatabase
+5.10.2022 17:37:38 --- Before add transient db init
+5.10.2022 17:37:38 --- Before add db repositories
+5.10.2022 17:37:38 --- Register DATABase COMPLETE ----------
+5.10.2022 17:37:38 --- Register services complete ---------
+5.10.2022 17:37:38 --- Register viewmodels complete --------------
+5.10.2022 17:37:39 --- ManagerUser init --------------
+5.10.2022 17:37:39 --- ManagerProfiles init --------------
+10.10.2022 17:54:15 --- create  host builder 
+10.10.2022 17:54:15 --- CreateDefaultBuilder
+10.10.2022 17:54:15 --- UseContentRoot
+10.10.2022 17:54:15 --- ConfigureAppConfiguration
+10.10.2022 17:54:15 --- ConfigureServices
+10.10.2022 17:54:15 --- SetBasePath
+10.10.2022 17:54:15 --- AddJsonFile
+10.10.2022 17:54:15 --- RegisterDatabase
+10.10.2022 17:54:15 --- Before add transient db init
+10.10.2022 17:54:15 --- Before add db repositories
+10.10.2022 17:54:15 --- Register DATABase COMPLETE ----------
+10.10.2022 17:54:15 --- Register services complete ---------
+10.10.2022 17:54:15 --- Register viewmodels complete --------------
+10.10.2022 17:54:16 --- ManagerUser init --------------
+10.10.2022 17:54:16 --- ManagerProfiles init --------------
+18.10.2022 14:47:13 --- create  host builder 
+18.10.2022 14:47:13 --- CreateDefaultBuilder
+18.10.2022 14:47:13 --- UseContentRoot
+18.10.2022 14:47:13 --- ConfigureAppConfiguration
+18.10.2022 14:47:13 --- ConfigureServices
+18.10.2022 14:47:13 --- SetBasePath
+18.10.2022 14:47:13 --- AddJsonFile
+18.10.2022 14:47:13 --- RegisterDatabase
+18.10.2022 14:47:13 --- Before add transient db init
+18.10.2022 14:47:13 --- Before add db repositories
+18.10.2022 14:47:13 --- Register DATABase COMPLETE ----------
+18.10.2022 14:47:13 --- Register services complete ---------
+18.10.2022 14:47:13 --- Register viewmodels complete --------------
+18.10.2022 14:47:15 --- ManagerUser init --------------
+18.10.2022 14:47:15 --- ManagerProfiles init --------------
+18.10.2022 16:40:16 --- create  host builder 
+18.10.2022 16:40:16 --- CreateDefaultBuilder
+18.10.2022 16:40:16 --- UseContentRoot
+18.10.2022 16:40:16 --- ConfigureAppConfiguration
+18.10.2022 16:40:16 --- ConfigureServices
+18.10.2022 16:40:16 --- SetBasePath
+18.10.2022 16:40:16 --- AddJsonFile
+18.10.2022 16:40:16 --- Register DATABase COMPLETE ----------
+18.10.2022 16:40:16 --- Register services complete ---------
+18.10.2022 16:40:16 --- Register viewmodels complete --------------
+25.10.2022 9:47:00 --- create  host builder 
+25.10.2022 9:47:00 --- CreateDefaultBuilder
+25.10.2022 9:47:00 --- UseContentRoot
+25.10.2022 9:47:00 --- ConfigureAppConfiguration
+25.10.2022 9:47:00 --- ConfigureServices
+25.10.2022 9:47:00 --- SetBasePath
+25.10.2022 9:47:00 --- AddJsonFile
+25.10.2022 9:47:00 --- Register DATABase COMPLETE ----------
+25.10.2022 9:47:00 --- Register services complete ---------
+25.10.2022 9:47:00 --- Register viewmodels complete --------------
+25.10.2022 9:47:01 --- ManagerUser init --------------
+25.10.2022 9:47:29 --- create  host builder 
+25.10.2022 9:47:29 --- CreateDefaultBuilder
+25.10.2022 9:47:29 --- UseContentRoot
+25.10.2022 9:47:29 --- ConfigureAppConfiguration
+25.10.2022 9:47:29 --- ConfigureServices
+25.10.2022 9:47:29 --- SetBasePath
+25.10.2022 9:47:29 --- AddJsonFile
+25.10.2022 9:47:29 --- Register DATABase COMPLETE ----------
+25.10.2022 9:47:29 --- Register services complete ---------
+25.10.2022 9:47:29 --- Register viewmodels complete --------------
+25.10.2022 9:47:29 --- ManagerUser init --------------
+25.10.2022 9:56:50 --- create  host builder 
+25.10.2022 9:56:50 --- CreateDefaultBuilder
+25.10.2022 9:56:50 --- UseContentRoot
+25.10.2022 9:56:50 --- ConfigureAppConfiguration
+25.10.2022 9:56:50 --- ConfigureServices
+25.10.2022 9:56:50 --- SetBasePath
+25.10.2022 9:56:50 --- AddJsonFile
+25.10.2022 9:56:50 --- Register DATABase COMPLETE ----------
+25.10.2022 9:56:50 --- Register services complete ---------
+25.10.2022 9:56:50 --- Register viewmodels complete --------------
+25.10.2022 9:56:51 --- ManagerUser init --------------
+25.10.2022 10:10:39 --- create  host builder 
+25.10.2022 10:10:39 --- CreateDefaultBuilder
+25.10.2022 10:10:39 --- UseContentRoot
+25.10.2022 10:10:39 --- ConfigureAppConfiguration
+25.10.2022 10:10:39 --- ConfigureServices
+25.10.2022 10:10:39 --- SetBasePath
+25.10.2022 10:10:39 --- AddJsonFile
+25.10.2022 10:10:39 --- Register DATABase COMPLETE ----------
+25.10.2022 10:10:39 --- Register services complete ---------
+25.10.2022 10:10:39 --- Register viewmodels complete --------------
+25.10.2022 10:10:39 --- ManagerUser init --------------
+25.10.2022 10:20:03 --- create  host builder 
+25.10.2022 10:20:03 --- CreateDefaultBuilder
+25.10.2022 10:20:03 --- UseContentRoot
+25.10.2022 10:20:03 --- ConfigureAppConfiguration
+25.10.2022 10:20:03 --- ConfigureServices
+25.10.2022 10:20:03 --- SetBasePath
+25.10.2022 10:20:03 --- AddJsonFile
+25.10.2022 10:20:03 --- Register DATABase COMPLETE ----------
+25.10.2022 10:20:03 --- Register services complete ---------
+25.10.2022 10:20:03 --- Register viewmodels complete --------------
+25.10.2022 10:20:04 --- ManagerUser init --------------
+25.10.2022 10:52:40 --- create  host builder 
+25.10.2022 10:52:40 --- CreateDefaultBuilder
+25.10.2022 10:52:40 --- UseContentRoot
+25.10.2022 10:52:40 --- ConfigureAppConfiguration
+25.10.2022 10:52:40 --- ConfigureServices
+25.10.2022 10:52:40 --- SetBasePath
+25.10.2022 10:52:40 --- AddJsonFile
+25.10.2022 10:52:40 --- Register DATABase COMPLETE ----------
+25.10.2022 10:52:40 --- Register services complete ---------
+25.10.2022 10:52:40 --- Register viewmodels complete --------------
+25.10.2022 10:52:41 --- ManagerUser init --------------
+25.10.2022 11:00:50 --- create  host builder 
+25.10.2022 11:00:50 --- CreateDefaultBuilder
+25.10.2022 11:00:50 --- UseContentRoot
+25.10.2022 11:00:50 --- ConfigureAppConfiguration
+25.10.2022 11:00:50 --- ConfigureServices
+25.10.2022 11:00:50 --- SetBasePath
+25.10.2022 11:00:50 --- AddJsonFile
+25.10.2022 11:00:50 --- Register DATABase COMPLETE ----------
+25.10.2022 11:00:50 --- Register services complete ---------
+25.10.2022 11:00:50 --- Register viewmodels complete --------------
+25.10.2022 11:00:51 --- ManagerUser init --------------
+25.10.2022 11:11:12 --- create  host builder 
+25.10.2022 11:11:12 --- CreateDefaultBuilder
+25.10.2022 11:11:12 --- UseContentRoot
+25.10.2022 11:11:12 --- ConfigureAppConfiguration
+25.10.2022 11:11:12 --- ConfigureServices
+25.10.2022 11:11:12 --- SetBasePath
+25.10.2022 11:11:12 --- AddJsonFile
+25.10.2022 11:11:13 --- Register DATABase COMPLETE ----------
+25.10.2022 11:11:13 --- Register services complete ---------
+25.10.2022 11:11:13 --- Register viewmodels complete --------------
+25.10.2022 11:11:14 --- ManagerUser init --------------
+25.10.2022 11:22:11 --- create  host builder 
+25.10.2022 11:22:11 --- CreateDefaultBuilder
+25.10.2022 11:22:11 --- UseContentRoot
+25.10.2022 11:22:11 --- ConfigureAppConfiguration
+25.10.2022 11:22:11 --- ConfigureServices
+25.10.2022 11:22:12 --- SetBasePath
+25.10.2022 11:22:12 --- AddJsonFile
+25.10.2022 11:22:12 --- Register DATABase COMPLETE ----------
+25.10.2022 11:22:12 --- Register services complete ---------
+25.10.2022 11:22:12 --- Register viewmodels complete --------------
+25.10.2022 11:22:16 --- ManagerUser init --------------
+25.10.2022 11:25:37 --- create  host builder 
+25.10.2022 11:25:37 --- CreateDefaultBuilder
+25.10.2022 11:25:37 --- UseContentRoot
+25.10.2022 11:25:37 --- ConfigureAppConfiguration
+25.10.2022 11:25:37 --- ConfigureServices
+25.10.2022 11:25:37 --- SetBasePath
+25.10.2022 11:25:37 --- AddJsonFile
+25.10.2022 11:25:37 --- Register DATABase COMPLETE ----------
+25.10.2022 11:25:37 --- Register services complete ---------
+25.10.2022 11:25:37 --- Register viewmodels complete --------------
+25.10.2022 11:25:38 --- ManagerUser init --------------
+25.10.2022 11:26:28 --- create  host builder 
+25.10.2022 11:26:28 --- CreateDefaultBuilder
+25.10.2022 11:26:28 --- UseContentRoot
+25.10.2022 11:26:28 --- ConfigureAppConfiguration
+25.10.2022 11:26:28 --- ConfigureServices
+25.10.2022 11:26:28 --- SetBasePath
+25.10.2022 11:26:28 --- AddJsonFile
+25.10.2022 11:26:28 --- Register DATABase COMPLETE ----------
+25.10.2022 11:26:28 --- Register services complete ---------
+25.10.2022 11:26:28 --- Register viewmodels complete --------------
+25.10.2022 11:26:29 --- ManagerUser init --------------
+25.10.2022 11:26:35 --- create  host builder 
+25.10.2022 11:26:35 --- CreateDefaultBuilder
+25.10.2022 11:26:35 --- UseContentRoot
+25.10.2022 11:26:35 --- ConfigureAppConfiguration
+25.10.2022 11:26:35 --- ConfigureServices
+25.10.2022 11:26:35 --- SetBasePath
+25.10.2022 11:26:35 --- AddJsonFile
+25.10.2022 11:26:35 --- Register DATABase COMPLETE ----------
+25.10.2022 11:26:35 --- Register services complete ---------
+25.10.2022 11:26:35 --- Register viewmodels complete --------------
+25.10.2022 11:26:36 --- ManagerUser init --------------
+25.10.2022 11:26:40 --- create  host builder 
+25.10.2022 11:26:40 --- CreateDefaultBuilder
+25.10.2022 11:26:40 --- UseContentRoot
+25.10.2022 11:26:40 --- ConfigureAppConfiguration
+25.10.2022 11:26:40 --- ConfigureServices
+25.10.2022 11:26:40 --- SetBasePath
+25.10.2022 11:26:40 --- AddJsonFile
+25.10.2022 11:26:40 --- Register DATABase COMPLETE ----------
+25.10.2022 11:26:40 --- Register services complete ---------
+25.10.2022 11:26:40 --- Register viewmodels complete --------------
+25.10.2022 11:26:41 --- ManagerUser init --------------
+25.10.2022 11:26:54 --- create  host builder 
+25.10.2022 11:26:54 --- CreateDefaultBuilder
+25.10.2022 11:26:54 --- UseContentRoot
+25.10.2022 11:26:54 --- ConfigureAppConfiguration
+25.10.2022 11:26:54 --- ConfigureServices
+25.10.2022 11:26:54 --- SetBasePath
+25.10.2022 11:26:54 --- AddJsonFile
+25.10.2022 11:26:54 --- Register DATABase COMPLETE ----------
+25.10.2022 11:26:54 --- Register services complete ---------
+25.10.2022 11:26:54 --- Register viewmodels complete --------------
+25.10.2022 11:26:55 --- ManagerUser init --------------
+25.10.2022 11:26:59 --- create  host builder 
+25.10.2022 11:26:59 --- CreateDefaultBuilder
+25.10.2022 11:26:59 --- UseContentRoot
+25.10.2022 11:26:59 --- ConfigureAppConfiguration
+25.10.2022 11:26:59 --- ConfigureServices
+25.10.2022 11:26:59 --- SetBasePath
+25.10.2022 11:26:59 --- AddJsonFile
+25.10.2022 11:26:59 --- Register DATABase COMPLETE ----------
+25.10.2022 11:26:59 --- Register services complete ---------
+25.10.2022 11:26:59 --- Register viewmodels complete --------------
+25.10.2022 11:27:00 --- ManagerUser init --------------
+25.10.2022 11:30:02 --- create  host builder 
+25.10.2022 11:30:02 --- CreateDefaultBuilder
+25.10.2022 11:30:02 --- UseContentRoot
+25.10.2022 11:30:02 --- ConfigureAppConfiguration
+25.10.2022 11:30:02 --- ConfigureServices
+25.10.2022 11:30:02 --- SetBasePath
+25.10.2022 11:30:02 --- AddJsonFile
+25.10.2022 11:30:02 --- Register DATABase COMPLETE ----------
+25.10.2022 11:30:02 --- Register services complete ---------
+25.10.2022 11:30:02 --- Register viewmodels complete --------------
+25.10.2022 11:30:03 --- ManagerUser init --------------
+25.10.2022 11:31:42 --- create  host builder 
+25.10.2022 11:31:42 --- CreateDefaultBuilder
+25.10.2022 11:31:42 --- UseContentRoot
+25.10.2022 11:31:42 --- ConfigureAppConfiguration
+25.10.2022 11:31:42 --- ConfigureServices
+25.10.2022 11:31:42 --- SetBasePath
+25.10.2022 11:31:42 --- AddJsonFile
+25.10.2022 11:31:42 --- Register DATABase COMPLETE ----------
+25.10.2022 11:31:42 --- Register services complete ---------
+25.10.2022 11:31:42 --- Register viewmodels complete --------------
+25.10.2022 11:31:43 --- ManagerUser init --------------
+25.10.2022 11:50:00 --- create  host builder 
+25.10.2022 11:50:00 --- CreateDefaultBuilder
+25.10.2022 11:50:00 --- UseContentRoot
+25.10.2022 11:50:00 --- ConfigureAppConfiguration
+25.10.2022 11:50:00 --- ConfigureServices
+25.10.2022 11:50:00 --- SetBasePath
+25.10.2022 11:50:00 --- AddJsonFile
+25.10.2022 11:50:00 --- Register DATABase COMPLETE ----------
+25.10.2022 11:50:00 --- Register services complete ---------
+25.10.2022 11:50:00 --- Register viewmodels complete --------------
+25.10.2022 11:50:01 --- ManagerUser init --------------
+25.10.2022 11:54:25 --- create  host builder 
+25.10.2022 11:54:25 --- CreateDefaultBuilder
+25.10.2022 11:54:25 --- UseContentRoot
+25.10.2022 11:54:25 --- ConfigureAppConfiguration
+25.10.2022 11:54:25 --- ConfigureServices
+25.10.2022 11:54:25 --- SetBasePath
+25.10.2022 11:54:25 --- AddJsonFile
+25.10.2022 11:54:25 --- Register DATABase COMPLETE ----------
+25.10.2022 11:54:25 --- Register services complete ---------
+25.10.2022 11:54:25 --- Register viewmodels complete --------------
+25.10.2022 11:54:27 --- ManagerUser init --------------
+25.10.2022 11:54:50 --- create  host builder 
+25.10.2022 11:54:50 --- CreateDefaultBuilder
+25.10.2022 11:54:50 --- UseContentRoot
+25.10.2022 11:54:50 --- ConfigureAppConfiguration
+25.10.2022 11:54:50 --- ConfigureServices
+25.10.2022 11:54:50 --- SetBasePath
+25.10.2022 11:54:50 --- AddJsonFile
+25.10.2022 11:54:50 --- Register DATABase COMPLETE ----------
+25.10.2022 11:54:50 --- Register services complete ---------
+25.10.2022 11:54:50 --- Register viewmodels complete --------------
+25.10.2022 11:54:52 --- ManagerUser init --------------
+25.10.2022 12:11:12 --- create  host builder 
+25.10.2022 12:11:12 --- CreateDefaultBuilder
+25.10.2022 12:11:12 --- UseContentRoot
+25.10.2022 12:11:12 --- ConfigureAppConfiguration
+25.10.2022 12:11:12 --- ConfigureServices
+25.10.2022 12:11:12 --- SetBasePath
+25.10.2022 12:11:12 --- AddJsonFile
+25.10.2022 12:11:12 --- Register DATABase COMPLETE ----------
+25.10.2022 12:11:12 --- Register services complete ---------
+25.10.2022 12:11:12 --- Register viewmodels complete --------------
+25.10.2022 12:11:13 --- ManagerUser init --------------
+25.10.2022 12:14:01 --- create  host builder 
+25.10.2022 12:14:01 --- CreateDefaultBuilder
+25.10.2022 12:14:01 --- UseContentRoot
+25.10.2022 12:14:01 --- ConfigureAppConfiguration
+25.10.2022 12:14:01 --- ConfigureServices
+25.10.2022 12:14:01 --- SetBasePath
+25.10.2022 12:14:01 --- AddJsonFile
+25.10.2022 12:14:01 --- Register DATABase COMPLETE ----------
+25.10.2022 12:14:01 --- Register services complete ---------
+25.10.2022 12:14:01 --- Register viewmodels complete --------------
+25.10.2022 12:14:02 --- ManagerUser init --------------
+25.10.2022 12:16:17 --- create  host builder 
+25.10.2022 12:16:17 --- CreateDefaultBuilder
+25.10.2022 12:16:17 --- UseContentRoot
+25.10.2022 12:16:17 --- ConfigureAppConfiguration
+25.10.2022 12:16:17 --- ConfigureServices
+25.10.2022 12:16:17 --- SetBasePath
+25.10.2022 12:16:17 --- AddJsonFile
+25.10.2022 12:16:17 --- Register DATABase COMPLETE ----------
+25.10.2022 12:16:17 --- Register services complete ---------
+25.10.2022 12:16:17 --- Register viewmodels complete --------------
+25.10.2022 12:16:19 --- ManagerUser init --------------
+25.10.2022 12:36:06 --- create  host builder 
+25.10.2022 12:36:06 --- CreateDefaultBuilder
+25.10.2022 12:36:06 --- UseContentRoot
+25.10.2022 12:36:06 --- ConfigureAppConfiguration
+25.10.2022 12:36:06 --- ConfigureServices
+25.10.2022 12:36:06 --- SetBasePath
+25.10.2022 12:36:06 --- AddJsonFile
+25.10.2022 12:36:06 --- Register DATABase COMPLETE ----------
+25.10.2022 12:36:06 --- Register services complete ---------
+25.10.2022 12:36:06 --- Register viewmodels complete --------------
+25.10.2022 12:36:07 --- ManagerUser init --------------
+25.10.2022 12:38:53 --- create  host builder 
+25.10.2022 12:38:53 --- CreateDefaultBuilder
+25.10.2022 12:38:53 --- UseContentRoot
+25.10.2022 12:38:53 --- ConfigureAppConfiguration
+25.10.2022 12:38:53 --- ConfigureServices
+25.10.2022 12:38:53 --- SetBasePath
+25.10.2022 12:38:54 --- AddJsonFile
+25.10.2022 12:38:54 --- Register DATABase COMPLETE ----------
+25.10.2022 12:38:54 --- Register services complete ---------
+25.10.2022 12:38:54 --- Register viewmodels complete --------------
+25.10.2022 12:38:57 --- ManagerUser init --------------
+25.10.2022 12:39:25 --- create  host builder 
+25.10.2022 12:39:25 --- CreateDefaultBuilder
+25.10.2022 12:39:25 --- UseContentRoot
+25.10.2022 12:39:25 --- ConfigureAppConfiguration
+25.10.2022 12:39:25 --- ConfigureServices
+25.10.2022 12:39:25 --- SetBasePath
+25.10.2022 12:39:25 --- AddJsonFile
+25.10.2022 12:39:25 --- Register DATABase COMPLETE ----------
+25.10.2022 12:39:25 --- Register services complete ---------
+25.10.2022 12:39:25 --- Register viewmodels complete --------------
+25.10.2022 12:39:27 --- ManagerUser init --------------
+25.10.2022 13:12:30 --- create  host builder 
+25.10.2022 13:12:30 --- CreateDefaultBuilder
+25.10.2022 13:12:30 --- UseContentRoot
+25.10.2022 13:12:30 --- ConfigureAppConfiguration
+25.10.2022 13:12:30 --- ConfigureServices
+25.10.2022 13:12:30 --- SetBasePath
+25.10.2022 13:12:30 --- AddJsonFile
+25.10.2022 13:12:30 --- Register DATABase COMPLETE ----------
+25.10.2022 13:12:30 --- Register services complete ---------
+25.10.2022 13:12:30 --- Register viewmodels complete --------------
+25.10.2022 13:12:31 --- ManagerUser init --------------
+25.10.2022 13:25:19 --- create  host builder 
+25.10.2022 13:25:19 --- CreateDefaultBuilder
+25.10.2022 13:25:19 --- UseContentRoot
+25.10.2022 13:25:19 --- ConfigureAppConfiguration
+25.10.2022 13:25:19 --- ConfigureServices
+25.10.2022 13:25:19 --- SetBasePath
+25.10.2022 13:25:19 --- AddJsonFile
+25.10.2022 13:25:19 --- Register DATABase COMPLETE ----------
+25.10.2022 13:25:19 --- Register services complete ---------
+25.10.2022 13:25:19 --- Register viewmodels complete --------------
+25.10.2022 13:25:20 --- ManagerUser init --------------
+25.10.2022 14:34:11 --- create  host builder 
+25.10.2022 14:34:11 --- CreateDefaultBuilder
+25.10.2022 14:34:11 --- UseContentRoot
+25.10.2022 14:34:12 --- ConfigureAppConfiguration
+25.10.2022 14:34:12 --- ConfigureServices
+25.10.2022 14:34:12 --- SetBasePath
+25.10.2022 14:34:12 --- AddJsonFile
+25.10.2022 14:34:13 --- Register DATABase COMPLETE ----------
+25.10.2022 14:34:13 --- Register services complete ---------
+25.10.2022 14:34:13 --- Register viewmodels complete --------------
+25.10.2022 14:34:17 --- ManagerUser init --------------
+25.10.2022 14:45:54 --- create  host builder 
+25.10.2022 14:45:54 --- CreateDefaultBuilder
+25.10.2022 14:45:54 --- UseContentRoot
+25.10.2022 14:45:54 --- ConfigureAppConfiguration
+25.10.2022 14:45:54 --- ConfigureServices
+25.10.2022 14:45:54 --- SetBasePath
+25.10.2022 14:45:54 --- AddJsonFile
+25.10.2022 14:45:54 --- Register DATABase COMPLETE ----------
+25.10.2022 14:45:54 --- Register services complete ---------
+25.10.2022 14:45:54 --- Register viewmodels complete --------------
+25.10.2022 14:45:56 --- ManagerUser init --------------
+25.10.2022 14:47:01 --- create  host builder 
+25.10.2022 14:47:01 --- CreateDefaultBuilder
+25.10.2022 14:47:01 --- UseContentRoot
+25.10.2022 14:47:01 --- ConfigureAppConfiguration
+25.10.2022 14:47:01 --- ConfigureServices
+25.10.2022 14:47:01 --- SetBasePath
+25.10.2022 14:47:01 --- AddJsonFile
+25.10.2022 14:47:01 --- Register DATABase COMPLETE ----------
+25.10.2022 14:47:01 --- Register services complete ---------
+25.10.2022 14:47:01 --- Register viewmodels complete --------------
+25.10.2022 14:47:03 --- ManagerUser init --------------
+25.10.2022 15:02:26 --- create  host builder 
+25.10.2022 15:02:26 --- CreateDefaultBuilder
+25.10.2022 15:02:26 --- UseContentRoot
+25.10.2022 15:02:26 --- ConfigureAppConfiguration
+25.10.2022 15:02:26 --- ConfigureServices
+25.10.2022 15:02:26 --- SetBasePath
+25.10.2022 15:02:26 --- AddJsonFile
+25.10.2022 15:02:26 --- Register DATABase COMPLETE ----------
+25.10.2022 15:02:26 --- Register services complete ---------
+25.10.2022 15:02:26 --- Register viewmodels complete --------------
+25.10.2022 15:02:27 --- ManagerUser init --------------
+25.10.2022 15:02:48 --- create  host builder 
+25.10.2022 15:02:49 --- CreateDefaultBuilder
+25.10.2022 15:02:49 --- UseContentRoot
+25.10.2022 15:02:49 --- ConfigureAppConfiguration
+25.10.2022 15:02:49 --- ConfigureServices
+25.10.2022 15:02:49 --- SetBasePath
+25.10.2022 15:02:49 --- AddJsonFile
+25.10.2022 15:02:49 --- Register DATABase COMPLETE ----------
+25.10.2022 15:02:49 --- Register services complete ---------
+25.10.2022 15:02:49 --- Register viewmodels complete --------------
+25.10.2022 15:02:49 --- ManagerUser init --------------
+25.10.2022 15:23:47 --- create  host builder 
+25.10.2022 15:23:47 --- CreateDefaultBuilder
+25.10.2022 15:23:47 --- UseContentRoot
+25.10.2022 15:23:47 --- ConfigureAppConfiguration
+25.10.2022 15:23:47 --- ConfigureServices
+25.10.2022 15:23:47 --- SetBasePath
+25.10.2022 15:23:47 --- AddJsonFile
+25.10.2022 15:23:47 --- Register DATABase COMPLETE ----------
+25.10.2022 15:23:47 --- Register services complete ---------
+25.10.2022 15:23:47 --- Register viewmodels complete --------------
+25.10.2022 15:23:49 --- ManagerUser init --------------
+25.10.2022 15:25:56 --- create  host builder 
+25.10.2022 15:25:56 --- CreateDefaultBuilder
+25.10.2022 15:25:56 --- UseContentRoot
+25.10.2022 15:25:56 --- ConfigureAppConfiguration
+25.10.2022 15:25:56 --- ConfigureServices
+25.10.2022 15:25:56 --- SetBasePath
+25.10.2022 15:25:56 --- AddJsonFile
+25.10.2022 15:25:56 --- Register DATABase COMPLETE ----------
+25.10.2022 15:25:56 --- Register services complete ---------
+25.10.2022 15:25:56 --- Register viewmodels complete --------------
+25.10.2022 15:25:58 --- ManagerUser init --------------
+25.10.2022 16:19:47 --- create  host builder 
+25.10.2022 16:19:47 --- CreateDefaultBuilder
+25.10.2022 16:19:47 --- UseContentRoot
+25.10.2022 16:19:47 --- ConfigureAppConfiguration
+25.10.2022 16:19:47 --- ConfigureServices
+25.10.2022 16:19:47 --- SetBasePath
+25.10.2022 16:19:47 --- AddJsonFile
+25.10.2022 16:19:47 --- Register DATABase COMPLETE ----------
+25.10.2022 16:19:47 --- Register services complete ---------
+25.10.2022 16:19:47 --- Register viewmodels complete --------------
+25.10.2022 16:19:48 --- ManagerUser init --------------
+25.10.2022 16:22:27 --- create  host builder 
+25.10.2022 16:22:27 --- CreateDefaultBuilder
+25.10.2022 16:22:27 --- UseContentRoot
+25.10.2022 16:22:27 --- ConfigureAppConfiguration
+25.10.2022 16:22:27 --- ConfigureServices
+25.10.2022 16:22:27 --- SetBasePath
+25.10.2022 16:22:27 --- AddJsonFile
+25.10.2022 16:22:27 --- Register DATABase COMPLETE ----------
+25.10.2022 16:22:27 --- Register services complete ---------
+25.10.2022 16:22:27 --- Register viewmodels complete --------------
+25.10.2022 16:22:29 --- ManagerUser init --------------
+25.10.2022 16:38:03 --- create  host builder 
+25.10.2022 16:38:03 --- CreateDefaultBuilder
+25.10.2022 16:38:03 --- UseContentRoot
+25.10.2022 16:38:03 --- ConfigureAppConfiguration
+25.10.2022 16:38:03 --- ConfigureServices
+25.10.2022 16:38:03 --- SetBasePath
+25.10.2022 16:38:03 --- AddJsonFile
+25.10.2022 16:38:03 --- Register DATABase COMPLETE ----------
+25.10.2022 16:38:03 --- Register services complete ---------
+25.10.2022 16:38:03 --- Register viewmodels complete --------------
+25.10.2022 16:38:04 --- ManagerUser init --------------
+25.10.2022 16:52:22 --- create  host builder 
+25.10.2022 16:52:22 --- CreateDefaultBuilder
+25.10.2022 16:52:22 --- UseContentRoot
+25.10.2022 16:52:22 --- ConfigureAppConfiguration
+25.10.2022 16:52:22 --- ConfigureServices
+25.10.2022 16:52:22 --- SetBasePath
+25.10.2022 16:52:22 --- AddJsonFile
+25.10.2022 16:52:22 --- Register DATABase COMPLETE ----------
+25.10.2022 16:52:22 --- Register services complete ---------
+25.10.2022 16:52:22 --- Register viewmodels complete --------------
+25.10.2022 16:52:23 --- ManagerUser init --------------
+26.10.2022 10:08:03 --- create  host builder 
+26.10.2022 10:08:03 --- CreateDefaultBuilder
+26.10.2022 10:08:03 --- UseContentRoot
+26.10.2022 10:08:03 --- ConfigureAppConfiguration
+26.10.2022 10:08:03 --- ConfigureServices
+26.10.2022 10:08:03 --- SetBasePath
+26.10.2022 10:08:03 --- AddJsonFile
+26.10.2022 10:08:03 --- Register DATABase COMPLETE ----------
+26.10.2022 10:08:03 --- Register services complete ---------
+26.10.2022 10:08:03 --- Register viewmodels complete --------------
+26.10.2022 10:08:05 --- ManagerUser init --------------
+26.10.2022 10:15:45 --- create  host builder 
+26.10.2022 10:15:45 --- CreateDefaultBuilder
+26.10.2022 10:15:45 --- UseContentRoot
+26.10.2022 10:15:45 --- ConfigureAppConfiguration
+26.10.2022 10:15:45 --- ConfigureServices
+26.10.2022 10:15:45 --- SetBasePath
+26.10.2022 10:15:45 --- AddJsonFile
+26.10.2022 10:15:45 --- Register DATABase COMPLETE ----------
+26.10.2022 10:15:45 --- Register services complete ---------
+26.10.2022 10:15:45 --- Register viewmodels complete --------------
+26.10.2022 10:15:46 --- ManagerUser init --------------
+26.10.2022 10:16:54 --- create  host builder 
+26.10.2022 10:16:54 --- CreateDefaultBuilder
+26.10.2022 10:16:54 --- UseContentRoot
+26.10.2022 10:16:54 --- ConfigureAppConfiguration
+26.10.2022 10:16:54 --- ConfigureServices
+26.10.2022 10:16:54 --- SetBasePath
+26.10.2022 10:16:54 --- AddJsonFile
+26.10.2022 10:16:54 --- Register DATABase COMPLETE ----------
+26.10.2022 10:16:54 --- Register services complete ---------
+26.10.2022 10:16:54 --- Register viewmodels complete --------------
+26.10.2022 10:16:55 --- ManagerUser init --------------
+26.10.2022 10:58:03 --- create  host builder 
+26.10.2022 10:58:03 --- CreateDefaultBuilder
+26.10.2022 10:58:03 --- UseContentRoot
+26.10.2022 10:58:03 --- ConfigureAppConfiguration
+26.10.2022 10:58:03 --- ConfigureServices
+26.10.2022 10:58:03 --- SetBasePath
+26.10.2022 10:58:03 --- AddJsonFile
+26.10.2022 10:58:03 --- Register DATABase COMPLETE ----------
+26.10.2022 10:58:03 --- Register services complete ---------
+26.10.2022 10:58:03 --- Register viewmodels complete --------------
+26.10.2022 10:58:04 --- ManagerUser init --------------
+26.10.2022 17:25:11 --- create  host builder 
+26.10.2022 17:25:11 --- CreateDefaultBuilder
+26.10.2022 17:25:11 --- UseContentRoot
+26.10.2022 17:25:11 --- ConfigureAppConfiguration
+26.10.2022 17:25:11 --- ConfigureServices
+26.10.2022 17:25:11 --- SetBasePath
+26.10.2022 17:25:11 --- AddJsonFile
+26.10.2022 17:25:12 --- Register DATABase COMPLETE ----------
+26.10.2022 17:25:12 --- Register services complete ---------
+26.10.2022 17:25:12 --- Register viewmodels complete --------------
+26.10.2022 17:25:13 --- ManagerUser init --------------
+27.10.2022 13:42:31 --- create  host builder 
+27.10.2022 13:42:31 --- CreateDefaultBuilder
+27.10.2022 13:42:31 --- UseContentRoot
+27.10.2022 13:42:31 --- ConfigureAppConfiguration
+27.10.2022 13:42:31 --- ConfigureServices
+27.10.2022 13:42:31 --- SetBasePath
+27.10.2022 13:42:31 --- AddJsonFile
+27.10.2022 13:42:32 --- Register DATABase COMPLETE ----------
+27.10.2022 13:42:32 --- Register services complete ---------
+27.10.2022 13:42:32 --- Register viewmodels complete --------------
+27.10.2022 13:42:33 --- ManagerUser init --------------
+27.10.2022 13:46:35 --- create  host builder 
+27.10.2022 13:46:35 --- CreateDefaultBuilder
+27.10.2022 13:46:35 --- UseContentRoot
+27.10.2022 13:46:35 --- ConfigureAppConfiguration
+27.10.2022 13:46:35 --- ConfigureServices
+27.10.2022 13:46:35 --- SetBasePath
+27.10.2022 13:46:35 --- AddJsonFile
+27.10.2022 13:46:35 --- Register DATABase COMPLETE ----------
+27.10.2022 13:46:35 --- Register services complete ---------
+27.10.2022 13:46:35 --- Register viewmodels complete --------------
+27.10.2022 13:46:36 --- ManagerUser init --------------
+27.10.2022 14:22:31 --- create  host builder 
+27.10.2022 14:22:31 --- CreateDefaultBuilder
+27.10.2022 14:22:31 --- UseContentRoot
+27.10.2022 14:22:31 --- ConfigureAppConfiguration
+27.10.2022 14:22:31 --- ConfigureServices
+27.10.2022 14:22:31 --- SetBasePath
+27.10.2022 14:22:31 --- AddJsonFile
+27.10.2022 14:22:31 --- Register DATABase COMPLETE ----------
+27.10.2022 14:22:31 --- Register services complete ---------
+27.10.2022 14:22:31 --- Register viewmodels complete --------------
+27.10.2022 14:22:33 --- ManagerUser init --------------
+27.10.2022 14:24:04 --- create  host builder 
+27.10.2022 14:24:04 --- CreateDefaultBuilder
+27.10.2022 14:24:04 --- UseContentRoot
+27.10.2022 14:24:04 --- ConfigureAppConfiguration
+27.10.2022 14:24:04 --- ConfigureServices
+27.10.2022 14:24:04 --- SetBasePath
+27.10.2022 14:24:04 --- AddJsonFile
+27.10.2022 14:24:04 --- Register DATABase COMPLETE ----------
+27.10.2022 14:24:04 --- Register services complete ---------
+27.10.2022 14:24:04 --- Register viewmodels complete --------------
+27.10.2022 14:24:05 --- ManagerUser init --------------
+27.10.2022 14:26:19 --- create  host builder 
+27.10.2022 14:26:19 --- CreateDefaultBuilder
+27.10.2022 14:26:19 --- UseContentRoot
+27.10.2022 14:26:19 --- ConfigureAppConfiguration
+27.10.2022 14:26:19 --- ConfigureServices
+27.10.2022 14:26:19 --- SetBasePath
+27.10.2022 14:26:19 --- AddJsonFile
+27.10.2022 14:26:19 --- Register DATABase COMPLETE ----------
+27.10.2022 14:26:19 --- Register services complete ---------
+27.10.2022 14:26:19 --- Register viewmodels complete --------------
+27.10.2022 14:26:23 --- ManagerUser init --------------
+27.10.2022 15:41:12 --- create  host builder 
+27.10.2022 15:41:12 --- CreateDefaultBuilder
+27.10.2022 15:41:12 --- UseContentRoot
+27.10.2022 15:41:12 --- ConfigureAppConfiguration
+27.10.2022 15:41:12 --- ConfigureServices
+27.10.2022 15:41:12 --- SetBasePath
+27.10.2022 15:41:12 --- AddJsonFile
+27.10.2022 15:41:12 --- Register DATABase COMPLETE ----------
+27.10.2022 15:41:12 --- Register services complete ---------
+27.10.2022 15:41:12 --- Register viewmodels complete --------------
+27.10.2022 15:41:14 --- ManagerUser init --------------
+27.10.2022 15:47:04 --- create  host builder 
+27.10.2022 15:47:04 --- CreateDefaultBuilder
+27.10.2022 15:47:04 --- UseContentRoot
+27.10.2022 15:47:04 --- ConfigureAppConfiguration
+27.10.2022 15:47:04 --- ConfigureServices
+27.10.2022 15:47:04 --- SetBasePath
+27.10.2022 15:47:04 --- AddJsonFile
+27.10.2022 15:47:04 --- Register DATABase COMPLETE ----------
+27.10.2022 15:47:04 --- Register services complete ---------
+27.10.2022 15:47:04 --- Register viewmodels complete --------------
+27.10.2022 15:47:06 --- ManagerUser init --------------
+27.10.2022 16:06:07 --- create  host builder 
+27.10.2022 16:06:07 --- CreateDefaultBuilder
+27.10.2022 16:06:07 --- UseContentRoot
+27.10.2022 16:06:07 --- ConfigureAppConfiguration
+27.10.2022 16:06:07 --- ConfigureServices
+27.10.2022 16:06:07 --- SetBasePath
+27.10.2022 16:06:07 --- AddJsonFile
+27.10.2022 16:06:07 --- Register DATABase COMPLETE ----------
+27.10.2022 16:06:07 --- Register services complete ---------
+27.10.2022 16:06:07 --- Register viewmodels complete --------------
+27.10.2022 16:06:09 --- ManagerUser init --------------
+27.10.2022 16:09:09 --- create  host builder 
+27.10.2022 16:09:09 --- CreateDefaultBuilder
+27.10.2022 16:09:09 --- UseContentRoot
+27.10.2022 16:09:09 --- ConfigureAppConfiguration
+27.10.2022 16:09:09 --- ConfigureServices
+27.10.2022 16:09:10 --- SetBasePath
+27.10.2022 16:09:10 --- AddJsonFile
+27.10.2022 16:09:10 --- Register DATABase COMPLETE ----------
+27.10.2022 16:09:10 --- Register services complete ---------
+27.10.2022 16:09:10 --- Register viewmodels complete --------------
+27.10.2022 16:09:11 --- ManagerUser init --------------
+27.10.2022 16:12:56 --- create  host builder 
+27.10.2022 16:12:56 --- CreateDefaultBuilder
+27.10.2022 16:12:56 --- UseContentRoot
+27.10.2022 16:12:56 --- ConfigureAppConfiguration
+27.10.2022 16:12:56 --- ConfigureServices
+27.10.2022 16:12:56 --- SetBasePath
+27.10.2022 16:12:56 --- AddJsonFile
+27.10.2022 16:12:56 --- Register DATABase COMPLETE ----------
+27.10.2022 16:12:56 --- Register services complete ---------
+27.10.2022 16:12:56 --- Register viewmodels complete --------------
+27.10.2022 16:12:58 --- ManagerUser init --------------
+27.10.2022 16:37:33 --- create  host builder 
+27.10.2022 16:37:33 --- CreateDefaultBuilder
+27.10.2022 16:37:33 --- UseContentRoot
+27.10.2022 16:37:33 --- ConfigureAppConfiguration
+27.10.2022 16:37:33 --- ConfigureServices
+27.10.2022 16:37:33 --- SetBasePath
+27.10.2022 16:37:33 --- AddJsonFile
+27.10.2022 16:37:33 --- Register DATABase COMPLETE ----------
+27.10.2022 16:37:33 --- Register services complete ---------
+27.10.2022 16:37:33 --- Register viewmodels complete --------------
+27.10.2022 16:57:37 --- create  host builder 
+27.10.2022 16:57:37 --- CreateDefaultBuilder
+27.10.2022 16:57:37 --- UseContentRoot
+27.10.2022 16:57:37 --- ConfigureAppConfiguration
+27.10.2022 16:57:37 --- ConfigureServices
+27.10.2022 16:57:37 --- SetBasePath
+27.10.2022 16:57:37 --- AddJsonFile
+27.10.2022 16:57:37 --- Register DATABase COMPLETE ----------
+27.10.2022 16:57:37 --- Register services complete ---------
+27.10.2022 16:57:37 --- Register viewmodels complete --------------
+27.10.2022 16:57:39 --- ManagerUser init --------------
+27.10.2022 17:09:01 --- create  host builder 
+27.10.2022 17:09:01 --- CreateDefaultBuilder
+27.10.2022 17:09:01 --- UseContentRoot
+27.10.2022 17:09:01 --- ConfigureAppConfiguration
+27.10.2022 17:09:01 --- ConfigureServices
+27.10.2022 17:09:01 --- SetBasePath
+27.10.2022 17:09:01 --- AddJsonFile
+27.10.2022 17:09:01 --- Register DATABase COMPLETE ----------
+27.10.2022 17:09:01 --- Register services complete ---------
+27.10.2022 17:09:01 --- Register viewmodels complete --------------
+27.10.2022 17:09:02 --- ManagerUser init --------------
+27.10.2022 17:22:24 --- create  host builder 
+27.10.2022 17:22:24 --- CreateDefaultBuilder
+27.10.2022 17:22:24 --- UseContentRoot
+27.10.2022 17:22:24 --- ConfigureAppConfiguration
+27.10.2022 17:22:24 --- ConfigureServices
+27.10.2022 17:22:24 --- SetBasePath
+27.10.2022 17:22:24 --- AddJsonFile
+27.10.2022 17:22:24 --- Register DATABase COMPLETE ----------
+27.10.2022 17:22:24 --- Register services complete ---------
+27.10.2022 17:22:24 --- Register viewmodels complete --------------
+27.10.2022 17:22:25 --- ManagerUser init --------------

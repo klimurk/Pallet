@@ -1,5 +1,53 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Style TargetType="TextBlock">
+    <Style TargetType="Window">
+        <Setter 
+            Property="TextElement.Foreground" 
+            Value="{DynamicResource MaterialDesignBody}" />
+
+        <Setter 
+            Property="TextElement.FontWeight" 
+            Value="Regular" />
+        <Setter 
+            Property="TextElement.FontSize" 
+            Value="13" />
+        <Setter 
+            Property="TextOptions.TextFormattingMode" 
+            Value="Ideal" />
+        <Setter 
+            Property="TextOptions.TextRenderingMode" 
+            Value="Auto" />
+        <Setter 
+            Property="Background"  
+        Value="{DynamicResource MaterialDesignPaper}" />
+        <Setter 
+            Property="FontFamily" 
+            Value="{DynamicResource MaterialDesignFont}" />
+    </Style>
+    <Style TargetType="UserControl">
+        <Setter 
+            Property="TextElement.Foreground" 
+            Value="{DynamicResource MaterialDesignBody}" />
+
+        <Setter 
+            Property="TextElement.FontWeight" 
+            Value="Regular" />
+        <Setter 
+            Property="TextElement.FontSize" 
+            Value="13" />
+        <Setter 
+            Property="TextOptions.TextFormattingMode" 
+            Value="Ideal" />
+        <Setter 
+            Property="TextOptions.TextRenderingMode" 
+            Value="Auto" />
+        <Setter 
+            Property="Background"  
+        Value="{DynamicResource MaterialDesignPaper}" />
+        <Setter 
+            Property="FontFamily" 
+            Value="{DynamicResource MaterialDesignFont}" />
+    </Style>
+    <!--<Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Eurostile" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="TextAlignment" Value="Center" />
@@ -8,5 +56,5 @@
         <Setter Property="FontFamily" Value="Eurostile" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="TextAlignment" Value="Center" />
-    </Style>
+    </Style>-->
 </ResourceDictionary>
