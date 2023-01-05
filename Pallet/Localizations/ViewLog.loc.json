@@ -2,27 +2,33 @@
   "LogView": {
     "Title": {
       "en": "Log list",
-      "de-DE": "Protokollliste"
+      "de-DE": "Protokollliste",
+      "cs-CZ": "Seznam protokolů"
     },
     "Text": {
       "en": "Message text",
-      "de-DE": "Text der Nachricht"
+      "de-DE": "Meldungstext",
+      "cs-CZ": "Text zprávy"
     },
     "Timestamp": {
       "en": "Timestamp",
-      "de-DE": "Zeitstempel"
+      "de-DE": "Zeitstempel",
+      "cs-CZ": "Razítko"
     },
     "Device": {
       "en": "Device",
-      "de-DE": "Gerät"
+      "de-DE": "Gerät",
+      "cs-CZ": "Zařízení"
     },
     "Address": {
       "en": "Address",
-      "de-DE": "Anschrift"
+      "de-DE": "Addresse",
+      "cs-CZ": "Adresa"
     },
     "Value": {
       "en": "Value",
-      "de-DE": "Nachrichtennummer"
+      "de-DE": "Wert",
+      "cs-CZ": "Hodnota"
     }
   }
 }

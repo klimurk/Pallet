@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Storyboard x:Key="BlinkRedAnimation">
+        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                From="Yellow"
+                To="OrangeRed"
+                Duration="00:00:00.5"
+                RepeatBehavior="Forever" AutoReverse="True">
+            <ColorAnimation.EasingFunction>
+                <PowerEase EasingMode="EaseInOut" Power="7" />
+            </ColorAnimation.EasingFunction>
+        </ColorAnimation>
+    </Storyboard>
+    <Storyboard x:Key="AlarmBlinkAnimation">
+        <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                            To="OrangeRed"
+                                                            Duration="00:00:00.5"
+                                                            RepeatBehavior="Forever" AutoReverse="True">
+            <ColorAnimation.EasingFunction>
+                <PowerEase EasingMode="EaseInOut" Power="7" />
+            </ColorAnimation.EasingFunction>
+        </ColorAnimation>
+        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                                            To="Yellow"
+                                                            Duration="00:00:00.5"
+                                                            RepeatBehavior="Forever" AutoReverse="True">
+            <ColorAnimation.EasingFunction>
+                <PowerEase EasingMode="EaseInOut" Power="7" />
+            </ColorAnimation.EasingFunction>
+        </ColorAnimation>
+    </Storyboard>
+</ResourceDictionary>

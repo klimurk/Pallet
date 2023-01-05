@@ -13,6 +13,13 @@ public abstract class ViewModel : INotifyPropertyChanged, IDisposable
 
     private bool _Disposed;
 
+    public ViewModel()
+    {
+        //AsyncInitialization().ConfigureAwait(false);
+    }
+
+    protected virtual Task AsyncInitialization() => new Task(() => { });
+
     protected virtual void Dispose(bool Disposing)
     {
         if (!Disposing || _Disposed) return;
@@ -24,9 +31,11 @@ public abstract class ViewModel : INotifyPropertyChanged, IDisposable
         Dispose(false);
     }
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+    protected virtual void RefreshEvent(object? sender, EventArgs e) => OnPropertyChanged(default);
 
-    protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? PropertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+
+    protected virtual bool Set<T>(ref T? field, T? value, [CallerMemberName] string? PropertyName = null)
     {
         if (Equals(field, value)) return false;
         field = value;

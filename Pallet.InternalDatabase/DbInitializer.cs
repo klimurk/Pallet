@@ -1,22 +1,20 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pallet.Extensions;
 using Pallet.InternalDatabase.Context;
 using Pallet.InternalDatabase.Entities.Log;
 using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.InternalDatabase.Entities.Users;
-using System.Diagnostics;
 
 namespace Pallet.InternalDatabase;
 
-public class DbInitializer
+public class InternalDbInitializer
 {
     private readonly InternalDbContext _db;
-    private readonly ILogger<DbInitializer> _Logger;
+    private readonly ILogger<InternalDbInitializer> _Logger;
     private readonly JObject JsonInitObject;
 
-    public DbInitializer(InternalDbContext db, ILogger<DbInitializer> Logger)
+    public InternalDbInitializer(InternalDbContext db, ILogger<InternalDbInitializer> Logger)
     {
         _db = db;
         _Logger = Logger;
@@ -26,12 +24,11 @@ public class DbInitializer
 
     public async Task InitializeAsync()
     {
-        //"Database Initialize".CheckStage();
         var timer = Stopwatch.StartNew();
         _Logger.LogInformation("Инициализация БД...");
-
+        if (!_db.Database.CanConnect()) throw new Exception();
         //_Logger.LogInformation("Удаление существующей БД...");
-        _db.Database.EnsureDeleted();
+        //_db.Database.EnsureDeleted();
         //_Logger.LogInformation("Удаление существующей БД выполнено за {0} мс", timer.ElapsedMilliseconds);
         _db.Database.EnsureCreated();
 
@@ -58,7 +55,6 @@ public class DbInitializer
 
         if (!_db.Users.AsQueryable().Any())
             InitializeUsers();
-        "InitializeUsers init complete".CheckStage();
 
         #endregion Init System
 
@@ -103,7 +99,6 @@ public class DbInitializer
         _db.Users.AddRange(_Users);
         _db.SaveChanges();
 
-        "InitializeUsers db init data".CheckStage();
     }
 
     private void InitializeSystemEvents()
@@ -227,7 +222,6 @@ public class DbInitializer
         _db.SystemEvents.AddRange(_SystemEvent);
         _db.SaveChanges();
 
-        "InitializeSystemEvents db init data".CheckStage();
     }
 
     #endregion Initialize System
@@ -431,7 +425,6 @@ public class DbInitializer
         _db.Signals.AddRange(_Signals);
         _db.SaveChanges();
 
-        "InitializeSignals db init data".CheckStage();
     }
 
     private void InitializeAlarms()
@@ -616,7 +609,6 @@ public class DbInitializer
         _db.Alarms.AddRange(_Alarms);
         _db.SaveChanges();
 
-        "InitializeAlarms db init data".CheckStage();
     }
 
     #endregion Initialize OPC

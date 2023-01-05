@@ -1,12 +1,11 @@
 ﻿using Pallet.InternalDatabase.Entities.Log;
 using Pallet.InternalDatabase.Entities.OPC;
-using System.Collections.ObjectModel;
-using Pallet.Services.Base;
 
 namespace Pallet.Services.Logging.Interfaces;
 
 public interface ILogService
 {
+    ObservableCollection<PalletLog> PalletLogs { get; }
     /// <summary>
     /// Logs collection .
     /// </summary>

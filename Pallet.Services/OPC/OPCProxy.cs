@@ -1,20 +1,16 @@
 ﻿using CodingSeb.Localization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Opc.Ua;
 using Opc.Ua.Client;
 using Pallet.Extensions;
-using Pallet.ExternalDatabase.Models;
 using Pallet.InternalDatabase.Context;
 using Pallet.InternalDatabase.Entities.Base;
 using Pallet.InternalDatabase.Entities.Log;
 using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.Services.Logging.Interfaces;
-using Pallet.Services.Managers;
 using Pallet.Services.OPC.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
 using Siemens.UAClientHelper;
-using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Pallet.Services.OPC;
@@ -26,6 +22,7 @@ internal class OPCService : IOPC
     private readonly ILogService _LogsService;
 
     private readonly DbSet<SystemEvent> _SystemEvents;
+    private InternalDbContext internalDbContext;
 
     #endregion Services
 
@@ -56,7 +53,7 @@ internal class OPCService : IOPC
 
     //private static readonly string __DataOPCAddr = "opc.tcp://192.168.0.1"; // 192.168.0.10
 
-    private const string __DataOPCAddr = "opc.tcp://Klymov-PC.benthor-mb.cz:53530/OPCUA/SimulationServer";
+    private const string __DataOPCAddr = "opc.tcp://192.168.0.10:4840";
     private readonly string _OPCAddress;
 
     #endregion Fields
@@ -70,22 +67,24 @@ internal class OPCService : IOPC
         IConfiguration Configuration
     )
     {
+        this.internalDbContext = internalDbContext;
         _SystemEvents = internalDbContext.SystemEvents;
-        Signals = new();
-        Alarms = new();
+
         _UserDialogService = UserDialogService;
         _LogsService = LogsService;
 
-        var address = Configuration["OPC:ConnectionStrings:" + Configuration["OPC:Type"]];
+        var address = Configuration[$"OPC:ConnectionStrings:{Configuration["OPC:Type"]}"]; 
         _OPCAddress = string.IsNullOrEmpty(address) ? __DataOPCAddr : address;
-        new Thread(() =>
+        Signals = new()
         {
-            Signals.Add(internalDbContext.Signals);
-            Alarms.Add(internalDbContext.Alarms);
+            internalDbContext.Signals
+        };
+        Alarms = new()
+        {
+            internalDbContext.Alarms
+        };
 
-            Task.Run(() => InitializeOPC());
-        })
-        { }.Start();
+        //InitializeOPC().ConfigureAwait(true);
     }
 
     public async Task InitializeOPC()
@@ -93,17 +92,18 @@ internal class OPCService : IOPC
         await Connect();
         if (Session is null) return;
 
-        AddSubcribeFolder(SubForlderAlarm);
-        AddSubcribeFolder(SubForlderSystem);
+        await AddSubcribeFolder(SubForlderAlarm);
+        await AddSubcribeFolder(SubForlderSystem);
+
         foreach (var alarm in Alarms)
         {
-            alarm.Node ??= GetNode(alarm.Address);
-            await _SubscribeValue(alarm, SubForlderAlarm);
+            alarm.Node ??= await GetNode(alarm.Address);
+            if (alarm.Node != null) await _SubscribeValue(alarm, SubForlderAlarm);
         }
         foreach (var signal in Signals)
         {
-            signal.Node ??= GetNode(signal.Address);
-            await _SubscribeValue(signal, SubForlderSystem);
+            signal.Node ??= await GetNode(signal.Address);
+            if (signal.Node != null) await _SubscribeValue(signal, SubForlderSystem);
         }
     }
 
@@ -111,7 +111,7 @@ internal class OPCService : IOPC
 
     #region Read / Write
 
-    public bool WriteValue<T>(T newValue, Node inNode)
+    public async Task<bool> WriteValue<T>(T newValue, Node inNode)
     {
         if (Session == null) throw new NullReferenceException("Bad OPC Connection");
         if (Signals.Any(s => s.Node == inNode))
@@ -119,13 +119,13 @@ internal class OPCService : IOPC
             var sig = Signals.First(s => s.Node == inNode);
             sig.Value = newValue;
 
-            _LogsService.Post(sig);
+            _LogsService.Post(sig).ConfigureAwait(false);
         }
         if (Alarms.Any(s => s.Node == inNode))
         {
             var sig = Alarms.First(s => s.Node == inNode);
             sig.Value = newValue;
-            _LogsService.Post(sig);
+            _LogsService.Post(sig).ConfigureAwait(false);
         }
 
         return _WriteActualValue(newValue, inNode);
@@ -142,13 +142,13 @@ internal class OPCService : IOPC
                 new List<string> { inNode.NodeId.ToString() });
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw ex;
         }
     }
 
-    private string ReadValue(string identifier, string namespaceIndex)
+    private async Task<string> ReadValue(string identifier, string namespaceIndex)
     {
         if (Session == null) throw new NullReferenceException("Bad OPC Connection");
         try
@@ -165,11 +165,11 @@ internal class OPCService : IOPC
         }
     }
 
-    public string ReadValue(Node Node)
+    public async Task<string> ReadValue(Node Node)
     {
         return Node is null
             ? throw new ArgumentNullException("Try read OPC null data")
-            : ReadValue(Node.NodeId.Identifier.ToString(), Node?.NodeId.NamespaceIndex.ToString());
+            : await ReadValue(Node.NodeId.Identifier.ToString(), Node?.NodeId.NamespaceIndex.ToString());
     }
 
     public async Task<List<Node>> ReadNodesAllAsync(string[] namespaceIndexes, string[] dbName = null, string[] dbVar = null)
@@ -178,14 +178,14 @@ internal class OPCService : IOPC
         _AutoResetEvent.WaitOne();
         dbName ??= new string[] { "" };
         dbVar ??= new string[] { "" };
-        List<Node> retList = ReadNodesCycle(__myClientHelperAPI.BrowseRoot(), namespaceIndexes, dbName, dbVar);
+        List<Node> retList = await ReadNodesCycle(__myClientHelperAPI.BrowseRoot(), namespaceIndexes, dbName, dbVar);
         _AutoResetEvent.Set();
         return retList;
     }
 
-    public Node GetNode(string addr) => __myClientHelperAPI.ReadNode(addr);
+    public async Task<Node> GetNode(string addr) => __myClientHelperAPI.ReadNode(addr);
 
-    private List<Node> ReadNodesCycle(ReferenceDescriptionCollection myReference, string[] namespaceIndexes, string[] dbName = null, string[] dbVar = null)
+    private async Task<List<Node>> ReadNodesCycle(ReferenceDescriptionCollection myReference, string[] namespaceIndexes, string[] dbName = null, string[] dbVar = null)
     {
         List<Node> retList = new();
         dbName ??= new string[] { "" };
@@ -198,7 +198,7 @@ internal class OPCService : IOPC
 
             if (node.NodeClass != NodeClass.Variable)
             {
-                retList.AddRange(ReadNodesCycle(__myClientHelperAPI.BrowseNode(refDesc), dbName, dbVar));
+                retList.AddRange(await ReadNodesCycle(__myClientHelperAPI.BrowseNode(refDesc), dbName, dbVar));
             }
             else
             {
@@ -219,65 +219,29 @@ internal class OPCService : IOPC
         return retList;
     }
 
-    public void WriteTaskNails(List<NailingData> nails)
+    public async Task<bool> WriteList<T>(IList<T> newValues, string DBname, string DBvar, IList<string> DBPostVar, int namespaceIndex)
     {
-        if (nails == null) return;
-
-        List<int> nailsSort = new();
-        for (int i = 0; i < nails.Count; i++)
-        {
-            nailsSort.Add((int)nails[i].NX * 10);
-            nailsSort.Add((int)nails[i].NY * 10);
-
-            nailsSort.Add((int)nails[i].NZ * 10);
-            nailsSort.Add(1);
-            //nailsSort.Add(nails[i].PosZ * 10);
-            //nailsSort.Add(nails[i].NailType);
-            //nailsSort.Add(nails[i].NailID);
-            //nailsSort.Add(nails[i].NailGRP);
-            //nailsSort.Add(nails[i].Angle1);
-            //nailsSort.Add(nails[i].Angle2);
-        }
-        _WriteProfile(
-            nailsSort,
-            ManagerProfiles.OPCData.Nails.DBName,
-            ManagerProfiles.OPCData.Nails.DBVar,
-            new List<string>()
-            {
-                ManagerProfiles.OPCData.Nails.Fields.CoorX,
-                ManagerProfiles.OPCData.Nails.Fields.CoorY,
-                ManagerProfiles.OPCData.Nails.Fields.CoorZ,
-                ManagerProfiles.OPCData.Nails.Fields.Active
-                //NailsPositions.OPCDataInfo.Fields.CoorZ,
-                //NailsPositions.OPCDataInfo.Fields.NailType,
-                //NailsPositions.OPCDataInfo.Fields.NailID,
-                //NailsPositions.OPCDataInfo.Fields.NailGRP,
-                //NailsPositions.OPCDataInfo.Fields.Angle1,
-                //NailsPositions.OPCDataInfo.Fields.Angle2
-            },
-            ManagerProfiles.OPCData.Nails.DBNamespace
-            );
-    }
-
-    private bool _WriteProfile(List<int> newValues, string DBname, string DBvar, List<string> DBPostVar, int namespaceIndex)
-    {
-        List<string> values = new();
-        List<string> address = new();
+        if (Session == null) throw new NullReferenceException("Bad OPC Connection");
+        if (newValues == null) throw new ArgumentNullException("List is empty");
         if (newValues.Count % DBPostVar.Count != 0) throw new ArgumentOutOfRangeException($"Count of newValues in {nameof(newValues)} not fit count of {DBPostVar} coordinates");
+
+        Dictionary<string, string> valuesD = new();
 
         for (int y = 0; y < newValues.Count / DBPostVar.Count; y++)
         {
             for (int i = 0; i < DBPostVar.Count; i++)
             {
-                values.Add(newValues[(y * DBPostVar.Count) + i].ToString());
-                address.Add("ns=" + namespaceIndex + ";s=\"" + DBname + "\".\"" + DBvar + "\"[" + y + "].\"" + DBPostVar[i] + "\"");
+                valuesD.Add(
+                    $"ns={namespaceIndex};s=\"{DBname}\".\"{DBvar}\"[{y}].\"{DBPostVar[i]}\"",
+                    newValues[(y * DBPostVar.Count) + i].ToString()
+                );
             }
         }
 
         _AutoResetEvent.WaitOne();
         try
         {
-            __myClientHelperAPI.WriteValues(values, address);
+            __myClientHelperAPI.WriteValues(valuesD.Values.ToList(), valuesD.Keys.ToList());
         }
         catch (Exception)
         {
@@ -330,7 +294,7 @@ internal class OPCService : IOPC
         }
     }
 
-    public void Unsubscribe(string name)
+    public async Task Unsubscribe(string name)
     {
         if (_Subscription.ContainsKey(name)) _Subscription.Remove(name);
     }
@@ -430,16 +394,16 @@ internal class OPCService : IOPC
             var servers = __myClientHelperAPI.FindServers(_OPCAddress);
             if (servers is null)
             {
-                _UserDialogService.ShowError(Loc.Tr("OPC.Errors.ServerNotFinded", "Not localized"));
-                _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ServersNotFinded"));
+                _UserDialogService.ShowSnackbarError(Loc.Tr("OPC.Errors.ServerNotFinded", "Not localized"));
+                _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ServersNotFinded")).ConfigureAwait(false);
                 return;
             }
             var firstServerUrl = servers[0].DiscoveryUrls[0];
             var endpoints = __myClientHelperAPI.GetEndpoints(firstServerUrl);
             if (endpoints is null)
             {
-                _UserDialogService.ShowError(Loc.Tr("OPC.Errors.EndpointsNotFinded", "Not localized"));
-                _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ServersNotFinded"));
+                _UserDialogService.ShowSnackbarError(Loc.Tr("OPC.Errors.EndpointsNotFinded", "Not localized"));
+                _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ServersNotFinded")).ConfigureAwait(false);
                 return;
             }
 
@@ -465,15 +429,15 @@ internal class OPCService : IOPC
 
             __myClientHelperAPI.Connect(SelectedEndpoint, false).Wait();
             Session = __myClientHelperAPI.Session;
-            _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCConnected"));
+            _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCConnected")).ConfigureAwait(false);
         }
         catch (Exception)
         {
-            _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ConnectionFailed"));
+            _LogsService.Post(_SystemEvents.First(s => s.Name == "OPCError_ConnectionFailed")).ConfigureAwait(false);
         }
     }
 
-    public void Disconnect()
+    public async Task Disconnect()
     {
         if (!IsConnected) return;
         __myClientHelperAPI.Disconnect();
@@ -481,7 +445,7 @@ internal class OPCService : IOPC
 
     public bool IsConnected { get => Session?.KeepAliveStopped == false; }
 
-    public void Reconnect()
+    public async Task Reconnect()
     {
         try
         {

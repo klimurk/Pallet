@@ -1,0 +1,20 @@
+{
+  "Languages": {
+
+    "Czech": {
+      "en": "Czech",
+      "de-DE": "Tschechisch",
+      "cs-CZ": "Český"
+    },
+    "English": {
+      "en": "English",
+      "de-DE": "Englisch",
+      "cs-CZ": "Anglický"
+    },
+    "German": {
+      "en": "German",
+      "de-DE": "Deutsch",
+      "cs-CZ": "Němčina"
+    }
+  }
+}

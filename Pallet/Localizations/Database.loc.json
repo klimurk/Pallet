@@ -1,0 +1,16 @@
+{
+  "Database": {
+    "Errors": {
+      "ExternalDdNotConnected": {
+        "en": "The connection to the external database cannot be established. Please check the connection",
+        "de-DE": "Verbindung zu der externen Datenbank konnte nicht erstellt werden. Überprüfen Sie die Netzwerverbindung.",
+        "cs-CZ": "Připojení k externí databázi nelze navázat. Zkontrolujte připojení"
+      },
+      "InternalDdNotConnected": {
+        "en": "The connection to the internal database cannot be established. Please check the connection",
+        "de-DE": "Verbindung zu der externen Datenbank konnte nicht erstellt werden. Überprüfen Sie die Netzwerverbindung.",
+        "cs-CZ": "Připojení k interní databázi nelze navázat. Zkontrolujte připojení"
+      }
+    }
+  }
+}

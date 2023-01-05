@@ -3,61 +3,80 @@
     "Views": {
       "AlarmHistory": {
         "en": "Alarm history",
-        "de-DE": "Geschichte der Angst"
+        "de-DE": "Alarm-Historie",
+        "cs-CZ": "Historie alarmů"
       },
       "LogHistory": {
         "en": "Event Log",
-        "de-DE": "Ereignisprotokoll"
+        "de-DE": "Ereignisprotokoll",
+        "cs-CZ": "Protokol událostí"
       },
       "Manual": {
         "en": "Manual control",
-        "de-DE": "Handbedienung"
+        "de-DE": "Handbetrieb",
+        "cs-CZ": "Ruční ovládání"
       },
       "Pallet": {
         "en": "Pallet",
-        "de-DE": "Palette"
+        "de-DE": "Palette",
+        "cs-CZ": "Paleta"
       },
       "Users": {
         "en": "Users",
-        "de-DE": "Internetnutzer"
+        "de-DE": "Benutzer",
+        "cs-CZ": "Uživatelé"
       }
     },
     "Alarms": {
       "en": "Alarms",
-      "de-DE": "Störung"
+      "de-DE": "Alarme",
+      "cs-CZ": "Alarmy"
     },
     "Auto": {
       "en": "Auto",
-      "de-DE": "Auto"
+      "de-DE": "Automatik",
+      "cs-CZ": "Auto"
     },
     "ConnectPLC": {
       "en": "Connect PLC",
-      "de-DE": "SPS anschließen"
+      "de-DE": "SPS anschließen",
+      "cs-CZ": "Připojit PLC"
     },
     "Filter": {
       "en": "Filter",
-      "de-DE": "Filter"
+      "de-DE": "Filter",
+      "cs-CZ": "Filtrovat"
     },
 
     "Login": {
       "en": "Login",
-      "de-DE": "Autorisierter"
+      "de-DE": "Anmelden",
+      "cs-CZ": "Přihlásit se"
     },
     "Logout": {
       "en": "Logout",
-      "de-DE": "Abmelden"
+      "de-DE": "Abmelden",
+      "cs-CZ": "Odhlásit se"
     },
     "NotAutorized": {
       "en": "Not Authorized",
-      "de-DE": "Nicht berechtigt"
+      "de-DE": "Nicht berechtigt",
+      "cs-CZ": "Není autorizován"
     },
     "Start": {
       "en": "Start",
-      "de-DE": "Start"
+      "de-DE": "Start",
+      "cs-CZ": "Start"
     },
     "Stop": {
       "en": "Stop",
-      "de-DE": "Halt"
+      "de-DE": "Halt",
+      "cs-CZ": "Stop"
+    },
+    "NoTask": {
+      "en": "There are no new tasks",
+      "de-DE": "Keine neuen Jobs",
+      "cs-CZ": "Neexistují žádné nové úkoly"
     }
   }
 }

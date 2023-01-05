@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>10.0</LangVersion>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,4 +24,4 @@
 		<ProjectReference Include="..\Extensions\Pallet.Extensions.csproj" />
 	</ItemGroup>
 
-</Project>
+		</Project>

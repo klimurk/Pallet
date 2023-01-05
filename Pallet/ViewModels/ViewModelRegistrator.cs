@@ -9,6 +9,7 @@ namespace Pallet.ViewModels
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
             => services
             .AddSingleton<MainWindowViewModel>()
+            .AddSingleton<MainControlViewModel>()
             .AddTransient<CreateUserViewModel>()
             .AddTransient<LoginViewModel>()
 

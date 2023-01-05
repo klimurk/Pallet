@@ -1,14 +1,13 @@
-﻿using Pallet.InternalDatabase.Entities.OPC;
-using Opc.Ua;
-using System.Collections.ObjectModel;
+﻿using Opc.Ua;
 using Pallet.ExternalDatabase.Models;
 using Pallet.InternalDatabase.Entities.Base;
+using Pallet.InternalDatabase.Entities.OPC;
+using System.Collections.ObjectModel;
 
 namespace Pallet.Services.OPC.Interfaces;
 
 public interface IOPC
 {
-
     public Task InitializeOPC();
 
     public event EventHandler DataChanged;
@@ -25,21 +24,21 @@ public interface IOPC
     /// <param name="newValue">The new value.</param>
     /// <param name="inNode">The in node.</param>
     /// <returns>A bool.</returns>
-    bool WriteValue<T>(T newValue, Node inNode);
+    Task<bool> WriteValue<T>(T newValue, Node inNode);
 
     /// <summary>
     /// Gets the node.
     /// </summary>
     /// <param name="addr">The addr.</param>
     /// <returns>A Node.</returns>
-    Node GetNode(string addr);
+    Task<Node> GetNode(string addr);
 
     /// <summary>
     /// Reads the value.
     /// </summary>
     /// <param name="inNode">The in node.</param>
     /// <returns>A string.</returns>
-    string ReadValue(Node inNode);
+    Task<string> ReadValue(Node inNode);
 
     /// <summary>
     /// Subscribes the value.
@@ -52,7 +51,7 @@ public interface IOPC
     /// Unsubscribe the value.
     /// </summary>
     /// <param name="name">The name.</param>
-    void Unsubscribe(string name);
+    Task Unsubscribe(string name);
 
     /// <summary>
     /// Connects the.
@@ -62,13 +61,12 @@ public interface IOPC
     /// <summary>
     /// Disconnects the.
     /// </summary>
-    void Disconnect();
+    Task Disconnect();
 
-    void WriteTaskNails(List<NailingData> nails);
-
+    public Task<bool> WriteList<T>(IList<T> newValues, string DBname, string DBvar, IList<string> DBPostVar, int namespaceIndex);
     public Task AddSubcribeFolder(string SubscriptionName);
 
-    public void Reconnect();
+    public Task Reconnect();
 
     public ObservableCollection<Alarm> Alarms { get; set; }
 

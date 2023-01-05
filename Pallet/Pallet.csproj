@@ -2,10 +2,10 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<StartupObject>Pallet.Program</StartupObject>
+		<TargetFramework>net6.0-windows</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<ApplicationIcon>RobotIndustrial.ico</ApplicationIcon>
 	</PropertyGroup>
@@ -42,7 +42,14 @@
 		<PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.2.0" />
 		<PackageReference Include="CodingSeb.Localization.WPF" Version="1.2.0" />
 		<PackageReference Include="CodingSebLocalization.Fody" Version="1.2.0" />
+		<PackageReference Include="devDept.Eyeshot" Version="2022.3.544" />
 		<PackageReference Include="Expression.Interaction" Version="3.0.40218" />
+		<PackageReference Include="FontAwesome6.Fonts" Version="2.5.1" />
+		<PackageReference Include="FontAwesome6.Svg" Version="2.5.1" />
+		<PackageReference Include="GeometRi" Version="1.4.0.3" />
+		<PackageReference Include="HelixToolkit" Version="2.23.0" />
+		<PackageReference Include="HelixToolkit.Wpf" Version="2.23.0" />
+		<PackageReference Include="MahApps.Metro" Version="2.0.0" />
 		<PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.11.0" />
 		<PackageReference Include="MaterialDesignColors" Version="2.0.9" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
@@ -63,6 +70,7 @@
 		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.370.12" />
 		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.4.370.12" />
 		<PackageReference Include="RSLocalizationForWPF" Version="1.0.0" />
+		<PackageReference Include="SharpDX.Direct3D9" Version="4.2.0" />
 		<PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
 		<PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.0.0" />
 		<PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
@@ -84,40 +92,46 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="InitData\OPCInit.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Localizations\Languages.loc.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Localizations\Database.loc.json">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\DialogCreateUser.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\LoginInfo.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\OPC.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\UserInfo.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\ViewAlarm.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\ViewLog.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\ViewManual.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\ViewPallet.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\ViewUsers.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\WindowLogin.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Localizations\WindowMain.loc.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 	<ItemGroup>
@@ -131,6 +145,9 @@
 		<Page Update="View\Menu\Themes\Generic.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\SubViews\PalletLogView.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 		<Page Update="View\SubViews\LogView.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

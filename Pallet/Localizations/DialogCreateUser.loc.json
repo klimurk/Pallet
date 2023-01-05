@@ -2,27 +2,33 @@
   "CreateUserDialog": {
     "Accept": {
       "en": "Accept",
-      "de-DE": "Akzeptieren"
+      "de-DE": "Akzeptieren",
+      "cs-CZ": "Přijmout"
     },
     "Cancel": {
       "en": "Cancel",
-      "de-DE": "Stornieren"
+      "de-DE": "Abbruch",
+      "cs-CZ": "Zrušit"
     },
     "Title": {
       "en": "Edit user",
-      "de-DE": "Benutzer bearbeiten"
+      "de-DE": "Benutzer bearbeiten",
+      "cs-CZ": "Upravit uživatele"
     },
     "Description": {
-      "en": "Beschreibung",
-      "de-DE": "Benutzer bearbeiten"
+      "en": "Description",
+      "de-DE": "Beschreibung",
+      "cs-CZ": "Popis"
     },
     "Name": {
       "en": "Name",
-      "de-DE": "Name"
+      "de-DE": "Name",
+      "cs-CZ": "jméno"
     },
     "Password": {
       "en": "Password",
-      "de-DE": "Passwort"
+      "de-DE": "Passwort",
+      "cs-CZ": "Heslo"
     }
   }
 }

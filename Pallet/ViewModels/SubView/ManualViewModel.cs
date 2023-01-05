@@ -22,10 +22,9 @@ namespace Pallet.ViewModels.SubView
 
         #region Constructor
 
-        public ManualViewModel( )
+        public ManualViewModel()
         {
             _Signals =(App.Services.GetService(typeof(IOPC)) as IOPC).Signals;
-            //_ManagerNailTypes = ManagerNailTypes;
             _UserManager = App.Services.GetService(typeof(IManagerUser)) as IManagerUser;
            
         }

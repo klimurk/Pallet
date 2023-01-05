@@ -2,39 +2,48 @@
   "AlarmView": {
     "Title": {
       "en": "Alarm list",
-      "de-DE": "Alarmliste"
+      "de-DE": "Alarmliste",
+      "cs-CZ": "Seznam alarmů"
     },
     "Text": {
       "en": "Message text",
-      "de-DE": "Text der Nachricht"
+      "de-DE": "Meldungstext",
+      "cs-CZ": "Text zprávy"
     },
     "StartTimeStamp": {
       "en": "Begin",
-      "de-DE": "Anfang"
+      "de-DE": "Anfang",
+      "cs-CZ": "Začít"
     },
     "Priority": {
       "en": "Priority",
-      "de-DE": "Priorität"
+      "de-DE": "Priorität",
+      "cs-CZ": "Priorita"
     },
     "MessageNumber": {
       "en": "N. Message",
-      "de-DE": "Nachrichtennummer"
+      "de-DE": "Meldungsnr.",
+      "cs-CZ": "Č. Zprávy"
     },
     "EndTimeStamp": {
       "en": "End",
-      "de-DE": "Ende"
+      "de-DE": "Ende",
+      "cs-CZ": "Konec"
     },
     "Ended": {
       "en": "Ended in range?",
-      "de-DE": "In Reichweite beendet?"
+      "de-DE": "Im Bereich beendet?",
+      "cs-CZ": "Skončil na dostřel?"
     },
     "Duration": {
       "en": "Duration",
-      "de-DE": "Dauer"
+      "de-DE": "Dauer",
+      "cs-CZ": "Trvání"
     },
     "Device": {
       "en": "Device",
-      "de-DE": "Gerät"
+      "de-DE": "Gerät",
+      "cs-CZ": "Zařízení"
     }
   }
 }

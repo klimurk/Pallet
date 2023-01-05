@@ -3,11 +3,13 @@
     "Errors": {
       "ServerNotFinded": {
         "en": "The server was not found",
-        "de-DE": "Der Server wurde nicht gefunden"
+        "de-DE": "Der Server wurde nicht gefunden",
+        "cs-CZ": "Server nebyl nalezen"
       },
       "EndpointsNotFinded": {
         "en": "The endpoint was not found",
-        "de-DE": "Der Endpunkt wurde nicht gefunden"
+        "de-DE": "Der Endpunkt wurde nicht gefunden",
+        "cs-CZ": "Koncový bod nebyl nalezen"
       }
     }
   }

@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Pallet.Extensions;
+﻿using Pallet.Extensions;
+using Pallet.ExternalDatabase.Models;
 using Pallet.InternalDatabase.Context;
 using Pallet.InternalDatabase.Entities.Log;
 using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.Services.Logging.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace BlazorServerPallet.Services.Logging;
 
@@ -14,6 +13,7 @@ namespace BlazorServerPallet.Services.Logging;
 internal class LogService : ILogService, IDisposable
 {
     private readonly InternalDbContext _dbContext;
+    private readonly DbSet<PalletLog> _dbSetPalletLogs;
     private readonly DbSet<Signal> _dbSetSignals;
     private readonly DbSet<Log> _dbSetLogs;
     private readonly DbSet<SystemEvent> _dbSetSysEvents;
@@ -22,6 +22,7 @@ internal class LogService : ILogService, IDisposable
 
     public ObservableCollection<Log> Logs { get; }
     public ObservableCollection<AlarmLog> AlarmLogs { get; }
+    public ObservableCollection<PalletLog> PalletLogs { get; }
 
     public LogService(
         InternalDbContext internalDbContext
@@ -33,6 +34,7 @@ internal class LogService : ILogService, IDisposable
         _dbSetSysEvents = _dbContext.SystemEvents;
         _dbSetAlarmLogs = _dbContext.AlarmLogs;
         _dbSetAlarms = _dbContext.Alarms;
+        //_dbSetPalletLogs = _dbContext.PalletLogs;
 
         AlarmLogs = new()
         {
@@ -43,9 +45,31 @@ internal class LogService : ILogService, IDisposable
         {
             _dbSetLogs
         };
+        //PalletLogs = new()
+        //{
+        //    _dbSetPalletLogs
+        //};
+        //PalletLogs.CollectionChanged += PalletLogs_CollectionChanged;
         Logs.CollectionChanged += Logs_CollectionChanged;
         AlarmLogs.CollectionChanged += AlarmLogs_CollectionChanged;
         ResetAlarmSignals();
+    }
+
+    private void PalletLogs_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        if (e.OldItems is not null)
+        {
+            foreach (PalletLog item in e.NewItems)
+                _dbSetPalletLogs.Remove(item);
+            _dbContext.SaveChanges();
+        }
+
+        if (e.NewItems is not null)
+        {
+            foreach (PalletLog item in e.NewItems)
+                _dbSetPalletLogs.AddAsync(item);
+            _dbContext.SaveChanges();
+        }
     }
 
     #region MyRegion
@@ -57,7 +81,7 @@ internal class LogService : ILogService, IDisposable
             foreach (AlarmLog item in e.OldItems)
             {
                 item.PropertyChanged -= AlarmLogPropertyChanged;
-                _dbSetAlarmLogs.Add(item);
+                _dbSetAlarmLogs.Remove(item);
             }
             _dbContext.SaveChanges();
         }
@@ -66,8 +90,8 @@ internal class LogService : ILogService, IDisposable
         {
             foreach (AlarmLog item in e.NewItems)
             {
+                _dbSetAlarmLogs.Add(item);
                 item.PropertyChanged += AlarmLogPropertyChanged;
-                _dbSetAlarmLogs.Remove(item);
             }
             _dbContext.SaveChanges();
         }
@@ -110,6 +134,25 @@ internal class LogService : ILogService, IDisposable
     {
         Log log = new(sig, sig.Value);
         Logs.Add(log);
+        return log;
+    }
+
+    public async Task<PalletLog> Post(PackageItem packageItem, RobotTaskItem RobotTaskItem, Verpackung CrateCharacteristics, Auftrag Contract, Firma Firm)
+    {
+        PalletLog log = new()
+        {
+            //Name =,
+            //Worker =,
+            //Timestamp =,
+            //Layer =,
+            //CustomerName =,
+            //ContractNum = Contract.,
+            //PackageNum = packageItem.CPackageId,
+            //Lenght = packageItem.NLength,
+            //Height = packageItem.NHeight,
+            //Width = packageItem.NWidth,
+        };
+        //PalletLogs.Add(log);
         return log;
     }
 

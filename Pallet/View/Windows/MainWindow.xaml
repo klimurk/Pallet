@@ -1,468 +1,93 @@
-﻿<Window
-    x:Class="Pallet.MainWindow"
-    ResxExtension.DefaultResxName="Pallet.Resources.Stringify.Windows.MainWindow.MainWindowResource" Language="{UICulture}"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+﻿<mah:MetroWindow
+
+    x:Class="Pallet.View.Windows.MainWindow"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:Pallet.Infrastructure.Converters.Converters"
-    xmlns:paramConverters="clr-namespace:Pallet.Infrastructure.Converters.ParametricConverters"
+    xmlns:local="clr-namespace:Pallet.View.Windows"
+    xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
+    xmlns:svg="http://schemas.fontawesome.com/icons/svg"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d"
-
-    Title="Pallets"
     WindowState="Maximized"
+    ResizeMode="CanResizeWithGrip"
+    WindowTitleBrush="{StaticResource  BenthorBlue}"
+    Title="Crate Robot"
+    Style="{StaticResource MaterialDesignWindow}"
+    Background="LightGray"
     Icon="..\..\RobotIndustrial.ico"
-    Height="768" Width="1366">
+    BorderThickness="0"
+    TitleBarHeight="50"
+    Height="768" Width="1366"
+    WindowStartupLocation="CenterScreen">
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
 
-    <Window.Resources>
-        <converters:AlarmsConverter x:Key="AlarmsConverter" Cutoff="1" />
-        <converters:SignalToBoolConverter x:Key="SignalToBoolConverter" />
-        <paramConverters:ActiveProfileConverter x:Key="ActiveProfileConverter" ActiveProfile="{Binding ActiveProfile.Name, UpdateSourceTrigger=PropertyChanged}" />
-        <paramConverters:ActiveNailTypeConverter x:Key="ActiveNailTypeConverter" ActiveNailType="{Binding NailTypeActive.Name, UpdateSourceTrigger=PropertyChanged}" />
-        <paramConverters:NailCounterConverter x:Key="NailCounterConverter" NailsLeftStartBlinking="20" />
-
-        <converters:ViewModelConverter x:Key="ViewModelConverter" />
-    </Window.Resources>
-    <md:DialogHost DialogTheme="Inherit" CloseOnClickAway="False"
-        Identifier="RootDialog" Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
-        SnackbarMessageQueue="{Binding ElementName=SnackbarOne, Path=MessageQueue}">
-        <md:DrawerHost IsLeftDrawerOpen="{Binding IsNavigationDrawer}">
-            <md:DrawerHost.LeftDrawerContent>
-                <Border MinWidth="220" Padding="10 20" Background="{StaticResource BenthorBlue}" BorderThickness="0 0 0 0" BorderBrush="DarkBlue">
-                    <ScrollViewer VerticalScrollBarVisibility="Visible">
-
-                        <DockPanel Margin="10 20"  LastChildFill="False">
-                            <StackPanel DockPanel.Dock="Top">
-                                <Button HorizontalContentAlignment="Stretch"  Height="70" Command="{Binding ShowPalletViewCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon DockPanel.Dock="Left" Kind="ShippingPallet" Margin="0 0 5 0" Width="25" Height="25" />
-                                            <TextBlock DockPanel.Dock="Left" Text="{Tr 'MainWindow.Views.Pallet', DefaultText='Pallet'}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                    <Button.Style>
-                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                                            <Setter Property="Foreground" Value="White" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding CurrentModel,Converter={StaticResource ViewModelConverter}}" Value="PalletViewModel">
-                                                    <Setter Property="Background" Value="OliveDrab" />
-                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button HorizontalContentAlignment="Stretch" Height="70" Command="{Binding ShowAlarmViewCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon Kind="Alarm" Margin="0 0 5 0" Width="25" Height="25" />
-                                            <TextBlock Text="{Tr 'MainWindow.Views.AlarmHistory', DefaultText='AlarmHistory'}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                    <Button.Style>
-                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                                            <Setter Property="Foreground" Value="White" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding CurrentModel,Converter={StaticResource ViewModelConverter}}" Value="AlarmViewModel">
-                                                    <Setter Property="Background" Value="OliveDrab" />
-                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button HorizontalContentAlignment="Stretch" Height="70" Command="{Binding ShowLogViewCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon Kind="Event" Margin="0 0 5 0" Width="25" Height="25" />
-                                            <TextBlock Text="{Tr 'MainWindow.Views.LogHistory', DefaultText='LogHistory'}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                    <Button.Style>
-                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                                            <Setter Property="Foreground" Value="White" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding CurrentModel,Converter={StaticResource ViewModelConverter}}" Value="LogViewModel">
-                                                    <Setter Property="Background" Value="OliveDrab" />
-                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button HorizontalContentAlignment="Stretch" Height="70" Command="{Binding ShowManualViewCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon Kind="Gamepad" Margin="0 0 5 0" Width="25" Height="25" />
-                                            <TextBlock Text="{Tr 'MainWindow.Views.Manual', DefaultText='Manual'}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                    <Button.Style>
-                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                                            <Setter Property="Foreground" Value="White" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding CurrentModel,Converter={StaticResource ViewModelConverter}}" Value="ManualViewModel">
-                                                    <Setter Property="Background" Value="OliveDrab" />
-                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button HorizontalContentAlignment="Stretch"  Height="70" Command="{Binding ShowUsersViewCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon DockPanel.Dock="Left" Kind="Account" Margin="0 0 5 0" Width="25" Height="25" />
-                                            <TextBlock DockPanel.Dock="Left" Text="{Tr 'MainWindow.Views.Users', DefaultText='Users'}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                    <Button.Style>
-                                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                                            <Setter Property="Foreground" Value="White" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding CurrentModel,Converter={StaticResource ViewModelConverter}}" Value="UsersViewModel">
-                                                    <Setter Property="Background" Value="OliveDrab" />
-                                                    <Setter Property="BorderBrush" Value="OliveDrab" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button  Height="50" Margin="0 10 "  Foreground="White" Command="{Binding SendProfileRandomCommand, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignFlatMidBgButton}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <md:PackIcon Kind="SendCircleOutline" VerticalAlignment="Center" Height="30" Width="30" />
-                                            <TextBlock Text="Send random" VerticalAlignment="Center" Margin="5 0 0 0" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
-                                <Button  Height="50" Margin="0 10 "  Foreground="White" Command="{Binding SendProfileBackwardCommand, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource MaterialDesignFlatMidBgButton}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <md:PackIcon Kind="SendCircleOutline" VerticalAlignment="Center" Height="30" Width="30" />
-                                            <TextBlock Text="Send backward" VerticalAlignment="Center" Margin="5 0 0 0" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
-                            </StackPanel>
-                            <Button
-                                DockPanel.Dock="Bottom" Margin="10 "
-                                Width="60"  Height="60">
-                                <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                                        <Setter Property="Content" Value="{md:PackIcon Kind=Logout, Size=30}" />
-                                        <Setter Property="Command" Value="{Binding LogoutCommand}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding LoginedUser, Converter={StaticResource IsNullConverter}}" Value="true">
-                                                <Setter Property="Content" Value="{md:PackIcon Kind=Login, Size=30}" />
-                                                <Setter Property="Command" Value="{Binding OpenLoginWindowCommand}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button
-                                DockPanel.Dock="Bottom"
-                                Margin="10"
-                                Width="60"  Height="60"
-                                Command="{Binding OPCConnectCommand }"
-                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <md:PackIcon
-                                        Height="30"
-                                        Width="30">
-                                        <md:PackIcon.Style>
-                                            <Style TargetType="md:PackIcon">
-                                                <Setter Property="Kind" Value="Connection" />
-                                                <Setter Property="Foreground" Value="Yellow" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ConnectionStatus, UpdateSourceTrigger=PropertyChanged}" Value="true">
-                                                        <Setter Property="Foreground" Value="GreenYellow" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ConnectionStatus, UpdateSourceTrigger=PropertyChanged}" Value="false">
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard Name="StartBlinking">
-                                                                <Storyboard>
-                                                                    <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                                                                To="OrangeRed"
-                                                                                Duration="00:00:00.5"
-                                                                                RepeatBehavior="Forever" AutoReverse="True">
-                                                                        <ColorAnimation.EasingFunction>
-                                                                            <PowerEase EasingMode="EaseInOut" Power="7" />
-                                                                        </ColorAnimation.EasingFunction>
-                                                                    </ColorAnimation>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                        <DataTrigger.ExitActions>
-                                                            <RemoveStoryboard BeginStoryboardName="StartBlinking" />
-                                                        </DataTrigger.ExitActions>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </md:PackIcon.Style>
-                                    </md:PackIcon>
-                                </StackPanel>
-                            </Button>
-                            <Button DockPanel.Dock="Bottom" Margin="10" Style="{StaticResource MaterialDesignFloatingActionDarkButton}" Command="{Binding StartWinccCommand}">
-                                <Image Source="../../wincc.ico" Stretch="UniformToFill" />
-                            </Button>
-                        </DockPanel>
-                    </ScrollViewer>
-                </Border>
-            </md:DrawerHost.LeftDrawerContent>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="80" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="1" Grid.Row="0" Height="60" Background="{Binding Source={StaticResource BenthorBlue}}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="20 0">
-
-                        <ToggleButton x:Name="MenuToggleButton"
-                    AutomationProperties.Name="HamburgerToggleButton"
-                    IsChecked="{Binding IsNavigationDrawer}"
-                    Foreground="White"
-                    Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
-                        <TextBlock
-                    Grid.Column="1"
-                    FontSize="18"
+            <Button
+                Margin="5 0"
+                VerticalContentAlignment="Center"
+                Command="{Binding OPCConnectCommand }"
+                Height="50"
+                Style="{StaticResource MaterialDesignFlatButton}">
+                <md:PackIcon
                     VerticalAlignment="Center"
-                    Margin="20 0"
-                    Foreground="White"
-                    Text="Crate Robot" />
-                    </StackPanel>
-                    <Button Grid.Column="1" Height="50" Margin="10 0" Foreground="White" Command="{Binding SendProfileCommand, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource MaterialDesignFlatMidBgButton}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <md:PackIcon Kind="SendCircleOutline" VerticalAlignment="Center" Height="30" Width="30" />
-                                <TextBlock Text="{Tr 'MainWindow.Start', DefaultText='Start'}" VerticalAlignment="Center" Margin="5 0 0 0" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    <Button Grid.Column="2" Height="50" Margin="10 0" Foreground="White">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-
-                                <md:PackIcon Height="30" Width="30" Kind="PlayCircleOutline" VerticalAlignment="Center" />
-                                <TextBlock Text="{Tr 'MainWindow.Auto', DefaultText='Auto'}" VerticalAlignment="Center" Margin="5 0 0 0" />
-                            </StackPanel>
-                        </Button.Content>
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsAutoMode, NotifyOnSourceUpdated=True}" Value="true">
-                                        <Setter Property="Background" Value="OliveDrab" />
-                                        <Setter Property="BorderBrush" Value="OliveDrab" />
-                                        <Setter Property="Command" Value="{Binding ResetAutoModeCommand}" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsAutoMode, NotifyOnSourceUpdated=True}" Value="false">
-                                        <Setter Property="Command" Value="{Binding SetAutoModeCommand}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button Grid.Column="3" Height="50" Margin="10 0" Foreground="White">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-
-                                <md:PackIcon Height="30" Width="30" Kind="StopPauseOutline" VerticalAlignment="Center" />
-                                <TextBlock Text="{Tr 'MainWindow.Stop', DefaultText='Stop'}" VerticalAlignment="Center" Margin="5 0 0 0" />
-                            </StackPanel>
-                        </Button.Content>
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsStopMode , NotifyOnSourceUpdated=True}" Value="true">
-                                        <Setter Property="Background" Value="Yellow" />
-                                        <Setter Property="BorderBrush" Value="Yellow" />
-                                        <Setter Property="Command" Value="{Binding ResetStopModeCommand}" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsStopMode , NotifyOnSourceUpdated=True}" Value="false">
-                                        <Setter Property="Command" Value="{Binding SetStopModeCommand}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Grid Grid.Column="4" Margin="10 0">
-                        <ComboBox
-                        ItemsSource="{Binding Alarms, Converter={StaticResource AlarmsConverter}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                        Height="50"
-                        IsReadOnly="True">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation = "Horizontal">
-                                        <TextBlock Text="{Binding TimeStamp, StringFormat=dd.MM.yy HH:mm:ss :}"  Margin="0 0 10 0" />
-                                        <TextBlock Text = "{Binding ., Converter={StaticResource TranslateDatabaseConverter}}" Width="Auto" Margin="0 0 10 0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                            <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemStyle }">
-                                    <Setter Property="Padding" Value="10" />
-                                    <Setter Property="Margin" Value="0 0 0 0" />
-                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                    <Setter Property="Foreground" Value="White" />
-                                    <Setter Property="FontSize" Value="15" />
-                                    <Setter Property="Width" Value="Auto" />
-                                    <Setter Property="Background" Value="OrangeRed" />
-                                    <Setter Property="IsHitTestVisible" Value="false" />
-                                </Style>
-                            </ComboBox.ItemContainerStyle>
-                        </ComboBox>
-                        <Button  IsHitTestVisible="False" Height="50">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <md:PackIcon Height="25" Width="30" Kind="AlertDecagram" VerticalAlignment="Center" />
-                                    <TextBlock Text="{Tr 'MainWindow.Alarms', DefaultText='Alarms'}" VerticalAlignment="Center" Margin="5 0 0 0" />
-                                </StackPanel>
-                            </Button.Content>
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
-
-                                    <Setter Property="Foreground" Value="White" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Alarms, Converter={StaticResource AlarmsListConverter},UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" Value="true">
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard Name="StartAlarmBlinking">
-                                                    <Storyboard>
-                                                        <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                                            To="OrangeRed"
-                                                            Duration="00:00:00.5"
-                                                            RepeatBehavior="Forever" AutoReverse="True">
-                                                            <ColorAnimation.EasingFunction>
-                                                                <PowerEase EasingMode="EaseInOut" Power="7" />
-                                                            </ColorAnimation.EasingFunction>
-                                                        </ColorAnimation>
-                                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
-                                                            To="Yellow"
-                                                            Duration="00:00:00.5"
-                                                            RepeatBehavior="Forever" AutoReverse="True">
-                                                            <ColorAnimation.EasingFunction>
-                                                                <PowerEase EasingMode="EaseInOut" Power="7" />
-                                                            </ColorAnimation.EasingFunction>
-                                                        </ColorAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-                                            <DataTrigger.ExitActions>
-                                                <RemoveStoryboard BeginStoryboardName="StartAlarmBlinking" />
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="1">
-
-                    <ContentControl Grid.Column="1" Height="Auto" BorderBrush="DarkBlue" BorderThickness="0 5 0 5"  Content="{Binding CurrentModel}" />
-
-                    <md:Snackbar
-                    x:Name="SnackbarOne"
-                        Background="DarkOrange"
-                        Foreground="White"
-                        HorizontalAlignment="Right"
-                        Margin="0 0 10 10"
-                        UseLayoutRounding="True"
-
-                        ActionButtonPlacement="Inline"
-                        ActionButtonStyle="{StaticResource MaterialDesignSnackbarActionMidButton}"
-
-                    MessageQueue="{Binding MyMessageQueue, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-                <Border  Grid.Row="2" Padding="20 5" Background="{StaticResource BenthorBlue}">
-                    <DockPanel
-                        LastChildFill="False">
-                        <ComboBox
-                            DockPanel.Dock="Left"
-                            IsSynchronizedWithCurrentItem="True"
-                            HorizontalAlignment="Center"
-                            Height="auto"
-
-                            Padding="0"
-                            BorderBrush="{x:Null}"
-                            Style="{StaticResource MaterialDesignComboBox}"
-                            ItemsSource="{Binding Langs}"
-                            SelectedItem="{Binding SelectedLang}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Image  Source="{Binding IconURI, Converter={StaticResource ImageConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                            <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemSelectedCollapsedStyle}" />
-                            </ComboBox.ItemContainerStyle>
-                        </ComboBox>
-                        <TextBlock  FontSize="18" DockPanel.Dock="Left" Foreground="White" VerticalAlignment="Center" Text="{Binding LoginedUser.Name}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding LoginedUser.Name.Length, FallbackValue=0, TargetNullValue=0}" Value="0">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock  FontSize="18" DockPanel.Dock="Left" Foreground="White" VerticalAlignment="Center" Text="{Tr 'MainWindow.NotAutorized', DefaultText='NotAutorized'}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding LoginedUser.Name.Length, FallbackValue=0, TargetNullValue=0}" Value="0">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <!--{Tr 'MainWindow.NotAutorized', DefaultText='NotAutorized'}-->
-                        <TextBlock FontSize="18" Margin="10 0" DockPanel.Dock="Right" Foreground="White" VerticalAlignment="Center">
-                            <Run Text="{Binding CountTaskDone, Mode=OneWay}" />
-                            <Run Text="/" />
-                            <Run Text="{Binding CountTaskMade, Mode=OneWay}" />
-                        </TextBlock>
-                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-
-                            <TextBlock Margin="10 0" Text="{Binding TaskElementName, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                            <StackPanel>
-                                <TextBlock Margin="10 0" Text="{Binding CustomerName, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                                <TextBlock Margin="10 0" Text="{Binding ContractNum, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="70 0"  DockPanel.Dock="Right"  VerticalAlignment="Center">
-                            <TextBlock Margin="10 0" Text="{Binding TaskNextElementName, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                            <StackPanel>
-                                <TextBlock Margin="10 0" Text="{Binding NextCustomerName, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                                <TextBlock Margin="10 0" Text="{Binding NextContractNum, Mode=OneWay}" FontSize="18"  Foreground="White" VerticalAlignment="Center" />
-                            </StackPanel>
-                            <md:PackIcon Height="40" Width="40" Margin="10 0" Kind="ArrowRight" Foreground="White" />
-                        </StackPanel>
-                    </DockPanel>
-                </Border>
-            </Grid>
-        </md:DrawerHost>
-    </md:DialogHost>
-</Window>
+                    Height="40"
+                    Width="40">
+                    <md:PackIcon.Style>
+                        <Style TargetType="md:PackIcon">
+                            <Setter Property="Kind" Value="Connection" />
+                            <Setter Property="Foreground" Value="GreenYellow" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ConnectionStatus, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="StartBlinking" Storyboard="{StaticResource BlinkRedAnimation}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <RemoveStoryboard BeginStoryboardName="StartBlinking" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </md:PackIcon.Style>
+                </md:PackIcon>
+            </Button>
+            <Button
+                Margin="5 0"
+                VerticalContentAlignment="Center"
+                Command="{Binding ExternalDatabaseConnectCommand }"
+                Height="50"
+                Style="{StaticResource MaterialDesignFlatButton}">
+                <md:PackIcon
+                    VerticalAlignment="Center"
+                    Height="40"
+                    Width="40">
+                    <md:PackIcon.Style>
+                        <Style TargetType="md:PackIcon">
+                            <Setter Property="Kind" Value="DatabaseOutline" />
+                            <Setter Property="Foreground" Value="GreenYellow" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsExternalDatabaseConnected, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                    <Setter Property="Kind" Value="DatabaseAlertOutline" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="StartBlinking" Storyboard="{StaticResource BlinkRedAnimation}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <RemoveStoryboard BeginStoryboardName="StartBlinking" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </md:PackIcon.Style>
+                </md:PackIcon>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <Grid Background="{StaticResource BenthorBlue}">
+        <svg:SvgAwesome Icon="Solid_Spinner" Spin="True" SpinDuration="4" Margin="20" Width="100" Height="100" PrimaryColor="White" />
+        <ContentControl Grid.Column="1" Height="Auto" BorderBrush="DarkBlue" BorderThickness="0 5 0 5"  Content="{Binding CurrentModel}" />
+    </Grid>
+</mah:MetroWindow>
+    

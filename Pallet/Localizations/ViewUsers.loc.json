@@ -2,39 +2,48 @@
   "UsersView": {
     "Delete": {
       "en": "Delete",
-      "de-DE": "Entfernen"
+      "de-DE": "Löschen",
+      "cs-CZ": "Smazat"
     },
     "Description": {
       "en": "Description",
-      "de-DE": "Die Beschreibung"
+      "de-DE": "Beschreibung",
+      "cs-CZ": "Popis"
     },
     "Edit": {
       "en": "Edit",
-      "de-DE": "Redigieren"
+      "de-DE": "Editieren",
+      "cs-CZ": "Upravit"
     },
     "Name": {
       "en": "Name",
-      "de-DE": "Name"
+      "de-DE": "Name",
+      "cs-CZ": "Název"
     },
     "NewUser": {
       "en": "New user",
-      "de-DE": "Neuer Benutzer"
+      "de-DE": "Neuer Benutzer",
+      "cs-CZ": "Movy Uživatel"
     },
     "RegisterDate": {
       "en": "Register Date",
-      "de-DE": "Anmeldedatum"
+      "de-DE": "Anmeldedatum",
+      "cs-CZ": "Datum Registrace"
     },
     "RegisteredBy": {
       "en": "Registered By",
-      "de-DE": "Registriert von"
+      "de-DE": "Registriert von",
+      "cs-CZ": "Registrováno"
     },
     "Role": {
       "en": "Role",
-      "de-DE": "Die Rolle"
+      "de-DE": "Die Rolle",
+      "cs-CZ": "Role"
     },
     "Title": {
       "en": "Users",
-      "de-DE": "Benutzer"
+      "de-DE": "Benutzer",
+      "cs-CZ": "Uživatelé"
     }
   }
 }

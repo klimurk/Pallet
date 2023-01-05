@@ -24,18 +24,20 @@ public interface IManagerUser
     /// <param name="name">The name.</param>
     /// <param name="password">The password.</param>
     /// <returns>A bool.</returns>
-    bool Login(string name, string password);
+    Task<bool> Login(string name, string password);
 
     /// <summary>
     /// Logout.
     /// </summary>
-    void LogOut();
+    Task LogOut();
 
     event EventHandler LoginedUserChanged;
 
-    public bool RegisterNewUser(string name, string password, string role, string description = "");
+    public Task<bool> RegisterNewUser(string name, string password, string role, string description = "");
 
-    public bool ModifyUser(string oldName, string name, string password, string role, string description = ""); public bool DeleteUser(User user);
+    public Task<bool> ModifyUser(string oldName, string name, string password, string role, string description = "");
+
+    public Task<bool> DeleteUser(User user);
 
     /// <summary>
     /// The user role numbers (see in database).

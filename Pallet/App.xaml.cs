@@ -1,4 +1,6 @@
-﻿using CodingSeb.Localization.Loaders;
+﻿using CodingSeb.Localization;
+using CodingSeb.Localization.Loaders;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pallet.Extensions;
@@ -11,6 +13,7 @@ using Pallet.Services.Language;
 using Pallet.Services.UserDialog;
 using Pallet.Services.UserDialog.Interfaces;
 using Pallet.ViewModels;
+using System.Configuration;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -61,14 +64,33 @@ namespace Pallet
 
         public static IServiceProvider Services => Host.Services;
 
+
+        #endregion Host
         protected override async void OnStartup(StartupEventArgs e)
         {
             IsDesignMode = false;
             var host = Host;
+            LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
+            LocalizationLoader.Instance.AddDirectory(@"Localizations");
 
             using (var scope = Services.CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().ConfigureAwait(false);
+                try
+                {
+                    await scope.ServiceProvider.GetRequiredService<ExternalDbInitializer>().InitializeAsync();
+                }
+                catch
+                {
+                    MessageBox.Show(Loc.Tr("Database.Errors.ExternalDdNotConnected"), "External database", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                try
+                {
+                    await scope.ServiceProvider.GetRequiredService<InternalDbInitializer>().InitializeAsync();
+                }
+                catch
+                {
+                    MessageBox.Show(Loc.Tr("Database.Errors.InternalDdNotConnected"), "Internal database", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             try
             {
@@ -79,15 +101,10 @@ namespace Pallet
             {
                 ex.ExceptionToString();
             }
-
-            LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
-            LocalizationLoader.Instance.AddDirectory(@"Localizations");
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
-            string str = "Exit";
-            str.CheckStage();
             base.OnExit(e);
             var host = Host;
             await host.StopAsync().ConfigureAwait(false);
@@ -95,19 +112,19 @@ namespace Pallet
             __Host = null;
         }
 
-        #endregion Host
-
         private static string GetSourceCodePath([CallerFilePath] string Path = "") => Path; // подстановка пути в дизайнмоде
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.RegisterInternalDatabase(host.Configuration.GetSection("Database"));
-            services.RegisterExternalDatabase(host.Configuration.GetSection("Database"));
-            services.RegisterServices();
-            services.AddTransient<IDrawer, Drawer>();
-            services.AddSingleton<IManagerLanguage, ManagerLanguage>();
-            services.AddSingleton<IUserDialogService, UserDialogService>();
-            services.RegisterViewModels();
+            services
+                .AddSingleton<IConfiguration>(provider => host.Configuration)
+                .RegisterInternalDatabase(host.Configuration.GetSection("Database"))
+                .RegisterExternalDatabase(host.Configuration.GetSection("Database"))
+                .RegisterServices()
+                .AddTransient<IDrawer, Drawer>()
+                .AddSingleton<IManagerLanguage, ManagerLanguage>()
+                .AddSingleton<IUserDialogService, UserDialogService>()
+                .RegisterViewModels();
         }
     }
 }

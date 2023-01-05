@@ -59,7 +59,7 @@ namespace Pallet.Services.Managers
                 foreach (User item in e.NewItems)
                 {
                     item.UserChanged += Item_UserChanged;
-                    _dbSet.Add(item);
+                    _dbSet.AddAsync(item);
                     _dbContext.SaveChanges();
                 }
             }
@@ -72,7 +72,7 @@ namespace Pallet.Services.Managers
             _dbContext.SaveChanges();
         }
 
-        public bool RegisterNewUser(string name, string password, string role, string description = "")
+        public async Task<bool> RegisterNewUser(string name, string password, string role, string description = "")
         {
             description ??= "";
             User newUser = new()
@@ -95,7 +95,7 @@ namespace Pallet.Services.Managers
             return true;
         }
 
-        public bool ModifyUser(string oldName, string name, string password, string role, string description = "")
+        public async Task<bool> ModifyUser(string oldName, string name, string password, string role, string description = "")
         {
             try
             {
@@ -111,14 +111,14 @@ namespace Pallet.Services.Managers
             return true;
         }
 
-        public bool DeleteUser(User user)
+        public async Task<bool> DeleteUser(User user)
         {
             if (!Users.Any(s => s.Name == user.Name)) return false;
             Users.Remove(Users.First(s => s.Name == user.Name));
             return true;
         }
 
-        public bool Login(string name, string password)
+        public async Task<bool> Login(string name, string password)
         {
             if (name == "administrator" && password == "btadmin")
             {
@@ -155,7 +155,7 @@ namespace Pallet.Services.Managers
             return stringbuilder.ToString();
         }
 
-        public void LogOut() => LoginedUser = null;
+        public async Task LogOut() => LoginedUser = null;
 
         public enum UserRoleNum
         {

@@ -1,6 +1,7 @@
 ﻿using Pallet.Services.Models;
 using System.Reflection;
 using System.Resources;
+using CodingSeb.Localization;
 
 namespace Pallet.Services.Language;
 
@@ -30,12 +31,12 @@ public class ManagerLanguage : IManagerLanguage
 
     public ManagerLanguage()
     {
-        _ResourceManager = new ResourceManager("Pallet.Resources.Stringify.Windows.LanguageWindow.LanguageWindowResource", typeof(ManagerLanguage).Assembly);
+        //_ResourceManager = new ResourceManager("Pallet.Resources.Stringify.Windows.LanguageWindow.LanguageWindowResource", typeof(ManagerLanguage).Assembly);
         Langs = new()
         {
-            new(_ResourceManager.GetString("LangEnglish"), "Resources/Icons/great-britain-48.png", new CultureInfo("en")),
-            //new(_ResourceManager.GetString("LangCzech"), "Resources/Icons/czech-republic-48.png", new CultureInfo("cs-CZ")),
-            new(_ResourceManager.GetString("LangGerman"), "Resources/Icons/germany-48.png", new CultureInfo("de-DE")),
+            new(Loc.Tr("Languages.English"),  "Resources/Icons/great-britain-48.png", new CultureInfo("en")),
+            new(Loc.Tr("Languages.Czech"), "Resources/Icons/czech-republic-48.png", new CultureInfo("cs-CZ")),
+            new(Loc.Tr("Languages.German"), "Resources/Icons/germany-48.png", new CultureInfo("de-DE"))
         };
 
         _Managers = new();

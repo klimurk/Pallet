@@ -95,7 +95,10 @@ public class AlarmViewModel : ViewModel
             Source = _AlarmLogService.AlarmLogs,
             SortDescriptions = { new SortDescription(nameof(AlarmLog.TimestampStart), ListSortDirection.Descending) }
         };
-
+        AsyncInitialization().ConfigureAwait(false);
+    }
+    protected override async Task AsyncInitialization()
+    {
         FilterDateFrom = DateTime.Today;
         FilterDateTo = DateTime.Now;
         LogsViewSourse.Filter += LogsViewSourse_Filter; ;
@@ -104,11 +107,10 @@ public class AlarmViewModel : ViewModel
 
         SetupDataUpdateTimer();
     }
-
-    /// <summary>
-    /// Setups the data update timer.
-    /// </summary>
-    private void SetupDataUpdateTimer()
+        /// <summary>
+        /// Setups the data update timer.
+        /// </summary>
+        private void SetupDataUpdateTimer()
     {
         DataUpdateTimer = new DispatcherTimer();
         DataUpdateTimer.Tick += OnDataUpdateEvent;

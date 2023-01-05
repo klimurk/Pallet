@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Pallet.Extensions
+﻿namespace Pallet.Extensions
 {
-
-
     public static class EntityFrameworkQueryableExtensions
     {
         public static IQueryable<T> IncludeAll<T>(this IQueryable<T> queryable) where T : class
@@ -18,6 +14,11 @@ namespace Pallet.Extensions
                 }
             }
             return queryable;
+        }
+
+        public static bool In<T, Y>(this T source, params T[] list) where T : IEnumerable<Y> where Y : class
+        {
+            return list.Contains(source);
         }
     }
 }

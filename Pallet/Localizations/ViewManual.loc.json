@@ -2,23 +2,28 @@
   "ManualView": {
     "Prg101": {
       "en": "Prg101",
-      "de-DE": "Prg101"
+      "de-DE": "Prg101",
+      "cs-CZ": "Prg101"
     },
     "WithoutNails": {
       "en": "Without Nails",
-      "de-DE": "Ohne Nägel"
+      "de-DE": "Ohne Nägel",
+      "cs-CZ": "Bez Hřebíků"
     },
     "WithoutProduct": {
       "en": "Without Product",
-      "de-DE": "Ohne Produkt"
+      "de-DE": "Ohne Produkt",
+      "cs-CZ": "Bez Produktu"
     },
     "EndProcess": {
       "en": "End Process",
-      "de-DE": "Prozess beenden"
+      "de-DE": "Prozess beenden",
+      "cs-CZ": "Ukončení Procesu"
     },
     "SuspendProduction": {
       "en": "Suspend Production",
-      "de-DE": "Produktion aussetzen"
+      "de-DE": "Produktion aussetzen",
+      "cs-CZ": "Pozastavit Výrobu"
     }
   }
 }

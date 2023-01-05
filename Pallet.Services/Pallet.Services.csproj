@@ -2,9 +2,10 @@
 
 	<PropertyGroup>
 		<UseWPF>true</UseWPF>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,4 +22,4 @@
 		<ProjectReference Include="..\Extensions\Pallet.Extensions.csproj" />
 	</ItemGroup>
 
-		</Project>
+</Project>

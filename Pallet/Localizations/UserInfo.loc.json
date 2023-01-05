@@ -2,32 +2,38 @@
   "UserInfo": {
     "DeleteUser": {
       "Text": {
-        "en": "Are you sure delete user",
-        "de-DE": "Sind Sie sicher, dass Sie den Benutzer löschen"
+        "en": "Are you sure delete user?",
+        "de-DE": "Sind Sie sicher, dass Sie den Benutzer löschen wollen?",
+        "cs-CZ": "Jste si jisti, odstranit uživatele?"
       },
       "Title": {
         "en": "Delete User",
-        "de-DE": "Benutzer löschen"
+        "de-DE": "Benutzer löschen",
+        "cs-CZ": "Smazat Uživatele"
       }
     },
     "Errors": {
       "NotCreated": {
         "en": "New user cannot be created",
-        "de-DE": "Ein neuer Benutzer kann nicht erstellt werden"
+        "de-DE": "Ein neuer Benutzer kann nicht erstellt werden",
+        "cs-CZ": "Nového uživatele nelze vytvořit"
       },
       "NotModified": {
         "en": "The new user data contains an error",
-        "de-DE": "Neue Benutzerdaten enthalten einen Fehler"
+        "de-DE": "Neue Benutzerdaten enthalten einen Fehler",
+        "cs-CZ": "Nová uživatelská data obsahují chybu"
       }
     },
     "Info": {
       "Created": {
         "en": "New user has been created",
-        "de-DE": "Neuer Benutzer wurde erstellt"
+        "de-DE": "Neuer Benutzer wurde erstellt",
+        "cs-CZ": "Byl vytvořen nový uživatel"
       },
       "Modified": {
         "en": "User data has been changed",
-        "de-DE": "Die Benutzerdaten wurden geändert"
+        "de-DE": "Die Benutzerdaten wurden geändert",
+        "cs-CZ": "Uživatelská data byla změněna"
       }
     }
   }

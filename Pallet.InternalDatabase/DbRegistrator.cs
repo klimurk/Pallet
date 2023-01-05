@@ -37,7 +37,7 @@ public static class DbRegistrator
             }
         }, ServiceLifetime.Transient);
 
-        services.AddTransient<DbInitializer>();
+        services.AddTransient<InternalDbInitializer>();
         services.AddRepositoriesInDB();
         return services;
         ;

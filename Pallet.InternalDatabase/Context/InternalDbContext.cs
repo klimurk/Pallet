@@ -1,14 +1,13 @@
 ﻿using Pallet.InternalDatabase.Entities.Log;
 using Pallet.InternalDatabase.Entities.OPC;
 using Pallet.InternalDatabase.Entities.Users;
-using Microsoft.EntityFrameworkCore;
 
 namespace Pallet.InternalDatabase.Context;
 
 /// <summary>
 /// The database context for entity framework core.
 /// </summary>
-public class InternalDbContext : DbContext
+public class InternalDbContext : DbContext, IInternalDbContext
 {
     #region System context
 
@@ -21,6 +20,11 @@ public class InternalDbContext : DbContext
     /// Context for EventLogs.
     /// </summary>
     public DbSet<Log> Logs { get; set; }
+
+    /// <summary>
+    /// Context for PalletLogs.
+    /// </summary>
+    //public DbSet<PalletLog> PalletLogs { get; set; }
 
     /// <summary>
     /// Context for users.

@@ -6,6 +6,8 @@ using Pallet.Services.Language;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
 using Pallet.View.Dialogs;
+using Pallet.View.SubViews;
+using Pallet.View.Windows;
 using Pallet.ViewModels.Base;
 using Pallet.ViewModels.Windows;
 using System.Collections.Specialized;
@@ -18,7 +20,6 @@ public class UsersViewModel : ViewModel
 
     private readonly IManagerUser _ManagerUser;
 
-    private readonly IManagerLanguage _ManagerLanguage;
     private readonly IUserDialogService _UserDialogService;
 
     #endregion Services
@@ -37,7 +38,6 @@ public class UsersViewModel : ViewModel
     {
         _ManagerUser = App.Services.GetService(typeof(IManagerUser)) as IManagerUser;
         _UserDialogService = App.Services.GetService(typeof(IUserDialogService)) as IUserDialogService;
-        _ManagerLanguage = App.Services.GetService(typeof(IManagerLanguage)) as IManagerLanguage;
         UsersViewSourse = new()
         {
             Source = _ManagerUser.Users,
@@ -108,7 +108,7 @@ public class UsersViewModel : ViewModel
         };
 
         //show the dialog
-        var result = await DialogHost.Show(view, MainWindow.DialogName);
+        var result = await DialogHost.Show(view, MainControl.DialogName);
     }
 
     #endregion OpenCreateUserWindowCommand
@@ -150,7 +150,7 @@ public class UsersViewModel : ViewModel
         };
 
         ////show the dialog
-        var result = await DialogHost.Show(view, MainWindow.DialogName);
+        var result = await DialogHost.Show(view, MainControl.DialogName);
     }
 
     #endregion ModifySelectedUserCommand

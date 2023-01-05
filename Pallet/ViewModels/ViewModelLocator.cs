@@ -5,7 +5,8 @@ namespace Pallet.ViewModels
 {
     internal class ViewModelLocator
     {
-        public MainWindowViewModel MainWindowViewModel => App.Services.GetRequiredService<MainWindowViewModel>();
+        public MainControlViewModel MainWindowViewModel => App.Services.GetRequiredService<MainControlViewModel>();
+        public MainWindowViewModel PreloadWindowViewModel => App.Services.GetRequiredService<MainWindowViewModel>();
         //public LoginViewModel LoginViewModel => App.Services.GetRequiredService<LoginViewModel>();
     }
 }

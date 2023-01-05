@@ -1,8 +1,6 @@
-﻿using Pallet.ExternalDatabase.Context;
-using Pallet.ExternalDatabase.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pallet.ExternalDatabase.Context;
 
 namespace Pallet.ExternalDatabase;
 
@@ -25,15 +23,15 @@ public static class DbRegistrator
             switch (type)
             {
                 case null: throw new InvalidOperationException("Not defined database type");
-                case "MSSQL": opt.UseSqlServer(Configuration.GetConnectionString(type)); break;
+                case "MSSQL":
                 case "MSSQLDev": opt.UseSqlServer(Configuration.GetConnectionString(type)); break;
                 case "SQLite": opt.UseSqlite(Configuration.GetConnectionString(type)); break;
                 case "MySQL": opt.UseMySQL(Configuration.GetConnectionString(type)); break;
                 default: throw new InvalidOperationException($"Connection type {type} not supported");
             }
         }, ServiceLifetime.Transient);
-
-        services.AddRepositoriesInDB();
+        services.AddTransient<ExternalDbInitializer>();
+        services.AddScoped<IExternalDbContext>(provider => provider.GetService<ExternalDbContext>());
         return services;
         ;
     }

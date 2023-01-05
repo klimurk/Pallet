@@ -1,7 +1,11 @@
-﻿using Pallet.Infrastructure.Commands;
+﻿using HelixToolkit.Wpf;
+using Pallet.Infrastructure.Commands;
+using Pallet.Services.Draw;
 using Pallet.Services.Draw.Interface;
 using Pallet.Services.Managers.Interfaces;
 using Pallet.ViewModels.Base;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace Pallet.ViewModels.SubView;
@@ -21,6 +25,17 @@ public class PalletViewModel : ViewModel
     /// Items for drawing in ItemsControl Canvas.
     /// </summary>
     public ObservableCollection<Shape> Items => _Drawer.Items;
+
+    //public Model3D Model { get; set; }
+    private Model3D _Model;
+    public Model3D Model
+        => _Drawer.myModel;
+    //{
+    //    get => _Model;
+    //    set =>  Set(ref _Model, value);
+    //}
+
+    
 
     /// <summary>
     /// Combobox items for highlight.
@@ -42,13 +57,13 @@ public class PalletViewModel : ViewModel
     /// </summary>
     /// <param name="arg">The arg.</param>
     /// <returns>A bool.</returns>
-    private bool CanCanvasReloadCommandExecute(object arg) => true;
+    private bool CanCanvasReloadCommandExecute(object arg) => _ManagerProfiles.CurrentTask is not null;
 
     /// <summary>
     /// Canvas reload.
     /// </summary>
     /// <param name="obj">The obj.</param>
-    public void OnCanvasReloadCommandExecuted(object obj) => _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentTask, _ManagerProfiles.GetTaskNails(), _ManagerProfiles.GetTaskParts());
+    public void OnCanvasReloadCommandExecuted(object obj) => _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentProfile);
 
     #endregion CanvasReloadCommand
 
@@ -88,10 +103,23 @@ public class PalletViewModel : ViewModel
         _ManagerProfiles = App.Services.GetService(typeof(IManagerProfiles)) as IManagerProfiles;
 
         _Drawer = App.Services.GetService(typeof(IDrawer)) as IDrawer;
+
+        AsyncInitialization().ConfigureAwait(false);
+        _Drawer.RefreshModelEventHandler += _Drawer_RefreshModelEventHandler;
+       // Model = _Drawer.myModel;
+    }
+
+    private void _Drawer_RefreshModelEventHandler(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(Model));
+    }
+
+    protected override async Task AsyncInitialization()
+    {
         _Drawer.CanvasClear();
+        
         _ManagerProfiles.CurrentTaskChanged -= _ManagerProfiles_CurrentTaskChanged;
         _ManagerProfiles.CurrentTaskChanged += _ManagerProfiles_CurrentTaskChanged;
-        //_Drawer.CanvasPaintTask(_ManagerProfiles.CurrentTask,_ManagerProfiles.GetTaskNails());
     }
 
     /// <summary>
@@ -99,7 +127,7 @@ public class PalletViewModel : ViewModel
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
-    private void _ManagerProfiles_CurrentTaskChanged(object? sender, EventArgs e) => _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentTask, _ManagerProfiles.GetTaskNails(), _ManagerProfiles.GetTaskParts());
+    private void _ManagerProfiles_CurrentTaskChanged(object? sender, EventArgs e) => _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentProfile);
 
     /// <summary>
     /// Canvas width.
@@ -112,7 +140,7 @@ public class PalletViewModel : ViewModel
             if (Set(ref _CanvasWidth, value))
             {
                 _Drawer.CanvasWidth = value;
-                _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentTask, _ManagerProfiles.GetTaskNails(), _ManagerProfiles.GetTaskParts());
+                _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentProfile);
             }
         }
     }
@@ -130,7 +158,7 @@ public class PalletViewModel : ViewModel
             if (Set(ref _CanvasHeight, value))
             {
                 _Drawer.CanvasHeight = value;
-                _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentTask, _ManagerProfiles.GetTaskNails(), _ManagerProfiles.GetTaskParts());
+                _Drawer.CanvasPaintTask(_ManagerProfiles.CurrentProfile);
             }
         }
     }

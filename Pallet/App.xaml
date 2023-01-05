@@ -41,11 +41,19 @@
                 <ResourceDictionary Source="pack://application:,,,/Pallet.Styles;component/Styles/TextBoxes/TextBoxBase.xaml" />
 
 
+                <ResourceDictionary Source="pack://application:,,,/Pallet.Styles;component/Resources/Animations/BlinkRedAnimation.xaml" />
+
+                <!-- MahApp -->
+
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+
                 <!-- Material design settings-->
 
                 <materialDesign:BundledTheme BaseTheme="Inherit" PrimaryColor="Blue" SecondaryColor="Teal" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            
+        </ResourceDictionary.MergedDictionaries>
 
             <!-- Defined elements  -->
             <SolidColorBrush x:Key="BenthorBlue" Color="#194A9E" />

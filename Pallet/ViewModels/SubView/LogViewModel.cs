@@ -82,13 +82,19 @@ public class LogViewModel : ViewModel
             Source = _LogService.Logs,
             SortDescriptions = { new SortDescription(nameof(Log.Timestamp), ListSortDirection.Descending) }
         };
+        AsyncInitialization().ConfigureAwait(false);
+
+        //SetupDataUpdateTimer();
+    }
+
+    protected override async Task AsyncInitialization()
+    {
+       
         FilterDateFrom = DateTime.Today;
         FilterDateTo = DateTime.Now;
         LogsViewSourse.Filter += LogsViewSourse_Filter; ;
 
         _LogService.Logs.CollectionChanged += Logs_CollectionChanged;
-
-        //SetupDataUpdateTimer();
     }
 
     private void LogsViewSourse_Filter(object sender, FilterEventArgs e)

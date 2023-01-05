@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Pallet.ExternalDatabase.Context
 {
-    public partial class ExternalDbContext : DbContext
+    public partial class ExternalDbContext : DbContext, IExternalDbContext
     {
         public ExternalDbContext()
         {
@@ -384,8 +384,7 @@ namespace Pallet.ExternalDatabase.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("utf8mb4_unicode_ci")
-                .HasCharSet("utf8mb4");
+            modelBuilder.UseCollation("utf8mb4_unicode_ci").HasCharSet("utf8mb4");
 
             modelBuilder.Entity<T3dVerpackung>(entity =>
             {

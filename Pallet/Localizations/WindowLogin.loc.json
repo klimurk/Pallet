@@ -2,23 +2,28 @@
   "LoginWindow": {
     "Cancel": {
       "en": "Cancel",
-      "de-DE": "Annullierung"
+      "de-DE": "Abbruch",
+      "cs-CZ": "Zrušit"
     },
     "Login": {
       "en": "Login",
-      "de-DE": "Autorisierter"
+      "de-DE": "Anmeldung",
+      "cs-CZ": "Login"
     },
     "Password": {
       "en": "Password",
-      "de-DE": "Passwort"
+      "de-DE": "Passwort",
+      "cs-CZ": "Heslo"
     },
     "User": {
       "en": "User",
-      "de-DE": "Benutzer"
+      "de-DE": "Benutzer",
+      "cs-CZ": "Uživatel"
     },
     "WindowName": {
       "en": "Login window",
-      "de-DE": "Anmeldefenster"
+      "de-DE": "Anmeldefenster",
+      "cs-CZ": "Přihlašovací okno"
     }
   }
 }

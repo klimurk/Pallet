@@ -1,5 +1,7 @@
 ﻿using Pallet.ExternalDatabase.Models;
 using Pallet.ExternalDatabase.Models.NotMapped;
+using Pallet.Services.Models;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace Pallet.Services.Draw.Interface;
@@ -27,14 +29,18 @@ public interface IDrawer
     /// All drawed items.
     /// </summary>
     ObservableCollection<Shape> Items { get; set; }
+    Model3D myModel { get; set; }
 
     /// <summary>
     /// Paint profile on canvas.
     /// </summary>
     /// <param name="profile">The profile.</param>
-    public void CanvasPaintTask(PackageItem task, IEnumerable<NailingData> nailList, IEnumerable<WoodenPart> parts);
+    public Task CanvasPaintTask(Profile profile);
+
     /// <summary>
     /// Canvas  clear.
     /// </summary>
-    public void CanvasClear();
+    public Task CanvasClear();
+
+    public event EventHandler? RefreshModelEventHandler;
 }

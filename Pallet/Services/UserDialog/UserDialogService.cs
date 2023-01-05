@@ -2,20 +2,16 @@
 using Pallet.BaseDatabase.Base.Interfaces;
 using Pallet.Services.UserDialog.Interfaces;
 using Pallet.View.Dialogs;
+using Pallet.View.SubViews;
 using Pallet.ViewModels.Windows;
 
 namespace Pallet.Services.UserDialog;
 
 public class UserDialogService : IUserDialogService
 {
-    public SnackbarMessageQueue MessageQueue { get; private set; }
+    public SnackbarMessageQueue MessageQueue { get; private set; } = new(TimeSpan.FromSeconds(10), Application.Current.Dispatcher) { DiscardDuplicates = true };
 
-    public UserDialogService()
-    {
-        MessageQueue = new(TimeSpan.FromSeconds(10), Application.Current.Dispatcher) { DiscardDuplicates = true };
-    }
-
-    #region Dialog
+    #region DialogHost messages
 
     public async Task<bool> ConfirmInformation(IDBTranslateble Information, IDBTranslateble Caption)
     {
@@ -37,12 +33,6 @@ public class UserDialogService : IUserDialogService
         }
     }
 
-    //public bool ConfirmInformation(string Information, string Caption) => MessageBox
-    //    .Show(
-    //        Information, Caption,
-    //        MessageBoxButton.YesNo,
-    //        MessageBoxImage.Information)
-    //        == MessageBoxResult.Yes;
     public async Task<bool> ConfirmInformation(string Information, string Caption)
     {
         var view = new SimpleDialog
@@ -54,7 +44,7 @@ public class UserDialogService : IUserDialogService
                 Message = Information,
             }
         };
-        return (bool)await DialogHost.Show(view, MainWindow.DialogName);
+        return (bool)await DialogHost.Show(view, MainControl.DialogName);
     }
 
     public async Task<bool> ConfirmWarning(IDBTranslateble Warning, IDBTranslateble Caption)
@@ -74,12 +64,6 @@ public class UserDialogService : IUserDialogService
         }
     }
 
-    //public bool ConfirmWarning(string Warning, string Caption) => MessageBox
-    //    .Show(
-    //        Warning, Caption,
-    //        MessageBoxButton.YesNo,
-    //        MessageBoxImage.Warning)
-    //        == MessageBoxResult.Yes;
     public async Task<bool> ConfirmWarning(string Warning, string Caption)
     {
         var view = new SimpleDialog
@@ -92,7 +76,7 @@ public class UserDialogService : IUserDialogService
                 IsWarning = true
             }
         };
-        return (bool)await DialogHost.Show(view, MainWindow.DialogName);
+        return (bool)await DialogHost.Show(view, MainControl.DialogName);
     }
 
     public async Task<bool> ConfirmError(IDBTranslateble Error, IDBTranslateble Caption)
@@ -112,12 +96,6 @@ public class UserDialogService : IUserDialogService
         }
     }
 
-    //public bool ConfirmError(string Error, string Caption) => MessageBox
-    //    .Show(
-    //        Error, Caption,
-    //        MessageBoxButton.YesNo,
-    //        MessageBoxImage.Error)
-    //        == MessageBoxResult.Yes;
     public async Task<bool> ConfirmError(string Error, string Caption)
     {
         var view = new SimpleDialog
@@ -130,100 +108,10 @@ public class UserDialogService : IUserDialogService
                 IsError = true
             }
         };
-        return (bool)await DialogHost.Show(view, MainWindow.DialogName);
+        return (bool)await DialogHost.Show(view, MainControl.DialogName);
     }
 
-    #endregion Dialog
 
-    #region Show
-
-    public void ShowInformation(IDBTranslateble Information)
-    {
-        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
-        {
-            case "en":
-                ShowInformation(Information.DescriptionEn);
-
-                break;
-
-            case "de":
-                ShowInformation(Information.DescriptionDe);
-
-                break;
-
-            default:
-                ShowInformation(Information.DescriptionLocal);
-
-                break;
-        }
-    }
-
-    public void ShowInformation(string Information)
-    {
-        ShowSnackBar(Information);
-    }
-
-    public void ShowWarning(IDBTranslateble Warning)
-    {
-        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
-        {
-            case "en":
-                ShowWarning(Warning.DescriptionEn);
-                break;
-
-            case "de":
-                ShowWarning(Warning.DescriptionDe);
-                break;
-
-            default:
-                ShowWarning(Warning.DescriptionLocal);
-                break;
-        }
-    }
-
-    public void ShowWarning(string Warning)
-    {
-        ShowSnackBar(Warning);
-    }
-
-    public void ShowError(IDBTranslateble Error)
-    {
-        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
-        {
-            case "en":
-                ShowError(Error.DescriptionEn);
-                break;
-
-            case "de":
-                ShowError(Error.DescriptionDe);
-                break;
-
-            default:
-                ShowError(Error.DescriptionLocal);
-                break;
-        }
-    }
-
-    public void ShowError(string Error)
-    {
-        ShowSnackBar(Error);
-    }
-
-    private void ShowSnackBar(string Text)
-    {
-
-        Application.Current.Dispatcher.Invoke(() =>
-        MessageQueue.Enqueue(Text, new PackIcon { Kind = PackIconKind.Alarm }, () => { }))
-        ;
-    }
-
-    //public void ShowDialogInformation(string Information, string Caption)
-    //{
-    //    MessageBox.Show(
-    //        Information, Caption,
-    //        MessageBoxButton.OK,
-    //        MessageBoxImage.Information);
-    //}
     public async void ShowDialogInformation(string Information, string Caption)
     {
         var view = new SimpleDialog
@@ -234,7 +122,7 @@ public class UserDialogService : IUserDialogService
                 Message = Information
             }
         };
-        await DialogHost.Show(view, MainWindow.DialogName);
+        await DialogHost.Show(view, MainControl.DialogName);
     }
 
     public async void ShowDialogInformation(IDBTranslateble Information, IDBTranslateble Caption)
@@ -258,13 +146,6 @@ public class UserDialogService : IUserDialogService
         }
     }
 
-    //public async void ShowDialogWarning(string Warning, string Caption)
-    //{
-    //    MessageBox.Show(
-    //        Warning, Caption,
-    //        MessageBoxButton.OK,
-    //        MessageBoxImage.Warning);
-    //}
     public async void ShowDialogWarning(string Message, string Caption)
     {
         var view = new SimpleDialog
@@ -276,7 +157,7 @@ public class UserDialogService : IUserDialogService
                 IsWarning = true
             }
         };
-        await DialogHost.Show(view, MainWindow.DialogName);
+        await DialogHost.Show(view, MainControl.DialogName);
     }
 
     public async void ShowDialogWarning(IDBTranslateble Message, IDBTranslateble Caption)
@@ -297,13 +178,6 @@ public class UserDialogService : IUserDialogService
         }
     }
 
-    //public async void ShowDialogError(string Error, string Caption)
-    //{
-    //    MessageBox.Show(
-    //        Error, Caption,
-    //        MessageBoxButton.OK,
-    //        MessageBoxImage.Error);
-    //}
     public async void ShowDialogError(string Message, string Caption)
     {
         var view = new SimpleDialog
@@ -315,7 +189,7 @@ public class UserDialogService : IUserDialogService
                 IsError = true
             }
         };
-        await DialogHost.Show(view, MainWindow.DialogName);
+        await DialogHost.Show(view, MainControl.DialogName);
     }
 
     public async void ShowDialogError(IDBTranslateble Message, IDBTranslateble Caption)
@@ -335,6 +209,160 @@ public class UserDialogService : IUserDialogService
                 break;
         }
     }
+    #endregion DialogHost messages
 
-    #endregion Show
+    #region Snackbars
+
+    public void ShowSnackbarInfo(IDBTranslateble Information)
+    {
+        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
+        {
+            case "en":
+                ShowSnackbarInfo(Information.DescriptionEn);
+
+                break;
+
+            case "de":
+                ShowSnackbarInfo(Information.DescriptionDe);
+
+                break;
+
+            default:
+                ShowSnackbarInfo(Information.DescriptionLocal);
+
+                break;
+        }
+    }
+
+    public void ShowSnackbarInfo(string Information) => ShowSnackBar(new MessageToSnack() { Content = Information, Level = MessageToSnackLevel.Info, Duration = new(0, 0, 30), WithCloseButton = true });
+
+    public void ShowSnackbarWarn(IDBTranslateble Warning)
+    {
+        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
+        {
+            case "en":
+                ShowSnackbarWarn(Warning.DescriptionEn);
+                break;
+
+            case "de":
+                ShowSnackbarWarn(Warning.DescriptionDe);
+                break;
+
+            default:
+                ShowSnackbarWarn(Warning.DescriptionLocal);
+                break;
+        }
+    }
+
+    public void ShowSnackbarWarn(string Warning)
+    {
+        ShowSnackBar(new MessageToSnack() { Content = Warning, Level = MessageToSnackLevel.Warning, Duration = new(0, 1, 0), WithCloseButton = false });
+    }
+
+    public void ShowSnackbarError(IDBTranslateble Error)
+    {
+        switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
+        {
+            case "en":
+                ShowSnackbarError(Error.DescriptionEn);
+                break;
+
+            case "de":
+                ShowSnackbarError(Error.DescriptionDe);
+                break;
+
+            default:
+                ShowSnackbarError(Error.DescriptionLocal);
+                break;
+        }
+    }
+
+    public void ShowSnackbarError(string Error) => ShowSnackBar(new MessageToSnack() { Content = Error, Level = MessageToSnackLevel.Error, Duration = new(0, 1, 0), WithCloseButton = false });
+
+    private void ShowSnackBar(string Text)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        MessageQueue.Enqueue(Text, new PackIcon { Kind = PackIconKind.Close }, () => { }))
+        ;
+    }
+
+    private void ShowSnackBar(MessageToSnack snakMsg)
+    {
+        _snackedMessages.Add(snakMsg);
+
+        if (snakMsg.WithCloseButton)
+        {
+            Application.Current.Dispatcher.Invoke(() => MessageQueue.Enqueue(snakMsg.Content, new PackIcon() { Kind = PackIconKind.Close }, (queue) => { }, MessageQueue, false, false, snakMsg.Duration));
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke(() => MessageQueue.Enqueue(snakMsg.Content, null, null, null, false, false, snakMsg.Duration));
+        }
+        OnNewSnackBar();
+    }
+
+    public event EventHandler NewSnackBarEventHandler;
+
+    private void OnNewSnackBar() => NewSnackBarEventHandler?.Invoke(this, EventArgs.Empty);
+
+    private List<MessageToSnack> _snackedMessages = new(); // used when intercepting a snackbar message poping , to find its reference and be able to change the color with a trigger on the CurrentLevel
+
+    private SnackbarMessage _message;
+
+    public SnackbarMessage Message
+    {
+        get => _message;
+        set
+        {
+            _message = value;
+            if (_message == null)
+            {
+                CurrentMessageLevel = 0;
+                return;
+            }
+            var localMessage = _snackedMessages.FirstOrDefault(m => m.Content.Equals(_message.Content.ToString()));
+            if (localMessage == null)
+            {
+                CurrentMessageLevel = 0;
+                return;
+            }
+            CurrentMessageLevel = localMessage.Level;
+            _snackedMessages.Remove(localMessage);
+        }
+    }
+
+    private MessageToSnackLevel _CurrentMessageLevel;
+
+    public MessageToSnackLevel CurrentMessageLevel
+    {
+        get => _CurrentMessageLevel; private set
+        {
+            _CurrentMessageLevel = value;
+            OnNewSnackBar();
+        }
+    }
+
+    #endregion Snackbars
+
+    #region WindowsDialogs
+
+    public bool ConfirmErrorWindowBox(string Error, string Caption) => MessageBox
+        .Show(Error, Caption,MessageBoxButton.YesNo,MessageBoxImage.Error)== MessageBoxResult.Yes;
+
+    public bool ConfirmWarningWindowBox(string Warning, string Caption) => MessageBox
+        .Show(Warning, Caption,MessageBoxButton.YesNo,MessageBoxImage.Warning)== MessageBoxResult.Yes;
+
+    public bool ConfirmInformationWindowBox(string Information, string Caption) => MessageBox
+        .Show(Information, Caption,MessageBoxButton.YesNo,MessageBoxImage.Information) == MessageBoxResult.Yes;
+
+    public void ShowDialogErrorWindowBox(string Error, string Caption) => MessageBox
+        .Show(Error, Caption,MessageBoxButton.OK,MessageBoxImage.Error);
+
+    public void ShowDialogWarningWindowBox(string Warning, string Caption) => MessageBox
+        .Show(Warning, Caption, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+    public void ShowDialogInformationWindowBox(string Information, string Caption) => MessageBox
+        .Show(Information, Caption, MessageBoxButton.OK, MessageBoxImage.Information);
+
+    #endregion WindowsDialogs
 }

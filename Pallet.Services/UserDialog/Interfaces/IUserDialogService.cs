@@ -34,16 +34,27 @@ namespace Pallet.Services.UserDialog.Interfaces
 
         void ShowDialogWarning(string Warning, string Caption);
 
-        void ShowError(IDBTranslateble Error);
+        void ShowSnackbarError(IDBTranslateble Error);
 
-        void ShowError(string Error);
+        void ShowSnackbarError(string Error);
 
-        void ShowInformation(IDBTranslateble Information);
+        void ShowSnackbarInfo(IDBTranslateble Information);
 
-        void ShowInformation(string Information);
+        void ShowSnackbarInfo(string Information);
 
-        void ShowWarning(IDBTranslateble Warning);
+        void ShowSnackbarWarn(IDBTranslateble Warning);
 
-        void ShowWarning(string Warning);
+        void ShowSnackbarWarn(string Warning);
+
+        public MessageToSnackLevel CurrentMessageLevel { get; }
+        public SnackbarMessage Message { get; set; }
+        public event EventHandler NewSnackBarEventHandler;
+
+
+        public void ShowDialogErrorWindowBox(string Error, string Caption) ;
+
+        public void ShowDialogWarningWindowBox(string Warning, string Caption);
+
+        public void ShowDialogInformationWindowBox(string Information, string Caption);
     }
 }
